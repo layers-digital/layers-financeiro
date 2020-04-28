@@ -1,0 +1,64 @@
+/*
+  grey-10 - Text color, border color and background color
+*/
+.grey-10 {
+  background-color: #F4F6F8!important;
+}
+.grey-10-outline {
+  border-color: #F4F6F8 !important;
+}
+.grey-10--text {
+  color: #F4F6F8 !important;
+}
+
+/*
+  grey-20 - Text color, border color and background color
+*/
+.grey-20 {
+  background-color: #EEF1F5!important;
+}
+.grey-20-outline {
+  border-color: #EEF1F5 !important;
+}
+.grey-20--text {
+  color: #EEF1F5 !important;
+}
+
+/*
+  grey-30 - Text color, border color and background color
+*/
+.grey-30 {
+  background-color: #e8ecef!important;
+}
+.grey-30-outline {
+  border-color: #e8ecef !important;
+}
+.grey-30--text {
+  color: #e8ecef !important;
+}
+
+/*
+  grey-70 - Text color, border color and background color
+*/
+.grey-70 {
+  background-color: #748494!important;
+}
+.grey-70-outline {
+  border-color: #748494 !important;
+}
+.grey-70--text {
+  color: #748494 !important;
+}
+
+/*
+  danger - Text color, border color and background color
+*/
+.danger {
+  background-color: #ED6B4F!important;
+}
+.danger-outline {
+  border-color: #ED6B4F !important;
+}
+.danger--text {
+  color: #ED6B4F !important;
+}
