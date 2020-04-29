@@ -1,26 +1,26 @@
 <template>
-  <div class="ls-container p-3 grey-10" style="min-height: 100%;">
+  <div class="ls-container p-3 grey-10" style="min-height: 100%; overflow: auto !important;">
     <div class="mb-4">
-    <div class="attention-label danger--text mb-2">
-      X cobranças precisam de atenção
-    </div>
-    <!-- <div class="ls-row ls-no-gutters mb-2"
-      v-for="card in dangerCards"
-      :key="card.id"> -->
-      {{loading}}
-      {{storeData}}
+      <div class="attention-label danger--text mb-2">
+        X cobranças precisam de atenção
+      </div>
+      <!-- <div class="ls-row ls-no-gutters mb-2"
+        v-for="card in dangerCards"
+        :key="card.id"> -->
+        {{loading}}
+        {{storeData}}
       <AttentionCard
         class="mb-2"
         v-for="card in dangerCards"
         :key="card.id"/>
+      <!-- </div> -->
+      </div>
+    <!-- <div> -->
+    <PayablesCard
+      class="mb-2"
+      v-for="card in payablesCards"
+      :key="card.id"/>
     <!-- </div> -->
-    </div>
-    <div>
-      <PayablesCard
-        class="mb-2"
-        v-for="card in payablesCards"
-        :key="card.id"/>
-    </div>
   </div>
 </template>
 
@@ -38,7 +38,12 @@ export default {
     return {
       dangerCards: [
         {id: '1234'},
-        {id: '1235'}
+        {id: '1235'},
+        {id: '1235'},
+        {id: '1235'},
+        {id: '1235'},
+        {id: '1235'},
+
       ],
       payablesCards: [
         {id: '1236'},
