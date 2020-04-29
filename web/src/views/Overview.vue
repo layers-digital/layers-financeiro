@@ -7,6 +7,8 @@
     <!-- <div class="ls-row ls-no-gutters mb-2"
       v-for="card in dangerCards"
       :key="card.id"> -->
+      {{loading}}
+      {{storeData}}
       <AttentionCard
         class="mb-2"
         v-for="card in dangerCards"
@@ -44,6 +46,18 @@ export default {
       ],
     }
   },
+  async created() {
+    await this.$store.dispatch('payables/fetchData')
+  },
+  computed: {
+    storeData () {
+      return this.$store.state.payables.data
+    },
+
+    loading () {
+      return this.$store.state.payables.loading
+    }
+  }
 }
 </script>
 
