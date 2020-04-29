@@ -35,12 +35,12 @@ export default {
   data() {
     return {
       dangerCards: [
-        {id: 'fuck'},
-        {id: 'fuck2'}
+        {id: '1234'},
+        {id: '1235'}
       ],
       payablesCards: [
-        {id: 'fuck'},
-        {id: 'fuck2'}
+        {id: '1236'},
+        {id: '1237'}
       ],
     }
   },

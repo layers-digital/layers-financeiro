@@ -1,10 +1,11 @@
 <template>
   <div id="app" class="ls-ma-0">
     <div class="content-wrap grey-10">
-      <AppBar/>
+      <AppBar
+      class="app-bar-layout"/>
       <transition :name="transitionName"
         mode="out-in">
-        <router-view></router-view>
+        <router-view style="padding-top: 72px !important;"></router-view>
       </transition>
     </div>
   </div>
@@ -34,7 +35,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .content-wrap {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
@@ -51,5 +52,12 @@ export default {
   min-height: 100vh;
   max-width: 100%;
   position: relative;
+}
+
+.app-bar-layout {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 </style>
