@@ -2,7 +2,7 @@ import Axios from 'axios'
 
 const state = {
   loading: false,
-  data: null,
+  payablesData: null,
 }
 
 // mutations
@@ -11,8 +11,8 @@ const mutations = {
     state.loading = status
   },
 
-  setData(state, data) {
-    state.data = data
+  setPayablesData(state, payablesData) {
+    state.payablesData = payablesData
   }
 }
 
@@ -22,8 +22,7 @@ const actions = {
     context.commit('setLoading', true)
     try {
       let res = await Axios.get("/financeiro")
-      console.log('RES', res)
-      context.commit('setData', res.data)
+      context.commit('setPayablesData', res.data)
       context.commit('setLoading', false)
     } catch(err) {
       console.log('Err', err)
@@ -34,7 +33,21 @@ const actions = {
 
 // getters
 const getters = {
-  //
+  getCriticalPayables(state) {
+    if(state.payablesData) {
+      return state.payablesData.criticalPayables
+    }
+
+    return []
+  },
+
+  getPayablesGroups(state) {
+    if(state.payablesData) {
+      return state.payablesData.groups
+    }
+
+    return []
+  }
 }
 
 export default {

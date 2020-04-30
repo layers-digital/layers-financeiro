@@ -11,9 +11,10 @@ function filterCriticalPayables(payload) {
       let dueAt = moment(payable.dueAt)
       let diff = dueAt.diff(now, 'days')
 
-      if(diff <= 7) {
-        payable.groupId = group.id
-        payable.groupTitle = group.title
+      if(diff <= 7 && payable.status != 'paid') {
+        //Flag to define if this payable is critical
+        payable.isCritical = true
+
         criticalPayables.push(payable)
       }
     })

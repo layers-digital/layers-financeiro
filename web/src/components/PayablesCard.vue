@@ -1,11 +1,12 @@
 <template>
 <div class="ls-row ls-no-gutters card grey-30-outline p-3 ls-align-items-center">
   <div class="ls-col">
-    <div class="card-title">
-      Mensalidade escolar 2020
+    <div class="card-title mb-3">
+      {{payablesGroup.title}}
     </div>
     <div>
-      <PayablesVisualCount/>
+      <PayablesVisualCount
+        :payablesGroup="payablesGroup"/>
     </div>
   </div>
   <div class="ls-col" style="max-width: 24px;">
@@ -21,6 +22,12 @@ export default {
   name: 'PayablesCard',
   components: {
     PayablesVisualCount,
+  },
+  props: {
+    payablesGroup: {
+      type: Object,
+      required: true
+    }
   }
 }
 </script>

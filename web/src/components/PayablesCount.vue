@@ -1,15 +1,20 @@
 <template>
 <div class="grey-20 count-badge p-2">
   <span class="grey-70--text">
-    1 de 11
+    {{friendlyInstallmentsCount}}
   </span>
 </div>
 </template>
 
 <script>
 export default {
-  name: 'PayablesCount'
-
+  name: 'PayablesCount',
+  props: {
+    friendlyInstallmentsCount: {
+      type: String,
+      default: '--'
+    }
+  }
 }
 </script>
 

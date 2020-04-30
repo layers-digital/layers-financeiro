@@ -1,25 +1,26 @@
 <template>
   <div class="ls-container p-3 grey-10" style="min-height: 100%; overflow: auto !important;">
-    <div class="mb-4">
+    <div v-if="criticalPayables.length" class="mb-4">
       <div class="attention-label danger--text mb-2">
-        X cobranças precisam de atenção
+        {{criticalPayables.length}} cobranças precisam de atenção
       </div>
       <!-- <div class="ls-row ls-no-gutters mb-2"
         v-for="card in dangerCards"
         :key="card.id"> -->
-        {{loading}}
-        {{storeData}}
       <AttentionCard
         class="mb-2"
-        v-for="card in dangerCards"
-        :key="card.id"/>
+        v-for="payable in criticalPayables"
+        :key="payable.id"
+        :payable="payable"/>
       <!-- </div> -->
-      </div>
+    </div>
+    <NoCriticalPayablesCard v-else class="mb-4"/>
     <!-- <div> -->
     <PayablesCard
       class="mb-2"
-      v-for="card in payablesCards"
-      :key="card.id"/>
+      v-for="payablesGroup in payablesGroups"
+      :key="payablesGroup.id"
+      :payablesGroup="payablesGroup"/>
     <!-- </div> -->
   </div>
 </template>
@@ -27,39 +28,33 @@
 <script>
 import AttentionCard from '../components/AttentionCard.vue'
 import PayablesCard from '../components/PayablesCard.vue'
+import NoCriticalPayablesCard from '../components/NoCriticalPayablesCard'
 
 export default {
   name: 'Overview',
   components: {
     AttentionCard,
-    PayablesCard
+    PayablesCard,
+    NoCriticalPayablesCard
   },
   data() {
     return {
-      dangerCards: [
-        {id: '1234'},
-        {id: '1235'},
-        {id: '1235'},
-        {id: '1235'},
-        {id: '1235'},
-        {id: '1235'},
-
-      ],
-      payablesCards: [
-        {id: '1236'},
-        {id: '1237'}
-      ],
+      //
     }
   },
   async created() {
     await this.$store.dispatch('payables/fetchData')
   },
   computed: {
-    storeData () {
-      return this.$store.state.payables.data
+    criticalPayables() {
+      return this.$store.getters['payables/getCriticalPayables']
     },
 
-    loading () {
+    payablesGroups() {
+      return this.$store.getters['payables/getPayablesGroups']
+    },
+
+    loading() {
       return this.$store.state.payables.loading
     }
   }

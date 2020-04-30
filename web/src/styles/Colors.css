@@ -38,6 +38,19 @@
 }
 
 /*
+  grey-50 - Text color, border color and background color
+*/
+.grey-50 {
+  background-color: #C8D0D8!important;
+}
+.grey-50-outline {
+  border-color: #C8D0D8 !important;
+}
+.grey-50--text {
+  color: #C8D0D8 !important;
+}
+
+/*
   grey-70 - Text color, border color and background color
 */
 .grey-70 {
@@ -61,4 +74,69 @@
 }
 .danger--text {
   color: #ED6B4F !important;
+}
+
+/*
+  danger-light - Text color, border color and background color
+*/
+.danger-light {
+  background-color: rgba(237, 107, 79, 0.1) !important;
+}
+.danger-light-outline {
+  border-color: rgba(237, 107, 79, 0.1) !important;
+}
+.danger-light--text {
+  color: rgba(237, 107, 79, 0.1) !important;
+}
+
+/*
+  warning - Text color, border color and background color
+*/
+.warning {
+  background-color: #F0AF09!important;
+}
+.warning-outline {
+  border-color: #F0AF09 !important;
+}
+.warning--text {
+  color: #F0AF09 !important;
+}
+
+/*
+  warning-light - Text color, border color and background color
+*/
+.warning-light {
+  background-color: rgba(240, 175, 9, 0.12) important;
+}
+.warning-light-outline {
+  border-color: rgba(240, 175, 9, 0.12) !important;
+}
+.warning-light--text {
+  color: rgba(240, 175, 9, 0.12) !important;
+}
+
+/*
+  success - Text color, border color and background color
+*/
+.success {
+  background-color: #30B565 !important;
+}
+.success-outline {
+  border-color: #30B565 !important;
+}
+.success--text {
+  color: #30B565 !important;
+}
+
+/*
+  success-light - Text color, border color and background color
+*/
+.success-light {
+  background-color: rgba(48, 181, 101, 0.1) !important;
+}
+.success-light-outline {
+  border-color: rgba(48, 181, 101, 0.1) !important;
+}
+.success-light--text {
+  color: rgba(48, 181, 101, 0.1) !important;
 }
