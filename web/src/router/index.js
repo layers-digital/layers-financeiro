@@ -8,12 +8,12 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Overview',
+    name: 'overview',
     component: Overview
   },
   {
     path: '/payables/:groupId',
-    name: 'Payables group',
+    name: 'payables.group',
     component: PayablesGroup,
     props: true
   },

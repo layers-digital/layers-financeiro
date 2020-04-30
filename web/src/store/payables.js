@@ -47,6 +47,12 @@ const getters = {
     }
 
     return []
+  },
+
+  getPayablesGroup(state) {
+    return groupId => state.payablesData.groups.filter(group =>{
+      return group.id === groupId
+    })
   }
 }
 

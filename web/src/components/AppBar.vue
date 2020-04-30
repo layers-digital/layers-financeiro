@@ -1,32 +1,32 @@
 <template>
-<div class="app-bar-container">
-  <div class="app-bar grey-30-outline">
-    <div @click="expanded = !expanded" class="ls-row ls-no-gutters p-3" style="height: 56px; z-index: 5;">
-      <div class="ls-col ls-align-self-center mr-2 ls-flex-grow-0">
-        <img src="../assets/logo-meufinanceiro.svg" height="24" width="24" class="app-icon-radius"/>
-      </div>
-      <div class="ls-col ls-align-self-center ls-flex-grow-1">
-        <span class="align-center bar-title">Title</span>
-      </div>
-      <div class="ls-col ls-align-self-center ls-flex-grow-0">
-        <img src="../assets/arrow-down.svg"
-        class="group-chevron"
-        :class="{'active': expanded}"
-        height="24" width="24"/>
-      </div>
-    </div>
-    <TransitionExpand>
-      <div v-if="expanded">
+  <div class="app-bar-container">
+    <div class="app-bar grey-30-outline">
+      <div class="ls-row ls-no-gutters pr-3" style="height: 56px; z-index: 5;">
         <PayablesGroupLink
-          v-for="group in groups"
-          :key="group.id"/>
+            @select="setCurrentPage($event)"
+            class="ls-flex-grow-1"
+            :link="currentPage"/>
+        <div class="ls-col ls-align-self-center ls-flex-grow-0">
+        <img src="../assets/arrow-down.svg"
+          class="group-chevron"
+          :class="{'active': expanded}"
+          height="24" width="24"/>
+        </div>
       </div>
-    </TransitionExpand>
+      <TransitionExpand>
+        <div v-if="expanded">
+          <PayablesGroupLink
+            @select="setCurrentPage($event)"
+            v-for="link in links"
+            :key="link.id"
+            :link="link"/>
+        </div>
+      </TransitionExpand>
+    </div>
+    <transition name="fade">
+      <div v-if="expanded" class="overlay"></div>
+    </transition>
   </div>
-  <transition name="fade">
-    <div v-if="expanded" class="overlay"></div>
-  </transition>
-</div>
 </template>
 
 <script>
@@ -42,13 +42,67 @@ export default {
   data() {
     return {
       expanded: false,
-      groups: [
-        {id: '1234'},
-        {id: '1235'}
-      ],
+      currentPage: {
+        id: 'overview',
+        title: 'Visão geral',
+        icon: 'default',
+        route: {
+          name: 'overview',
+        }
+      },
+    }
+  },
+  computed: {
+    payablesGroups() {
+      return this.$store.getters['payables/getPayablesGroups']
+    },
+
+    links() {
+      let links = this.payablesGroups.map((group)=> {
+        let link = {
+          id: null,
+          title: null,
+          icon: null,
+          route: {
+            name: null,
+            params: {}
+          }
+        }
+
+        link.id = group.id
+        link.title = group.title
+        link.icon= group.icon
+        link.route.name = 'payables.group'
+        link.route.params.groupId = group.id
+
+        return link
+      })
+
+      let overviewLink = {
+        id: 'overview',
+        title: 'Visão geral',
+        icon: 'default',
+        route: {
+          name: 'overview',
+        }
+      }
+
+      links.push(overviewLink)
+
+      return links.filter(link => {
+        return link.id != this.currentPage.id
+      }).sort((x,y) => {
+        return x.id == 'overview' ? -1 : y == 'overview' ? 1 : 0
+      })
+    }
+  },
+
+  methods: {
+    setCurrentPage(page) {
+      this.currentPage = page
+      this.expanded = !this.expanded
     }
   }
-
 }
 </script>
 
@@ -69,6 +123,8 @@ export default {
 .bar-title {
   font-size: 16px;
   font-weight: 600;
+  text-decoration: none !important;
+  color: #232B34 !important;
 }
 
 .app-icon-radius {
