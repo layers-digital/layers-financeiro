@@ -37,7 +37,6 @@ export default {
   border: 1px solid;
   border-radius: 12px;
   background-color: white;
-  cursor: pointer;
 }
 
 .card-title {
@@ -48,5 +47,4 @@ export default {
 .relative-date {
   font-weight: 700;
 }
-
 </style>

@@ -19,12 +19,13 @@
             @select="setCurrentPage($event)"
             v-for="link in links"
             :key="link.id"
-            :link="link"/>
+            :link="link"
+            :selected="link.id == currentPage.id"/>
         </div>
       </TransitionExpand>
     </div>
     <transition name="fade">
-      <div v-if="expanded" class="overlay"></div>
+      <div v-if="expanded" @click="expanded = !expanded" class="overlay"></div>
     </transition>
   </div>
 </template>
@@ -33,6 +34,14 @@
 import TransitionExpand from './TransitionExpand'
 import PayablesGroupLink from './PayablesGroupLink'
 
+const OVERVIEW_PAGE = {
+    id: 'overview',
+    title: 'Visão geral',
+    icon: 'default',
+    route: {
+      name: 'overview',
+    }
+  }
 export default {
   name: 'AppBar',
   components: {
@@ -42,14 +51,30 @@ export default {
   data() {
     return {
       expanded: false,
-      currentPage: {
-        id: 'overview',
-        title: 'Visão geral',
-        icon: 'default',
-        route: {
-          name: 'overview',
-        }
-      },
+      currentPage: OVERVIEW_PAGE,
+    }
+  },
+  watch: {
+    $route(to, from) {
+      console.log('TO', to)
+      console.log('From', from)
+      if(to.name == 'overview') {
+        this.currentPage = OVERVIEW_PAGE
+      }
+
+      if(to.name == 'payables.group') {
+        this.currentPage = this.links.find(link => link.id == to.params.groupId)
+      }
+      // let id =
+      // this.currentPage = {
+      //   id: to.params.groupId,
+      //   title: 'Visão geral',
+      //   icon: 'default',
+      //   route: {
+      //     name: 'overview',
+      //   }
+      // }
+      // react to route changes...
     }
   },
   computed: {
@@ -78,20 +103,24 @@ export default {
         return link
       })
 
-      let overviewLink = {
-        id: 'overview',
-        title: 'Visão geral',
-        icon: 'default',
-        route: {
-          name: 'overview',
-        }
-      }
+      // let overviewLink = {
+      //   id: 'overview',
+      //   title: 'Visão geral',
+      //   icon: 'default',
+      //   route: {
+      //     name: 'overview',
+      //   }
+      // }
 
-      links.push(overviewLink)
+      links.push(OVERVIEW_PAGE)
 
-      return links.filter(link => {
-        return link.id != this.currentPage.id
-      }).sort((x,y) => {
+      // return links.filter(link => {
+      //   return link.id != this.currentPage.id
+      // }).sort((x,y) => {
+      //   return x.id == 'overview' ? -1 : y == 'overview' ? 1 : 0
+      // })
+
+      return links.sort((x,y) => {
         return x.id == 'overview' ? -1 : y == 'overview' ? 1 : 0
       })
     }
@@ -124,7 +153,7 @@ export default {
   font-size: 16px;
   font-weight: 600;
   text-decoration: none !important;
-  color: #232B34 !important;
+  color: #232B34;
 }
 
 .app-icon-radius {

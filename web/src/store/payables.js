@@ -49,9 +49,19 @@ const getters = {
     return []
   },
 
-  getPayablesGroup(state) {
+  getPayablesByGroup(state) {
     return groupId => state.payablesData.groups.filter(group =>{
       return group.id === groupId
+    })[0].payables.filter(payable => {
+      return !payable.isCritical
+    })
+  },
+
+  getCriticalPayablesByGroup(state) {
+    return groupId => state.payablesData.groups.filter(group =>{
+      return group.id === groupId
+    })[0].payables.filter(payable => {
+      return payable.isCritical
     })
   }
 }

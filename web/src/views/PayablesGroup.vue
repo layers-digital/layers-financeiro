@@ -1,37 +1,37 @@
 <template>
   <div class="ls-container p-3 grey-10" style="min-height: 100%; overflow: auto !important;">
-    <div class="mb-4">
-      {{groupId}}
-      <div class="attention-label danger--text mb-2">
-        {{payablesGroup}}
-        <!-- {{groupCriticalPayables.length}} cobranças precisam de atenção -->
+    <div v-if="criticalPayablesByGroup.length" class="mb-4">
+      <div class="label danger--text mb-2">
+        {{criticalPayablesByGroup.length}} cobranças precisam de atenção
       </div>
-      <!-- <div class="ls-row ls-no-gutters mb-2"
-        v-for="card in dangerCards"
-        :key="card.id"> -->
-      <!-- <AttentionCard
+      <PayableDetailCard
         class="mb-2"
-        v-for="payable in criticalPayables"
+        v-for="payable in criticalPayablesByGroup"
         :key="payable.id"
-        :payable="payable"/> -->
-      <!-- </div> -->
+        :payable="payable"/>
     </div>
-    <!-- <NoCriticalPayablesCard v-else class="mb-4"/> -->
-    <!-- <div> -->
-    <!-- <PayablesCard
+    <NoCriticalPayablesCard v-else class="mb-4"/>
+    <div v-if="payablesByGroup.length" class="label lead-light--text mb-3">
+      Demais cobranças
+    </div>
+    <PayableDetailCard
       class="mb-2"
-      v-for="payablesGroup in payablesGroups"
-      :key="payablesGroup.id"
-      :payablesGroup="payablesGroup"/> -->
-    <!-- </div> -->
+      v-for="payable in payablesByGroup"
+      :key="payable.id"
+      :payable="payable"/>
   </div>
 </template>
 
 <script>
-// import NoCriticalPayablesCard from '../components/NoCriticalPayablesCard'
+import NoCriticalPayablesCard from '../components/NoCriticalPayablesCard'
+import PayableDetailCard from '../components/PayableDetailCard'
 
 export default {
   name: 'PayablesGroup',
+  components: {
+    NoCriticalPayablesCard,
+    PayableDetailCard,
+  },
   props: {
     groupId: {
       type: String,
@@ -39,27 +39,22 @@ export default {
     }
   },
   computed: {
-    // ...mapGetters('payables',['getPayablesGroup'])
-    // groupCriticalPayables() {
-
-    //   return this.$store.getters['payables/getCriticalPayables']
-    // },
-
-    payablesGroup() {
-      // console.log(this.$store.getters['payables/getPayablesGroup'])
-      return this.$store.getters['payables/getPayablesGroup'](this.groupId)
+    payablesByGroup() {
+      console.log(this.$store.getters['payables/getPayablesByGroup'](this.groupId))
+      return this.$store.getters['payables/getPayablesByGroup'](this.groupId)
     },
 
-    // loading() {
-    //   return this.$store.state.payables.loading
-    // }
+    criticalPayablesByGroup() {
+      console.log(this.$store.getters['payables/getCriticalPayablesByGroup'](this.groupId))
+      return this.$store.getters['payables/getCriticalPayablesByGroup'](this.groupId)
+    }
   },
-  // methods: {
-  //   ...mapGetters(['payables', 'getPayablesGroup'])
-  // }
-
 }
 </script>
 
 <style scoped>
+.label {
+  font-size: 16px;
+  font-weight: 600;
+}
 </style>

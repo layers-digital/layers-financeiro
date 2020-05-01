@@ -64,6 +64,32 @@
 }
 
 /*
+  grey-70-light - Text color, border color and background color
+*/
+.grey-70-light {
+  background-color: #e8ecef!important;
+}
+.grey-70-light-outline {
+  border-color: #e8ecef !important;
+}
+.grey-70-light--text {
+  color: #e8ecef !important;
+}
+
+/*
+  grey-80 - Text color, border color and background color
+*/
+.grey-80 {
+  background-color: #405261!important;
+}
+.grey-80-outline {
+  border-color: #405261 !important;
+}
+.grey-80--text {
+  color: #405261 !important;
+}
+
+/*
   danger - Text color, border color and background color
 */
 .danger {
@@ -106,7 +132,7 @@
   warning-light - Text color, border color and background color
 */
 .warning-light {
-  background-color: rgba(240, 175, 9, 0.12) important;
+  background-color: rgba(240, 175, 9, 0.12) !important;
 }
 .warning-light-outline {
   border-color: rgba(240, 175, 9, 0.12) !important;
@@ -139,4 +165,43 @@
 }
 .success-light--text {
   color: rgba(48, 181, 101, 0.1) !important;
+}
+
+/*
+  link - Text color, border color and background color
+*/
+.link {
+  background-color: #2F8AF5 !important;
+}
+.link-outline {
+  border-color: #2F8AF5 !important;
+}
+.link--text {
+  color: #2F8AF5 !important;
+}
+
+/*
+  lead - Text color, border color and background color
+*/
+.lead {
+  background-color: #232B34 !important;
+}
+.lead-outline {
+  border-color: #232B34 !important;
+}
+.lead--text {
+  color: #232B34 !important;
+}
+
+/*
+  lead-light - Text color, border color and background color
+*/
+.lead-light {
+  background-color: #434E5B !important;
+}
+.lead-light-outline {
+  border-color: #434E5B !important;
+}
+.lead-light--text {
+  color: #434E5B !important;
 }

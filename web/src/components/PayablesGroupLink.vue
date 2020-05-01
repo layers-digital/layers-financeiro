@@ -9,6 +9,7 @@
         slot="reference"
         tag="a"
         class="align-center title"
+        :class="{'link--text': selected, 'lead--text': !selected}"
         :to="link.route">
         {{link.title}}
       </router-link>
@@ -24,6 +25,10 @@ export default {
       type: Object,
       required: true
     },
+    selected: {
+      type: Boolean,
+      default: false,
+    }
   },
 }
 </script>
@@ -37,6 +42,5 @@ export default {
   font-size: 16px;
   font-weight: 600;
   text-decoration: none !important;
-  color: #232B34 !important;
 }
 </style>

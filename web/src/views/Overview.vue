@@ -16,11 +16,17 @@
     </div>
     <NoCriticalPayablesCard v-else class="mb-4"/>
     <!-- <div> -->
+    <router-link
+        v-for="payablesGroup in payablesGroups"
+        :key="payablesGroup.id"
+        slot="reference"
+        tag="a"
+        class="remove-style"
+        :to="{name: 'payables.group', params:{groupId: payablesGroup.id}}">
     <PayablesCard
       class="mb-2"
-      v-for="payablesGroup in payablesGroups"
-      :key="payablesGroup.id"
       :payablesGroup="payablesGroup"/>
+    </router-link>
     <!-- </div> -->
   </div>
 </template>
@@ -65,5 +71,10 @@ export default {
 .attention-label {
   font-size: 16px;
   font-weight: 600;
+}
+
+.remove-style {
+  text-decoration: none;
+  color: inherit;
 }
 </style>

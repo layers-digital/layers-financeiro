@@ -15,6 +15,9 @@ function hidratePayables(payload) {
 
       //Flag to define if this payable is critical
       payable.isCritical = false
+
+      //Friendly amount
+      payable.amount = `R$ ${(payable.centsTotal/100).toLocaleString('pt-BR', {minimumFractionDigits: 2,maximumFractionDigits: 2})}`
     })
   })
 
