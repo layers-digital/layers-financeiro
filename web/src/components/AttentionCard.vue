@@ -1,21 +1,17 @@
 <template>
 <div class="ls-row ls-no-gutters card grey-30-outline p-3 ls-align-items-center">
-  <div class="ls-col ls-align-self-center mr-3" style="max-width: 32px;">
-    <img v-if="payable.status == 'late'" src="../assets/attention-icon.svg" height="32" width="32"/>
-    <img v-else src="../assets/attention-yellow-icon.svg" height="32" width="32"/>
-  </div>
+  <img v-if="payable.status == 'late'" src="../assets/attention-icon.svg" height="32" width="32" class="mr-3"/>
+  <img v-else src="../assets/attention-yellow-icon.svg" height="32" width="32" class="mr-3"/>
   <div class="ls-col ellipsis mr-2">
-    <span>
+    <div>
       {{payable.title}}
-    </span>
+    </div>
     <div class="relative-date">
       {{readableRelativeDueDate}}
     </div>
   </div>
-  <div class="ls-col" style="max-width: 66px;">
-    <PayablesCount
-      :friendlyInstallmentsCount="payable.friendlyInstallmentsCount"/>
-  </div>
+  <PayablesCount
+    :friendlyInstallmentsCount="payable.friendlyInstallmentsCount"/>
 </div>
 </template>
 

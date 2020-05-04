@@ -1,26 +1,38 @@
 <template>
   <div class="app-bar-container">
     <div class="app-bar grey-30-outline">
-      <div class="ls-row ls-no-gutters pr-3" style="height: 56px; z-index: 5;">
-        <PayablesGroupLink
-            @select="setCurrentPage($event)"
-            class="ls-flex-grow-1"
-            :link="currentPage"/>
+      <div @click="setCurrentPage(currentPage)" class="ls-row ls-no-gutters p-3 ls-align-items-center" style="height: 56px; z-index: 5;">
+        <div class="ls-col ls-align-self-center mr-2 ls-flex-grow-0" style="max-width: 24px;">
+          <img src="../assets/logo-meufinanceiro.svg" height="24" width="24" class="app-icon-radius"/>
+        </div>
+        <span class="ls-text-center title ls-flex-grow-1">
+          {{currentPage.title}}
+        </span>
         <div class="ls-col ls-align-self-center ls-flex-grow-0">
-        <img src="../assets/arrow-down.svg"
-          class="group-chevron"
-          :class="{'active': expanded}"
-          height="24" width="24"/>
+          <img src="../assets/arrow-down.svg"
+            class="group-chevron"
+            :class="{'active': expanded}"
+            height="24" width="24"/>
         </div>
       </div>
       <TransitionExpand>
-        <div v-if="expanded">
-          <PayablesGroupLink
-            @select="setCurrentPage($event)"
-            v-for="link in links"
+        <div v-if="expanded" class="p-3">
+          <div v-for="(link, index) in links"
             :key="link.id"
-            :link="link"
-            :selected="link.id == currentPage.id"/>
+            @click="setCurrentPage(link)"
+            class="ls-row ls-no-gutters ellipsis"
+            :class="{ 'mb-4': index != links.length-1 }">
+            <div class="ls-col ls-align-self-center mr-2 ls-flex-grow-0" style="max-width: 24px;">
+              <img src="../assets/bill.svg" height="24" width="24" class="app-icon-radius"/>
+            </div>
+            <router-link
+              tag="a"
+              class="align-center title"
+              :class="{'link--text': link.id == currentPage.id, 'lead--text': link.id != currentPage.id}"
+              :to="link.route">
+              {{link.title}}
+            </router-link>
+          </div>
         </div>
       </TransitionExpand>
     </div>
@@ -32,7 +44,7 @@
 
 <script>
 import TransitionExpand from './TransitionExpand'
-import PayablesGroupLink from './PayablesGroupLink'
+// import PayablesGroupLink from './PayablesGroupLink'
 
 const OVERVIEW_PAGE = {
     id: 'overview',
@@ -46,7 +58,7 @@ export default {
   name: 'AppBar',
   components: {
     TransitionExpand,
-    PayablesGroupLink
+    // PayablesGroupLink
   },
   data() {
     return {
@@ -56,8 +68,6 @@ export default {
   },
   watch: {
     $route(to, from) {
-      console.log('TO', to)
-      console.log('From', from)
       if(to.name == 'overview') {
         this.currentPage = OVERVIEW_PAGE
       }
@@ -65,16 +75,6 @@ export default {
       if(to.name == 'payables.group') {
         this.currentPage = this.links.find(link => link.id == to.params.groupId)
       }
-      // let id =
-      // this.currentPage = {
-      //   id: to.params.groupId,
-      //   title: 'Visão geral',
-      //   icon: 'default',
-      //   route: {
-      //     name: 'overview',
-      //   }
-      // }
-      // react to route changes...
     }
   },
   computed: {
@@ -103,22 +103,7 @@ export default {
         return link
       })
 
-      // let overviewLink = {
-      //   id: 'overview',
-      //   title: 'Visão geral',
-      //   icon: 'default',
-      //   route: {
-      //     name: 'overview',
-      //   }
-      // }
-
       links.push(OVERVIEW_PAGE)
-
-      // return links.filter(link => {
-      //   return link.id != this.currentPage.id
-      // }).sort((x,y) => {
-      //   return x.id == 'overview' ? -1 : y == 'overview' ? 1 : 0
-      // })
 
       return links.sort((x,y) => {
         return x.id == 'overview' ? -1 : y == 'overview' ? 1 : 0
@@ -176,5 +161,15 @@ export default {
 
 .group-chevron.active {
   transform: rotateZ(180deg);
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none !important;
+}
+
+.app-icon-radius {
+  border-radius: 22.5%;
 }
 </style>

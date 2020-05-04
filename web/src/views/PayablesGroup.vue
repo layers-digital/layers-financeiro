@@ -1,5 +1,10 @@
 <template>
   <div class="ls-container p-3 grey-10" style="min-height: 100%; overflow: auto !important;">
+    <TransitionExpand>
+      <div class="mb-3" style="font-size: 16px;">
+        Placeholder
+      </div>
+    </TransitionExpand>
     <div v-if="criticalPayablesByGroup.length" class="mb-4">
       <div class="label danger--text mb-2">
         {{criticalPayablesByGroup.length}} cobranças precisam de atenção
@@ -39,13 +44,15 @@ export default {
     }
   },
   computed: {
+    group() {
+      return this.$store.getters['payables/getGroup'](this.groupId)
+    },
+
     payablesByGroup() {
-      console.log(this.$store.getters['payables/getPayablesByGroup'](this.groupId))
       return this.$store.getters['payables/getPayablesByGroup'](this.groupId)
     },
 
     criticalPayablesByGroup() {
-      console.log(this.$store.getters['payables/getCriticalPayablesByGroup'](this.groupId))
       return this.$store.getters['payables/getCriticalPayablesByGroup'](this.groupId)
     }
   },

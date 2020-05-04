@@ -1,9 +1,7 @@
 <template>
-<div class="p-2 ls-ra-1" :class="`${colors}-light`">
-  <span class="label" :class="`${colors}--text`">
+  <span class="label" :class="`${colors}-light ${colors}--text`">
     {{statusLabel}}
   </span>
-</div>
 </template>
 
 <script>
@@ -41,6 +39,11 @@ export default {
 .label {
   font-weight: 700;
   font-size: 12px;
+  border-radius: 4px;
+  padding-right: 8px;
+  padding-left: 8px;
+  height: 24px;
+  line-height: 24px;
+  display: inline-block;
 }
-
 </style>

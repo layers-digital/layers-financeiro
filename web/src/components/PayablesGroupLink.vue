@@ -1,20 +1,20 @@
 <template>
-  <div class="ls-row ls-no-gutters p-3">
-    <div class="ls-col ls-align-self-center mr-2 ls-flex-grow-0" style="max-width: 24px;">
+  <!-- <div class="ls-row ls-no-gutters"> -->
+    <!-- <div class="ls-col ls-align-self-center mr-2 ls-flex-grow-0" style="max-width: 24px;">
       <img v-if="link.icon == 'default' || !link.icon" src="../assets/logo-meufinanceiro.svg" height="24" width="24" class="app-icon-radius"/>
       <img v-else :src="link.icon" height="24" width="24" class="app-icon-radius"/>
-    </div>
-    <div @click="$emit('select', link)" class="ls-col ls-align-self-center ellipsis">
-      <router-link
-        slot="reference"
-        tag="a"
-        class="align-center title"
-        :class="{'link--text': selected, 'lead--text': !selected}"
-        :to="link.route">
-        {{link.title}}
-      </router-link>
-    </div>
+    </div> -->
+  <div @click="$emit('select', link)" class="ellipsis">
+    <router-link
+      slot="reference"
+      tag="a"
+      class="align-center title"
+      :class="{'link--text': selected, 'lead--text': !selected}"
+      :to="link.route">
+      {{link.title}}
+    </router-link>
   </div>
+  <!-- </div> -->
 </template>
 
 <script>
