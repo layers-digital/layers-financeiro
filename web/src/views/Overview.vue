@@ -11,7 +11,8 @@
         class="mb-2"
         v-for="payable in criticalPayables"
         :key="payable.id"
-        :payable="payable"/>
+        :payable="payable"
+        @click.native="goToDetails(payable)"/>
       <!-- </div> -->
     </div>
     <NoCriticalPayablesCard v-else class="mb-4"/>
@@ -62,6 +63,12 @@ export default {
 
     loading() {
       return this.$store.state.payables.loading
+    }
+  },
+  methods: {
+    goToDetails(payable) {
+      console.log('goToDetails', payable)
+      this.$router.push({name: 'payable.detail', params: {payableId: payable.id, payable: payable}})
     }
   }
 }

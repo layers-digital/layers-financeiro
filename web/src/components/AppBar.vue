@@ -141,10 +141,6 @@ export default {
   color: #232B34;
 }
 
-.app-icon-radius {
-  border-radius: 22.5%;
-}
-
 .overlay {
   position: fixed;
   top: 0;
@@ -167,9 +163,5 @@ export default {
   font-size: 16px;
   font-weight: 600;
   text-decoration: none !important;
-}
-
-.app-icon-radius {
-  border-radius: 22.5%;
 }
 </style>

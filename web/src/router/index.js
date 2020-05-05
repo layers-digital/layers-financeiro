@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Overview from '../views/Overview.vue'
 import PayablesGroup from '../views/PayablesGroup.vue'
+import PayableDetail from '../views/PayableDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,12 @@ const routes = [
     path: '/payables/:groupId',
     name: 'payables.group',
     component: PayablesGroup,
+    props: true
+  },
+  {
+    path: '/payable/:payableId',
+    name: 'payable.detail',
+    component: PayableDetail,
     props: true
   },
 ]

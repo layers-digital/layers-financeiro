@@ -1,5 +1,6 @@
 :root{
   --grey-20: #EEF1F5;
+  --grey-30: #E8ECEF;
   --link: #2F8AF5;
 }
 /*
@@ -32,13 +33,13 @@
   grey-30 - Text color, border color and background color
 */
 .grey-30 {
-  background-color: #e8ecef!important;
+  background-color: var(--grey-30)!important;
 }
 .grey-30-outline {
-  border-color: #e8ecef !important;
+  border-color: var(--grey-30) !important;
 }
 .grey-30--text {
-  color: #e8ecef !important;
+  color: var(--grey-30) !important;
 }
 
 /*

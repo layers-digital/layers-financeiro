@@ -1,7 +1,16 @@
 <template>
   <div class="ls-container p-3 grey-10" style="min-height: 100%; overflow: auto !important;">
+    <!-- Data provider label -->
+    <div class="ls-row ls-no-gutters ls-align-items-center mb-2">
+      <!-- <div> -->
+      <img :src="group.icon" height="24" width="24" class="app-icon-radius mr-2"/>
+      <!-- </div> -->
+      <span class="grey-70--text" style="font-size: 12px;">
+        Dados Fornecido pela Totvs há <b>3 dias</b>
+      </span>
+    </div>
     <!-- Group description -->
-    <div class="mb-3" style="font-size: 16px;">
+    <div class="mb-4" style="font-size: 16px;">
       <!-- IMPROVE TRANSITIONS -->
       <TransitionExpand>
         <div v-if="descriptionExpanded" id="description" v-html="compiledDescriptionMarkdown"></div>
@@ -23,9 +32,11 @@
       </div>
       <PayableDetailCard
         class="mb-2"
+        style="cursor: pointer;"
         v-for="payable in criticalPayablesByGroup"
         :key="payable.id"
-        :payable="payable"/>
+        :payable="payable"
+        @click.native="goToDetails(payable)"/>
     </div>
     <!-- No critical payables placeholder -->
     <NoCriticalPayablesCard v-else class="mb-4"/>
@@ -37,7 +48,8 @@
       class="mb-2"
       v-for="payable in payablesByGroup"
       :key="payable.id"
-      :payable="payable"/>
+      :payable="payable"
+      @click.native="goToDetails(payable)"/>
   </div>
 </template>
 
@@ -94,6 +106,11 @@ export default {
       return this.$store.getters['payables/getCriticalPayablesByGroup'](this.groupId)
     }
   },
+  methods: {
+    goToDetails(payable) {
+      this.$router.push({name: 'payable.detail', params: {payableId: payable.id, payable: payable}})
+    }
+  }
 }
 </script>
 

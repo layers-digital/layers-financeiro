@@ -8,6 +8,7 @@ import Grid from './styles/Grid.css'
 import Colors from './styles/Colors.css'
 import Transitions from './styles/Transitions.css'
 import Text from './styles/Text.css'
+import Utils from './styles/Utils.css'
 
 Vue.config.productionTip = false
 
@@ -21,6 +22,7 @@ new Vue({
   Colors,
   Transitions,
   Text,
+  Utils,
   Axios,
   render: function (h) { return h(App) }
 }).$mount('#app')
