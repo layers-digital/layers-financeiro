@@ -50,6 +50,10 @@ const getters = {
   },
 
   getGroup(state) {
+    if(!state.payablesData) {
+      return null
+    }
+
     return groupId => state.payablesData.groups.filter(group =>{
       return group.id === groupId
     })[0]

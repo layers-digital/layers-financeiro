@@ -17,9 +17,7 @@
     </div>
   </div>
   <div class="ls-row ls-no-gutters mb-3">
-    <span class=" description grey-70--text">
-      {{payable.description}}
-    </span>
+    <div class="description grey-70--text" id="description" v-html="compiledDescriptionMarkdown"></div>
   </div>
   <div class="ls-row ls-no-gutters">
     <div class="ls-col mr-2 amount" :class="amountColor">
@@ -40,6 +38,8 @@
 import PayableStatusBadge from './PayableStatusBadge'
 import PayablesCount from './PayablesCount'
 import relativeDueDate from '@/helpers/relativeDueDate'
+import Marked from 'marked'
+import DOMPurify from 'dompurify'
 
 export default {
   name: 'PayableDetailCard',
@@ -54,6 +54,10 @@ export default {
     }
   },
   computed: {
+    compiledDescriptionMarkdown() {
+      return DOMPurify.sanitize(Marked(this.payable.description), {FORBID_TAGS: ['style', 'script', 'h1', 'h2']})
+    },
+
     readableRelativeDueDate() {
       return relativeDueDate(this.payable.dueAt)
     },

@@ -179,7 +179,7 @@ let mockedData = {groups: [
       title: "Lucas Grippa Marques",
 
       // Descrição do grupo de cobranças (aceita Quebras de linha)
-      description: "Responsável Financeiro: ...\n...",
+      description: "# Responsável Financeiro: ...  ## Teste  **damn**asdiasdijdiajsidjasijdiasojdoiasjdoiasjdio asdiasjdiojasiodjoaisdjoiasjdoiasjdio",
 
       // Qual é o número total de parcelas (por padrão, será a contagem de payables)
       installments: 3,
@@ -197,7 +197,7 @@ let mockedData = {groups: [
           installment: 1,
 
           // Descrição da cobrança (aceita markdown)
-          description: "Mensalidade referente ao mês de Janeiro de 2020",
+          description: "Mensalidade **referente** ao mês de Janeiro de 2020",
 
           // Status da cobrança, valores possíveis:
           // paid: Pago

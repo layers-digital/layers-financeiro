@@ -1,10 +1,22 @@
 <template>
   <div class="ls-container p-3 grey-10" style="min-height: 100%; overflow: auto !important;">
-    <TransitionExpand>
-      <div class="mb-3" style="font-size: 16px;">
-        Placeholder
-      </div>
-    </TransitionExpand>
+    <!-- Group description -->
+    <div class="mb-3" style="font-size: 16px;">
+      <!-- IMPROVE TRANSITIONS -->
+      <TransitionExpand>
+        <div v-if="descriptionExpanded" id="description" v-html="compiledDescriptionMarkdown"></div>
+      </TransitionExpand>
+      <transition name="slowfade"
+        mode="out-in">
+        <div v-if="!descriptionExpanded" id="description" v-html="compiledDescriptionMarkdown" class="ellipsis-2"></div>
+      </transition>
+      <button v-if="showReadMoreButton"
+        @click="descriptionExpanded = !descriptionExpanded"
+        class="show-more-btn">
+        ver mais
+      </button>
+    </div>
+    <!-- Critical payables section -->
     <div v-if="criticalPayablesByGroup.length" class="mb-4">
       <div class="label danger--text mb-2">
         {{criticalPayablesByGroup.length}} cobranças precisam de atenção
@@ -15,8 +27,10 @@
         :key="payable.id"
         :payable="payable"/>
     </div>
+    <!-- No critical payables placeholder -->
     <NoCriticalPayablesCard v-else class="mb-4"/>
-    <div v-if="payablesByGroup.length" class="label lead-light--text mb-3">
+    <!-- General payables section -->
+    <div v-if="payablesByGroup.length" class="label lead-light--text mb-2">
       Demais cobranças
     </div>
     <PayableDetailCard
@@ -30,12 +44,16 @@
 <script>
 import NoCriticalPayablesCard from '../components/NoCriticalPayablesCard'
 import PayableDetailCard from '../components/PayableDetailCard'
+import TransitionExpand from '../components/TransitionExpand'
+import Marked from 'marked'
+import DOMPurify from 'dompurify'
 
 export default {
   name: 'PayablesGroup',
   components: {
     NoCriticalPayablesCard,
     PayableDetailCard,
+    TransitionExpand,
   },
   props: {
     groupId: {
@@ -43,7 +61,27 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      showReadMoreButton: false,
+      descriptionExpanded: false,
+    }
+  },
+  mounted () {
+    let element = document.getElementById("description")
+
+    if (element.offsetHeight < element.scrollHeight ||
+      element.offsetWidth < element.scrollWidth) {
+      this.showReadMoreButton = true
+    } else {
+      this.showReadMoreButton = false
+    }
+  },
   computed: {
+    compiledDescriptionMarkdown() {
+      return DOMPurify.sanitize(Marked(this.group.description), {FORBID_TAGS: ['style', 'script', 'h1', 'h2']})
+    },
+
     group() {
       return this.$store.getters['payables/getGroup'](this.groupId)
     },
@@ -63,5 +101,15 @@ export default {
 .label {
   font-size: 16px;
   font-weight: 600;
+}
+
+.show-more-btn {
+  background:none;
+  border:none;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--link);
+  padding: 1px 1px;
+  cursor: pointer;
 }
 </style>

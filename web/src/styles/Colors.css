@@ -1,5 +1,6 @@
 :root{
   --grey-20: #EEF1F5;
+  --link: #2F8AF5;
 }
 /*
   grey-10 - Text color, border color and background color
@@ -174,13 +175,13 @@
   link - Text color, border color and background color
 */
 .link {
-  background-color: #2F8AF5 !important;
+  background-color: var(--link) !important;
 }
 .link-outline {
-  border-color: #2F8AF5 !important;
+  border-color: var(--link) !important;
 }
 .link--text {
-  color: #2F8AF5 !important;
+  color: var(--link) !important;
 }
 
 /*

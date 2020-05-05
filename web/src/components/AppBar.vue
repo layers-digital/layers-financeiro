@@ -67,7 +67,7 @@ export default {
     }
   },
   watch: {
-    $route(to, from) {
+    $route(to) {
       if(to.name == 'overview') {
         this.currentPage = OVERVIEW_PAGE
       }
