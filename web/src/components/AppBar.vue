@@ -16,12 +16,11 @@
         </div>
       </div>
       <TransitionExpand>
-        <div v-if="expanded" class="p-3">
-          <div v-for="(link, index) in links"
+        <div v-if="expanded">
+          <div v-for="link in links"
             :key="link.id"
             @click="setCurrentPage(link)"
-            class="ls-row ls-no-gutters ellipsis"
-            :class="{ 'mb-4': index != links.length-1 }">
+            class="ls-row ls-no-gutters ellipsis p-3">
             <div class="ls-col ls-align-self-center mr-2 ls-flex-grow-0" style="max-width: 24px;">
               <img src="../assets/bill.svg" height="24" width="24" class="app-icon-radius"/>
             </div>
