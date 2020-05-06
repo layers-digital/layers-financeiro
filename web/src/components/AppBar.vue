@@ -46,13 +46,13 @@ import TransitionExpand from './TransitionExpand'
 // import PayablesGroupLink from './PayablesGroupLink'
 
 const OVERVIEW_PAGE = {
-    id: 'overview',
-    title: 'Visão geral',
-    icon: 'default',
-    route: {
-      name: 'overview',
-    }
+  id: 'overview',
+  title: 'Visão geral',
+  icon: 'default',
+  route: {
+    name: 'overview',
   }
+}
 export default {
   name: 'AppBar',
   components: {
@@ -67,14 +67,11 @@ export default {
   },
   watch: {
     $route(to) {
-      if(to.name == 'overview') {
-        this.currentPage = OVERVIEW_PAGE
-      }
-
-      if(to.name == 'payables.group') {
-        this.currentPage = this.links.find(link => link.id == to.params.groupId)
-      }
+      this.reactToRouteChanges(to.name, to.params)
     }
+  },
+  created() {
+    this.reactToRouteChanges(this.$route.name, this.$route.params)
   },
   computed: {
     payablesGroups() {
@@ -111,6 +108,16 @@ export default {
   },
 
   methods: {
+    reactToRouteChanges(routeName, params) {
+      if(routeName == 'overview') {
+        this.currentPage = OVERVIEW_PAGE
+      }
+
+      if(routeName == 'payables.group') {
+        this.currentPage = this.links.find(link => link.id == params.groupId)
+      }
+    },
+
     setCurrentPage(page) {
       this.currentPage = page
       this.expanded = !this.expanded
@@ -121,7 +128,7 @@ export default {
 
 <style scoped>
 .app-bar-container {
-  position: relative;
+  /* position: relative; */
   border-radius: 0px 0px 12px 12px;
 }
 
@@ -161,6 +168,7 @@ export default {
 .title {
   font-size: 16px;
   font-weight: 600;
+  margin-bottom: 3px;
   text-decoration: none !important;
 }
 </style>

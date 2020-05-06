@@ -1,8 +1,11 @@
 <template>
   <div id="app" class="ls-ma-0">
     <div class="content-wrap grey-10">
-      <AppBar
-      class="app-bar-layout"/>
+      <!-- <AppBar
+      class="app-bar-layout"/> -->
+      <router-view name="navigation"
+        class="app-bar-layout">
+      </router-view>
       <transition :name="transitionName"
         mode="out-in">
         <router-view style="padding-top: 72px !important;"></router-view>
@@ -12,13 +15,13 @@
 </template>
 
 <script>
-import AppBar from './components/AppBar'
+// import AppBar from './components/AppBar'
 
 export default {
   name: 'App',
 
   components: {
-    AppBar,
+    // AppBar,
   },
 
   data: () => ({

@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Overview from '../views/Overview.vue'
 import PayablesGroup from '../views/PayablesGroup.vue'
 import PayableDetail from '../views/PayableDetail.vue'
+import AppBar from '../components/AppBar.vue'
+import SimpleAppBar from '../components/SimpleAppBar.vue'
 
 Vue.use(VueRouter)
 
@@ -10,19 +12,29 @@ const routes = [
   {
     path: '/',
     name: 'overview',
-    component: Overview
+    components: {
+      default: Overview,
+      navigation: AppBar,
+    },
+    props: { default: true, navigation: false },
   },
   {
     path: '/payables/:groupId',
     name: 'payables.group',
-    component: PayablesGroup,
-    props: true
+    components: {
+      default: PayablesGroup,
+      navigation: AppBar,
+    },
+    props: { default: true, navigation: false },
   },
   {
     path: '/payable/:payableId',
     name: 'payable.detail',
-    component: PayableDetail,
-    props: true
+    components: {
+      default: PayableDetail,
+      navigation: SimpleAppBar,
+    },
+    props: { default: true, navigation: false },
   },
 ]
 

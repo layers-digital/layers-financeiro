@@ -2,12 +2,12 @@
 <div class="ls-container ls-flex-grow-1 p-3" style="min-height: 100%; padding-bottom: 100px !important; position: relative !important; background-color: white;">
   <!-- Labels -->
   <div class="ls-row ls-no-gutters mb-2 ls-align-items-center">
-    <PayableStatusBadge
-      class="mr-2"
-      :status="payable.status"/>
     <PayablesCount
       class="mr-2"
       :friendlyInstallmentsCount="payable.friendlyInstallmentsCount"/>
+    <PayableStatusBadge
+      class="mr-2"
+      :status="payable.status"/>
     <span class="amount-label" :class="totalAmountColor">
       {{readableRelativeDueDate}}
     </span>
