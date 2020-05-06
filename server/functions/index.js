@@ -312,7 +312,7 @@ let mockedData = {groups: [
       id: "RA1",
 
       // Título do grupo de cobranças. Pode ser o nome do aluno, ou como preferirem que apareça este "grupo"
-      title: "Lucas Grippa Marques",
+      title: "Lucas Grippa",
 
       // Descrição do grupo de cobranças (aceita Quebras de linha)
       description: "# Responsável Financeiro: ...  ## Teste big big big big big bigbig big bigbig big bigbig big bigbig big bigbig big big text",
