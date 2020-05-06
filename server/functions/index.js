@@ -109,7 +109,7 @@ let mockedData = {groups: [
           installment: 2,
 
           // Descrição da cobrança (aceita markdown)
-          description: "Mensalidade referente ao mês de Janeiro de 2020",
+          description: "Mensalidade referente ao mês de Janeiro de 2020. Mensalidade referente ao mês de Janeiro de 2020. Mensalidade referente ao mês de Janeiro de 2020. Mensalidade referente ao mês de Janeiro de 2020",
 
           // Status da cobrança, valores possíveis:
           // paid: Pago

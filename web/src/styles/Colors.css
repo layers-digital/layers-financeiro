@@ -3,6 +3,11 @@
   --grey-30: #E8ECEF;
   --link: #2F8AF5;
   --lead: #232B34;
+  --grey-50: #C8D0D8;
+  --danger: #ED6B4F;
+  --danger-light: rgba(237, 107, 79, 0.1);
+  --warning-light: rgba(240, 175, 9, 0.12);
+  --success-light: rgba(48, 181, 101, 0.1);
 }
 /*
   grey-10 - Text color, border color and background color
@@ -47,13 +52,13 @@
   grey-50 - Text color, border color and background color
 */
 .grey-50 {
-  background-color: #C8D0D8!important;
+  background-color: var(--grey-50) !important;
 }
 .grey-50-outline {
-  border-color: #C8D0D8 !important;
+  border-color: var(--grey-50) !important;
 }
 .grey-50--text {
-  color: #C8D0D8 !important;
+  color: var(--grey-50) !important;
 }
 
 /*
@@ -99,26 +104,26 @@
   danger - Text color, border color and background color
 */
 .danger {
-  background-color: #ED6B4F!important;
+  background-color: var(--danger) !important;
 }
 .danger-outline {
-  border-color: #ED6B4F !important;
+  border-color: var(--danger) !important;
 }
 .danger--text {
-  color: #ED6B4F !important;
+  color: var(--danger) !important;
 }
 
 /*
   danger-light - Text color, border color and background color
 */
 .danger-light {
-  background-color: rgba(237, 107, 79, 0.1) !important;
+  background-color: var(--danger-light) !important;
 }
 .danger-light-outline {
-  border-color: rgba(237, 107, 79, 0.1) !important;
+  border-color: var(--danger-light) !important;
 }
 .danger-light--text {
-  color: rgba(237, 107, 79, 0.1) !important;
+  color: var(--danger-light) !important;
 }
 
 /*
@@ -138,13 +143,13 @@
   warning-light - Text color, border color and background color
 */
 .warning-light {
-  background-color: rgba(240, 175, 9, 0.12) !important;
+  background-color: var(--warning-light) !important;
 }
 .warning-light-outline {
-  border-color: rgba(240, 175, 9, 0.12) !important;
+  border-color: var(--warning-light) !important;
 }
 .warning-light--text {
-  color: rgba(240, 175, 9, 0.12) !important;
+  color: var(--warning-light) !important;
 }
 
 /*
@@ -164,13 +169,13 @@
   success-light - Text color, border color and background color
 */
 .success-light {
-  background-color: rgba(48, 181, 101, 0.1) !important;
+  background-color: var(--success-light) !important;
 }
 .success-light-outline {
-  border-color: rgba(48, 181, 101, 0.1) !important;
+  border-color: var(--success-light) !important;
 }
 .success-light--text {
-  color: rgba(48, 181, 101, 0.1) !important;
+  color: var(--success-light) !important;
 }
 
 /*

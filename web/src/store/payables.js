@@ -74,6 +74,14 @@ const getters = {
     })[0].payables.filter(payable => {
       return payable.isCritical
     })
+  },
+
+  hasState(state) {
+    if(!state.payablesData) {
+      return false
+    }
+
+    return true
   }
 }
 

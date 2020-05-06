@@ -1,7 +1,7 @@
 <template>
 <div class="ls-row ls-no-gutters card grey-30-outline p-3 ls-align-items-center">
   <div class="ls-col">
-    <div class="card-title mb-3">
+    <div class="card-title mb-2">
       {{payablesGroup.title}}
     </div>
     <div>
@@ -33,12 +33,6 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  border: 1px solid;
-  border-radius: 12px;
-  background-color: white;
-}
-
 .card-title {
   font-size: 16px;
   font-weight: 600;

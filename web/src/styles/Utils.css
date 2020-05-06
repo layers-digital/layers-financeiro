@@ -1,3 +1,61 @@
+:root {
+  --dash-url: url("data:image/svg+xml,%3Csvg width='10' height='2' viewBox='0 0 10 2' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='3' height='2' rx='1' fill='white'/%3E%3C/svg%3E%0A");
+}
+
+.dashed {
+  min-height: 2px;
+  mask-repeat: repeat-x;
+  mask-size: auto 100%;
+  mask-image: var(--dash-url);
+  background: var(--color, black);
+}
+
 .app-icon-radius {
   border-radius: 22.5%;
+}
+
+.card {
+  box-shadow: 0 0 0 1px var(--grey-30);
+  border-radius: 12px;
+  background-color: white;
+}
+
+.card.danger-state {
+  box-shadow: 0 0 0 1px var(--danger-light);
+}
+
+.card.warnings-state {
+  box-shadow: 0 0 0 1px var(--warning-light);
+}
+
+.card.success-state {
+  box-shadow: 0 0 0 1px var(--success-light);
+}
+
+.card.neutral-state {
+  box-shadow: 0 0 0 1px var(--grey-30);
+}
+
+@keyframes placeHolderShimmer {
+  0%{ background-position: 50% 0; }
+  100%{ background-position: -50% 0; }
+}
+
+.loading-placeholder {
+  animation-duration: 2.3s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-name: placeHolderShimmer;
+  background: #f6f7f8;
+  background: linear-gradient(to right, #ffffff2e 8%, #ffffff52 18%, #ffffff2e 33%);
+  background-size: 800px 104px;
+  height: 96px;
+  position: relative;
+}
+
+.placeholder {
+  height: 16px;
+  width: 100%;
+  background-color: var(--grey-50);
 }

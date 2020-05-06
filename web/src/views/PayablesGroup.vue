@@ -10,7 +10,7 @@
       </span>
     </div>
     <!-- Group description -->
-    <div class="mb-4" style="font-size: 16px;">
+    <div class="mb-2" style="font-size: 16px;">
       <!-- IMPROVE TRANSITIONS -->
       <TransitionExpand>
         <div v-if="descriptionExpanded" id="description" v-html="compiledDescriptionMarkdown"></div>

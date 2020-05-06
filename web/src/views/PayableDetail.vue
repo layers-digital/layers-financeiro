@@ -17,20 +17,22 @@
     {{payable.title}}
   </div>
   <!-- Amounts -->
+  <!-- <div class="dashed">
+  </div> -->
   <div class="amount-container py-2 mb-3" :class="totalAmountColor">
     <div class="ls-row ls-no-gutters ls-align-items-end mb-3">
       <div class="ls-col mr-3">
-        <span class="amount-label">
+        <div class="amount-label">
           Valor total
-        </span>
+        </div>
         <span class="amount" :class="totalAmountColor" style="white-space:nowrap;">
           {{payable.amountTotal}}
         </span>
       </div>
       <div class="ls-col">
-        <span class="amount-label">
+        <div class="amount-label">
           Data de vencimento
-        </span>
+        </div>
         <span class="due-date lead--text" style="white-space:nowrap;">
           {{formatedDueDate}}
         </span>
@@ -86,7 +88,7 @@
   <!-- Action buttons -->
   <div class="ls-row ls-no-gutters actions p-3">
     <button
-      class="action-btn"
+      class="action-btn ls-flex-grow-1 mr-1"
       @click="copyToClipboard(payable.boleto.link)">
       <span class="icon mr-2">
         <img src="../assets/barcode.svg"
@@ -94,10 +96,10 @@
       </span>
       <span class="text lead-light--text">Copiar código</span>
     </button>
-    <div class="ls-flex">
-    </div>
+    <!-- <div class="ls-flex">
+    </div> -->
     <button
-      class="action-btn"
+      class="action-btn ls-flex-grow-1 ml-1"
       @click="openAttachment(payable.boleto.link)">
       <span class="icon mr-2">
         <img src="../assets/download.svg"

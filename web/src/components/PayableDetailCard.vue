@@ -11,13 +11,13 @@
         {{readableRelativeDueDate}}
       </span>
     </div>
-    <div class="ls-col" style="max-width: 66px;">
-      <PayablesCount
-        :friendlyInstallmentsCount="payable.friendlyInstallmentsCount"/>
-    </div>
+    <PayablesCount
+      :friendlyInstallmentsCount="payable.friendlyInstallmentsCount"/>
   </div>
   <div class="ls-row ls-no-gutters mb-3">
-    <div class="description grey-70--text" id="description" v-html="compiledDescriptionMarkdown"></div>
+    <span class="description grey-70--text ellipsis-2">
+      {{payable.description}}
+    </span>
   </div>
   <div class="ls-row ls-no-gutters">
     <div class="ls-col mr-2 amount" :class="amountColor">
@@ -25,11 +25,9 @@
         {{payable.amountTotal}}
       </span>
     </div>
-    <div class="ls-col">
-      <span style="white-space:nowrap;">
-        Vencimento: {{formatedDueDate}}
-      </span>
-    </div>
+    <span style="white-space:nowrap;">
+      Vencimento: {{formatedDueDate}}
+    </span>
   </div>
 </div>
 </template>
@@ -39,8 +37,6 @@ import PayableStatusBadge from './PayableStatusBadge'
 import PayablesCount from './PayablesCount'
 import relativeDueDate from '@/helpers/relativeDueDate'
 import formatDate from '@/helpers/formatDate'
-import Marked from 'marked'
-import DOMPurify from 'dompurify'
 
 export default {
   name: 'PayableDetailCard',
@@ -55,23 +51,19 @@ export default {
     }
   },
   computed: {
-    compiledDescriptionMarkdown() {
-      return DOMPurify.sanitize(Marked(this.payable.description), {FORBID_TAGS: ['style', 'script', 'h1', 'h2']})
-    },
-
     readableRelativeDueDate() {
       return relativeDueDate(this.payable.dueAt)
     },
 
     borderColor() {
       if(!this.payable.isCritical) {
-        return 'grey-30-outline'
+        return 'neutral-state'
       }
 
       return {
-        'late': 'danger-outline',
-        'pending': 'warning-outline',
-      } [this.payable.status] || 'grey-30-outline'
+        'late': 'danger-state',
+        'pending': 'warning-state',
+      } [this.payable.status] || 'neutral-state'
     },
 
     amountColor() {
@@ -92,12 +84,6 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  border: 1px solid;
-  border-radius: 12px;
-  background-color: white;
-}
-
 .due-date {
   font-size: 12px;
   font-weight: 600;

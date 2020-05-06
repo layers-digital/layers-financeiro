@@ -1,5 +1,5 @@
 <template>
-<div class="ls-row ls-no-gutters card grey-30-outline p-3 ls-align-items-center">
+<div class="ls-row ls-no-gutters card p-3 ls-align-items-center">
   <img v-if="payable.status == 'late'" src="../assets/attention-icon.svg" height="32" width="32" class="mr-3"/>
   <img v-else src="../assets/attention-yellow-icon.svg" height="32" width="32" class="mr-3"/>
   <div class="ls-col ellipsis mr-2">
@@ -39,12 +39,6 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  border: 1px solid;
-  border-radius: 12px;
-  background-color: white;
-}
-
 .relative-date {
   font-weight: 700;
 }

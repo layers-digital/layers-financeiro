@@ -19,12 +19,6 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  border: 1px solid;
-  border-radius: 12px;
-  background-color: white;
-}
-
 .caption {
   font-size: 16px;
   font-weight: 600;
