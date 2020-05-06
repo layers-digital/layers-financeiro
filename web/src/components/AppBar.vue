@@ -5,7 +5,7 @@
         <div class="ls-col ls-align-self-center mr-2 ls-flex-grow-0" style="max-width: 24px;">
           <img src="../assets/logo-meufinanceiro.svg" height="24" width="24" class="app-icon-radius"/>
         </div>
-        <span class="ls-text-center title ls-flex-grow-1">
+        <span class="title ls-flex-grow-1">
           {{currentPage.title}}
         </span>
         <div class="ls-col ls-align-self-center ls-flex-grow-0">

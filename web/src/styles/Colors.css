@@ -2,6 +2,7 @@
   --grey-20: #EEF1F5;
   --grey-30: #E8ECEF;
   --link: #2F8AF5;
+  --lead: #232B34;
 }
 /*
   grey-10 - Text color, border color and background color
@@ -189,13 +190,13 @@
   lead - Text color, border color and background color
 */
 .lead {
-  background-color: #232B34 !important;
+  background-color: var(--lead) !important;
 }
 .lead-outline {
-  border-color: #232B34 !important;
+  border-color: var(--lead) !important;
 }
 .lead--text {
-  color: #232B34 !important;
+  color: var(--lead) !important;
 }
 
 /*

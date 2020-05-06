@@ -22,7 +22,7 @@
   <div class="ls-row ls-no-gutters">
     <div class="ls-col mr-2 amount" :class="amountColor">
       <span style="white-space:nowrap;">
-        {{payable.amount}}
+        {{payable.amountTotal}}
       </span>
     </div>
     <div class="ls-col">
@@ -38,6 +38,7 @@
 import PayableStatusBadge from './PayableStatusBadge'
 import PayablesCount from './PayablesCount'
 import relativeDueDate from '@/helpers/relativeDueDate'
+import formatDate from '@/helpers/formatDate'
 import Marked from 'marked'
 import DOMPurify from 'dompurify'
 
@@ -83,12 +84,7 @@ export default {
     },
 
     formatedDueDate() {
-      let date = new Date(this.payable.dueAt)
-      let day  = date.getDate().toString().padStart(2, '0')
-      let month  = (date.getMonth()+1).toString().padStart(2, '0')
-      let year  = date.getFullYear()
-
-      return `${day}/${month}/${year}`
+      return formatDate(this.payable.dueAt)
     }
   }
 

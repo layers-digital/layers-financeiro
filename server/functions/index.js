@@ -66,7 +66,7 @@ let mockedData = {groups: [
           centsTotal: 150000,
 
           // Valor original (sem multas/taxas)
-          centsOriginal: 150000,
+          centsOriginal: 160000,
 
           boleto: {
 
@@ -166,6 +166,142 @@ let mockedData = {groups: [
               // Link para baixar o anexo
               url: "https://url.para-download.com",
             },
+            {
+
+              // Tipo do anexo
+              // Valores possivels:
+              // invoice: Nota fiscal
+              // file: Arquivo
+              kind: 'file',
+
+              // Nome do anexo
+              title: "Comprovante de estorno",
+
+              // Descrição do anexo
+              description: "Estorno realizado em 31/10/2019",
+
+              // Link para baixar o anexo
+              url: "https://url.para-download.com",
+            },
+            {
+
+              // Tipo do anexo
+              // Valores possivels:
+              // invoice: Nota fiscal
+              // file: Arquivo
+              kind: 'file',
+
+              // Nome do anexo
+              title: "Comprovante de estorno",
+
+              // Descrição do anexo
+              description: "Estorno realizado em 31/10/2019",
+
+              // Link para baixar o anexo
+              url: "https://url.para-download.com",
+            },
+            {
+
+              // Tipo do anexo
+              // Valores possivels:
+              // invoice: Nota fiscal
+              // file: Arquivo
+              kind: 'file',
+
+              // Nome do anexo
+              title: "Comprovante de estorno",
+
+              // Descrição do anexo
+              description: "Estorno realizado em 31/10/2019",
+
+              // Link para baixar o anexo
+              url: "https://url.para-download.com",
+            },
+            {
+
+              // Tipo do anexo
+              // Valores possivels:
+              // invoice: Nota fiscal
+              // file: Arquivo
+              kind: 'file',
+
+              // Nome do anexo
+              title: "Comprovante de estorno",
+
+              // Descrição do anexo
+              description: "Estorno realizado em 31/10/2019",
+
+              // Link para baixar o anexo
+              url: "https://url.para-download.com",
+            },
+            {
+
+              // Tipo do anexo
+              // Valores possivels:
+              // invoice: Nota fiscal
+              // file: Arquivo
+              kind: 'file',
+
+              // Nome do anexo
+              title: "Comprovante de estorno",
+
+              // Descrição do anexo
+              description: "Estorno realizado em 31/10/2019",
+
+              // Link para baixar o anexo
+              url: "https://url.para-download.com",
+            },
+            {
+
+              // Tipo do anexo
+              // Valores possivels:
+              // invoice: Nota fiscal
+              // file: Arquivo
+              kind: 'file',
+
+              // Nome do anexo
+              title: "Comprovante de estorno",
+
+              // Descrição do anexo
+              description: "Estorno realizado em 31/10/2019",
+
+              // Link para baixar o anexo
+              url: "https://url.para-download.com",
+            },
+            {
+
+              // Tipo do anexo
+              // Valores possivels:
+              // invoice: Nota fiscal
+              // file: Arquivo
+              kind: 'file',
+
+              // Nome do anexo
+              title: "Comprovante de estorno",
+
+              // Descrição do anexo
+              description: "Estorno realizado em 31/10/2019",
+
+              // Link para baixar o anexo
+              url: "https://url.para-download.com",
+            },
+            {
+
+              // Tipo do anexo
+              // Valores possivels:
+              // invoice: Nota fiscal
+              // file: Arquivo
+              kind: 'file',
+
+              // Nome do anexo
+              title: "Comprovante de estorno",
+
+              // Descrição do anexo
+              description: "Estorno realizado em 31/10/2019",
+
+              // Link para baixar o anexo
+              url: "https://url.para-download.com",
+            },
           ]
         },
       ]
@@ -179,7 +315,7 @@ let mockedData = {groups: [
       title: "Lucas Grippa Marques",
 
       // Descrição do grupo de cobranças (aceita Quebras de linha)
-      description: "# Responsável Financeiro: ...  ## Teste  **damn**asdiasdijdiajsidjasijdiasojdoiasjdoiasjdio asdiasjdiojasiodjoaisdjoiasjdoiasjdio",
+      description: "# Responsável Financeiro: ...  ## Teste big big big big big bigbig big bigbig big bigbig big bigbig big bigbig big big text",
 
       // Qual é o número total de parcelas (por padrão, será a contagem de payables)
       installments: 3,
@@ -217,16 +353,16 @@ let mockedData = {groups: [
           paidAt: null,
 
           // Quando a cobrança foi enviada (opcional. formato AAAA-MM-DD)
-          sentAt: null,
+          sentAt: "2020-04-01",
 
           // Valor que já foi pago
-          centsPaid: 0,
+          centsPaid: 1200,
 
           // Valor total a ser pago (com multas/taxas, se aplicável)
           centsTotal: 150000,
 
           // Valor original (sem multas/taxas)
-          centsOriginal: 150000,
+          centsOriginal: 160000,
 
           boleto: {
 
@@ -248,7 +384,7 @@ let mockedData = {groups: [
               kind: 'file',
 
               // Nome do anexo
-              title: "Comprovante de estorno",
+              title: "Comprovante de esasddddddddddasddddddddddddddddaddddddddddddddddddddddddtorno",
 
               // Descrição do anexo
               description: "Estorno realizado em 31/10/2019",
