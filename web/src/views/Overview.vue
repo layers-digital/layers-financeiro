@@ -17,7 +17,10 @@
         @click.native="goToDetails(payable)"/>
     </div>
     <NoCriticalPayablesCard v-if="hasState && criticalPayables.length == 0" class="mb-4"/>
+    <PayablesCardSkeleton
+      v-if="loading && !hasState"/>
     <router-link
+      v-else
       v-for="payablesGroup in payablesGroups"
       :key="payablesGroup.id"
       slot="reference"
@@ -35,6 +38,7 @@
 import AttentionCard from '../components/AttentionCard.vue'
 import AttentionCardSkeleton from '../components/AttentionCardSkeleton.vue'
 import PayablesCard from '../components/PayablesCard.vue'
+import PayablesCardSkeleton from '../components/PayablesCardSkeleton.vue'
 import NoCriticalPayablesCard from '../components/NoCriticalPayablesCard'
 
 export default {
@@ -43,6 +47,7 @@ export default {
     AttentionCard,
     AttentionCardSkeleton,
     PayablesCard,
+    PayablesCardSkeleton,
     NoCriticalPayablesCard
   },
   data() {
