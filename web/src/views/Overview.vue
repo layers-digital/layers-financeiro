@@ -17,7 +17,6 @@
         @click.native="goToDetails(payable)"/>
     </div>
     <NoCriticalPayablesCard v-if="hasState && criticalPayables.length == 0" class="mb-4"/>
-    <!-- <div> -->
     <router-link
       v-for="payablesGroup in payablesGroups"
       :key="payablesGroup.id"
@@ -29,7 +28,6 @@
         class="mb-2"
         :payablesGroup="payablesGroup"/>
     </router-link>
-    <!-- </div> -->
   </div>
 </template>
 
@@ -74,9 +72,8 @@ export default {
   },
   methods: {
     goToDetails(payable) {
-      console.log('goToDetails', payable)
       this.$router.push({name: 'payable.detail', params: {payableId: payable.id, payable: payable}})
-    }
+    },
   }
 }
 </script>

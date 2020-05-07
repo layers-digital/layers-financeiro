@@ -1,17 +1,18 @@
 <template>
   <transition name="fade">
-    <div v-if="open" class="toast-container">
+    <div v-if="open" class="toast-container" :class="position">
       <div class="ls-row ls-no-gutters toast ls-align-items-center" :class="color">
         <div class="ls-col">
           <div v-if="message" class="message">{{ message }}</div>
-          <button v-if="options.action"
-            @click="descriptionExpanded = !descriptionExpanded"
-            class="action-btn">
-            ver mais
+          <button
+            v-if="options.action"
+            @click="callAction()"
+            class="action-btn" :class="actionColor">
+            {{ options.action.label }}
           </button>
         </div>
         <button v-if="options.closeable" @click="close()" class="close-btn">
-          <img src="../assets/cancel.svg"
+          <img src="@/assets/cancel.svg"
             height="24" width="24"/>
         </button>
       </div>
@@ -42,6 +43,15 @@ export default {
       open: false,
     };
   },
+
+  created() {
+    if(this.options.timeout > 0){
+      setTimeout(() => {
+        this.close()
+      }, this.options.timeout)
+    }
+  },
+
   watch: {
     open: function(val) {
       if (!val) {
@@ -49,13 +59,15 @@ export default {
       }
     },
   },
+
   beforeMount() {
     document.body.appendChild(this.$el);
-    // document.querySelector('#app').appendChild(this.$el);
   },
+
   mounted() {
     this.open = true;
   },
+
   computed: {
     color() {
       return {
@@ -63,7 +75,24 @@ export default {
         'warning': 'warning',
         'success': 'success',
         'info': 'lead',
-      } [this.type] || 'lead'
+      } [this.options && this.options.color] || 'lead'
+    },
+    actionColor() {
+      let color = (this.options && this.options.action && this.options.action.color) || 'lead'
+      // _.get(this.options, 'action.color', 'lead')
+      return {
+        'danger': 'danger--text',
+        'warning': 'warning--text',
+        'success': 'success--text',
+        'info': 'lead--text',
+        'white': 'white--text',
+      } [color]
+    },
+    position() {
+      return {
+        'top': 'top',
+        'bottom': 'bottom',
+      } [this.options && this.options.position] || 'top'
     }
   },
   methods: {
@@ -73,8 +102,16 @@ export default {
         this.$options.onClose();
         this.$destroy();
         removeElement(this.$el);
-      }, 0); // wait for close animation
+      }, 0);
     },
+
+    callAction() {
+      let fn = (this.options && this.options.action && this.options.action.fn) || null
+      //_.get(this.options, 'action.fn', null)
+      if(!fn || typeof fn != 'function') return
+
+      return this.options.action.fn(this.options.action.fnParams)
+    }
   },
 };
 function removeElement(el) {
@@ -90,15 +127,17 @@ function removeElement(el) {
   font-weight: 600;
   color: white;
 }
-
 .toast {
-  padding: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
   border-radius: 4px;
   min-width: 228px;
   max-width: 328px;
-  max-height: 56px;
+  min-height: 56px;
+  width: 100%;
 }
-
 .toast-container {
   width: 100%;
   z-index: 10000;
@@ -114,19 +153,24 @@ function removeElement(el) {
   -ms-flex-pack: center !important;
   justify-content: center !important;
 }
-
+.toast-container.bottom {
+  top: initial;
+  bottom: 16px;
+}
 .close-btn {
   background-color: transparent !important;
   border: none !important;
 }
-
 .action-btn {
-  background:none;
-  border:none;
-  font-size: 16px;
+  background: none;
+  border: none;
+  font-size: 14px;
   font-weight: 700;
-  color: var(--link);
+  color: white;
   padding: 1px 1px;
   cursor: pointer;
+  font-weight: bold;
+  font-family: 'Nunito', sans-serif;
+  outline: none;
 }
 </style>

@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import errorHandler from '@/helpers/errorHandler'
 
 const state = {
   loading: false,
@@ -26,7 +27,7 @@ const actions = {
       context.commit('setPayablesData', res.data)
       context.commit('setLoading', false)
     } catch(err) {
-      console.log('Err', err)
+      errorHandler(err, context.dispatch, 'fetchData')
       context.commit('setLoading', false)
     }
   }
