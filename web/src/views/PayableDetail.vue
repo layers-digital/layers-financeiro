@@ -8,7 +8,7 @@
     <PayableStatusBadge
       class="mr-2"
       :status="payable.status"/>
-    <span class="amount-label" :class="totalAmountColor">
+    <span v-if="payable.status != 'paid'" class="amount-label" :class="totalAmountColor">
       {{readableRelativeDueDate}}
     </span>
   </div>
@@ -20,7 +20,7 @@
   <!-- <div class="dashed">
   </div> -->
   <div class="amount-container py-2 mb-3" :class="totalAmountColor">
-    <div class="ls-row ls-no-gutters ls-align-items-end mb-3">
+    <div class="ls-row ls-no-gutters ls-align-items-center">
       <div class="ls-col mr-3">
         <div class="amount-label">
           Valor total
@@ -40,7 +40,7 @@
     </div>
 
     <div class="ls-row ls-no-gutters ls-align-items-end">
-      <div v-if="payable.centsOriginal && payable.centsOriginal != payable.centsTotal" class="ls-col mr-3">
+      <div v-if="payable.centsOriginal && payable.centsOriginal != payable.centsTotal" class="ls-col mr-3 mt-3">
         <div class="amount-label">
           Valor original
         </div>
@@ -48,7 +48,7 @@
           {{payable.amountOriginal}}
         </span>
       </div>
-      <div v-if="payable.centsPaid && payable.centsPaid.toString() != 0" class="ls-col">
+      <div v-if="payable.centsPaid && payable.centsPaid.toString() != 0" class="ls-col mt-3">
         <div class="amount-label">
           Valor pago
         </div>
@@ -65,7 +65,7 @@
   <!-- Description -->
   <div class="lead-light--text" id="description" v-html="compiledDescriptionMarkdown"></div>
   <!-- Attachments -->
-  <div class="ls-row ls-flex-grow-1 ls-no-gutters">
+  <div v-if="payable.attachments.length" class="ls-row ls-flex-grow-1 ls-no-gutters">
     <div class="ls-col">
       <div class="amount-label mb-2">Anexos</div>
       <button
@@ -141,7 +141,7 @@ export default {
       if(!this.payable || !this.payable.description) {
         return ''
       }
-      return DOMPurify.sanitize(Marked(this.payable.description), {FORBID_TAGS: ['style', 'script', 'h1', 'h2']})
+      return DOMPurify.sanitize(Marked(this.payable.description), {FORBID_TAGS: ['style', 'script', 'h1', 'h2'], breaks: true, gfm: true})
     },
 
     totalAmountColor() {

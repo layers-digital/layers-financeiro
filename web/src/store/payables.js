@@ -76,6 +76,14 @@ const getters = {
     })
   },
 
+  getCriticalPayablesCountByGroup() {
+    return groupId => state.payablesData.groups.filter(group =>{
+      return group.id === groupId
+    })[0].payables.filter(payable => {
+      return payable.isCritical
+    }).length
+  },
+
   hasState(state) {
     if(!state.payablesData) {
       return false

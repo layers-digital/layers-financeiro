@@ -6,18 +6,20 @@
       <img :src="group.icon" height="24" width="24" class="app-icon-radius mr-2"/>
       <!-- </div> -->
       <span class="grey-70--text" style="font-size: 12px;">
-        Dados Fornecido pela Totvs há <b>3 dias</b>
+        Dados Fornecido pela Totvs <b>hoje</b>
       </span>
     </div>
     <!-- Group description -->
-    <div class="mb-2" style="font-size: 16px;">
+    <div style="font-size: 16px;">
       <!-- IMPROVE TRANSITIONS -->
       <TransitionExpand>
-        <div v-if="descriptionExpanded" id="description" v-html="compiledDescriptionMarkdown"></div>
+        <!-- <div v-if="descriptionExpanded" id="description" v-html="compiledDescriptionMarkdown"></div> -->
+        <div v-if="descriptionExpanded" id="description">{{this.group.description}}</div>
       </TransitionExpand>
       <transition name="slowfade"
         mode="out-in">
-        <div v-if="!descriptionExpanded" id="description" v-html="compiledDescriptionMarkdown" class="ellipsis-2"></div>
+        <!-- <div v-if="!descriptionExpanded" id="description" v-html="compiledDescriptionMarkdown" class="ellipsis-2"></div> -->
+        <div v-if="!descriptionExpanded" id="description" class="ellipsis-2">{{this.group.description}}</div>
       </transition>
       <button v-if="showReadMoreButton"
         @click="descriptionExpanded = !descriptionExpanded"
@@ -26,9 +28,12 @@
       </button>
     </div>
     <!-- Critical payables section -->
-    <div v-if="criticalPayablesByGroup.length" class="mb-4">
+    <div v-if="criticalPayablesByGroup.length" class="mt-4 mb-4">
       <div class="label danger--text mb-2">
-        {{criticalPayablesByGroup.length}} cobranças precisam de atenção
+        {{criticalPayablesByGroup.length}}
+        <span v-if="criticalPayablesByGroup.length == 1">cobrança precisa</span>
+        <span v-else>cobranças precisam</span>
+        de atenção
       </div>
       <PayableDetailCard
         class="mb-2"
@@ -39,7 +44,7 @@
         @click.native="goToDetails(payable)"/>
     </div>
     <!-- No critical payables placeholder -->
-    <NoCriticalPayablesCard v-else class="mb-4"/>
+    <NoCriticalPayablesCard v-else class="mt-4 mb-4"/>
     <!-- General payables section -->
     <div v-if="payablesByGroup.length" class="label lead-light--text mb-2">
       Demais cobranças
@@ -57,8 +62,8 @@
 import NoCriticalPayablesCard from '../components/NoCriticalPayablesCard'
 import PayableDetailCard from '../components/PayableDetailCard'
 import TransitionExpand from '../components/TransitionExpand'
-import Marked from 'marked'
-import DOMPurify from 'dompurify'
+// import Marked from 'marked'
+// import DOMPurify from 'dompurify'
 
 export default {
   name: 'PayablesGroup',
@@ -90,9 +95,9 @@ export default {
     }
   },
   computed: {
-    compiledDescriptionMarkdown() {
-      return DOMPurify.sanitize(Marked(this.group.description), {FORBID_TAGS: ['style', 'script', 'h1', 'h2']})
-    },
+    // compiledDescriptionMarkdown() {
+    //   return DOMPurify.sanitize(Marked(this.group.description), {FORBID_TAGS: ['style', 'script', 'h1', 'h2']})
+    // },
 
     group() {
       return this.$store.getters['payables/getGroup'](this.groupId)

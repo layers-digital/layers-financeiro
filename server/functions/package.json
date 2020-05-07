@@ -16,7 +16,8 @@
     "express": "^4.17.1",
     "firebase-admin": "^8.10.0",
     "firebase-functions": "^3.6.1",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "remove-markdown": "^0.3.0"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.2.0"

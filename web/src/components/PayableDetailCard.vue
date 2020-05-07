@@ -6,17 +6,19 @@
       <PayableStatusBadge
         :status="payable.status"/>
     </div>
-    <div class="ls-col mr-2 ellipsis">
+    <div v-if="payable.status != 'paid'" class="ls-col mr-2 ellipsis">
       <span class="due-date grey-70--text">
         {{readableRelativeDueDate}}
       </span>
+    </div>
+    <div v-else class="ls-flex-grow-1">
     </div>
     <PayablesCount
       :friendlyInstallmentsCount="payable.friendlyInstallmentsCount"/>
   </div>
   <div class="ls-row ls-no-gutters mb-3">
     <span class="description grey-70--text ellipsis-2">
-      {{payable.description}}
+      {{payable.textDescription}}
     </span>
   </div>
   <div class="ls-row ls-no-gutters">

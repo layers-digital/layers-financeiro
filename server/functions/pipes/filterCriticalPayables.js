@@ -13,7 +13,7 @@ function filterCriticalPayables(payload) {
 
       //Ordenar pelo q venceu a mais tempo
       //Incluir pending <= 15
-      if(diff <= 7 && payable.status != 'paid') {
+      if(diff <= 7 && payable.status != 'paid' || payable.status == 'pending') {
         //Flag to define if this payable is critical
         payable.isCritical = true
 

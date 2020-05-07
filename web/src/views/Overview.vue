@@ -1,7 +1,7 @@
 <template>
   <div class="ls-container p-3 grey-10" style="min-height: 100%; overflow: auto !important;">
     <div class="mb-4">
-      <div v-if="loading && !hasState" class="placeholder loading-placeholder">
+      <div v-if="loading && !hasState" class="placeholder loading-placeholder mb-2">
       </div>
       <div v-else class="attention-label danger--text mb-2">
         {{criticalPayables.length}} cobranças precisam de atenção

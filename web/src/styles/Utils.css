@@ -24,7 +24,7 @@
   box-shadow: 0 0 0 1px var(--danger-light);
 }
 
-.card.warnings-state {
+.card.warning-state {
   box-shadow: 0 0 0 1px var(--warning-light);
 }
 

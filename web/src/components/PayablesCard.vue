@@ -4,9 +4,14 @@
     <div class="card-title mb-2">
       {{payablesGroup.title}}
     </div>
-    <div>
+    <div v-if="payablesGroup.installments > 1">
       <PayablesVisualCount
         :payablesGroup="payablesGroup"/>
+    </div>
+    <div v-else>
+      <span class="description grey-70--text ellipsis-2">
+        {{payablesGroup.description}}
+      </span>
     </div>
   </div>
   <div class="ls-col" style="max-width: 24px;">
@@ -40,5 +45,9 @@ export default {
 
 .relative-date {
   font-weight: 700;
+}
+
+.description {
+  font-weight: 600px;
 }
 </style>

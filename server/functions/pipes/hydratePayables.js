@@ -1,3 +1,5 @@
+const removeMd = require('remove-markdown');
+
 module.exports = hidratePayables
 
 function hidratePayables(payload) {
@@ -24,6 +26,9 @@ function hidratePayables(payload) {
 
       //Friendly original amount
       payable.amountOriginal = (payable.centsOriginal/100).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
+
+      //Text description
+      payable.textDescription = removeMd(payable.description)
     })
   })
 

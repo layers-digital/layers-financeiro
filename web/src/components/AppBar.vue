@@ -38,6 +38,9 @@
               :to="link.route">
               {{link.title}}
             </router-link>
+            <!-- <div v-if="link.route.params && link.route.params.groupId && criticalPayablesCountByGroup(link.route.params.groupId).length">
+              {{criticalPayablesCountByGroup(link.route.params.groupId)}}
+            </div> -->
           </div>
         </div>
       </TransitionExpand>
@@ -132,7 +135,11 @@ export default {
     setCurrentPage(page) {
       this.currentPage = page
       this.expanded = !this.expanded
-    }
+    },
+
+    // criticalPayablesCountByGroup(groupId) {
+    //   return this.$store.getters['payables/getCriticalPayablesCountByGroup'](groupId)
+    // },
   }
 }
 </script>
