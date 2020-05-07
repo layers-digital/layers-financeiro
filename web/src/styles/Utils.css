@@ -1,13 +1,13 @@
 :root {
-  --dash-url: url("data:image/svg+xml,%3Csvg width='10' height='2' viewBox='0 0 10 2' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='3' height='2' rx='1' fill='white'/%3E%3C/svg%3E%0A");
+  --dash-url: url("data:image/svg+xml,%3Csvg width='328' height='2' viewBox='0 0 328 2' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='1' y1='1' x2='327' y2='1.00003' stroke='%23F0AF09' stroke-width='2' stroke-linecap='round' stroke-dasharray='1 6'/%3E%3C/svg%3E%0A");
 }
 
 .dashed {
-  min-height: 2px;
+  min-height: 3px;
   mask-repeat: repeat-x;
   mask-size: auto 100%;
   mask-image: var(--dash-url);
-  background: var(--color, black);
+  background: var(--dash-color, black);
 }
 
 .app-icon-radius {

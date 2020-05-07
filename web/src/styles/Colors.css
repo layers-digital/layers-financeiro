@@ -4,9 +4,12 @@
   --link: #2F8AF5;
   --lead: #232B34;
   --grey-50: #C8D0D8;
+  --grey-80: #405261;
   --danger: #ED6B4F;
   --danger-light: rgba(237, 107, 79, 0.1);
+  --warning: #F0AF09;
   --warning-light: rgba(240, 175, 9, 0.12);
+  --success: #30B565;
   --success-light: rgba(48, 181, 101, 0.1);
 }
 /*
@@ -78,7 +81,7 @@
   grey-70-light - Text color, border color and background color
 */
 .grey-70-light {
-  background-color: #e8ecef!important;
+  background-color: #e8ecef !important;
 }
 .grey-70-light-outline {
   border-color: #e8ecef !important;
@@ -91,25 +94,31 @@
   grey-80 - Text color, border color and background color
 */
 .grey-80 {
-  background-color: #405261!important;
+  --dash-color: var(--grey-80);
+  background-color: var(--grey-80) !important;
 }
 .grey-80-outline {
-  border-color: #405261 !important;
+  --dash-color: var(--grey-80);
+  border-color: var(--grey-80) !important;
 }
 .grey-80--text {
-  color: #405261 !important;
+  --dash-color: var(--grey-80);
+  color: var(--grey-80) !important;
 }
 
 /*
   danger - Text color, border color and background color
 */
 .danger {
+  --dash-color: var(--danger);
   background-color: var(--danger) !important;
 }
 .danger-outline {
+  --dash-color: var(--danger);
   border-color: var(--danger) !important;
 }
 .danger--text {
+  --dash-color: var(--danger);
   color: var(--danger) !important;
 }
 
@@ -130,13 +139,16 @@
   warning - Text color, border color and background color
 */
 .warning {
-  background-color: #F0AF09!important;
+  --dash-color: var(--warning);
+  background-color: var(--warning) !important;
 }
 .warning-outline {
-  border-color: #F0AF09 !important;
+  --dash-color: var(--warning);
+  border-color: var(--warning) !important;
 }
 .warning--text {
-  color: #F0AF09 !important;
+  --dash-color: var(--warning);
+  color: var(--warning) !important;
 }
 
 /*
@@ -156,13 +168,16 @@
   success - Text color, border color and background color
 */
 .success {
-  background-color: #30B565 !important;
+  --dash-color: var(--success);
+  background-color: var(--success) !important;
 }
 .success-outline {
-  border-color: #30B565 !important;
+  --dash-color: var(--success);
+  border-color: var(--success) !important;
 }
 .success--text {
-  color: #30B565 !important;
+  --dash-color: var(--success);
+  color: var(--success) !important;
 }
 
 /*

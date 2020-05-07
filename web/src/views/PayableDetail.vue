@@ -17,9 +17,9 @@
     {{payable.title}}
   </div>
   <!-- Amounts -->
-  <!-- <div class="dashed">
-  </div> -->
-  <div class="amount-container py-2 mb-3" :class="totalAmountColor">
+  <div class="dashed mt-3" :class="totalAmountColor">
+  </div>
+  <div class="py-2" :class="totalAmountColor">
     <div class="ls-row ls-no-gutters ls-align-items-center">
       <div class="ls-col mr-3">
         <div class="amount-label">
@@ -57,6 +57,8 @@
         </span>
       </div>
     </div>
+  </div>
+  <div class="dashed mb-3" :class="totalAmountColor">
   </div>
   <!-- Sent at -->
   <div v-if="formatedSentAt" class="amount-label">
@@ -248,10 +250,5 @@ export default {
 
 .due-date {
   font-size: 20px;
-}
-
-.amount-container {
-  border-top: 2px dashed;
-  border-bottom: 2px dashed;
 }
 </style>
