@@ -18,7 +18,7 @@ export default {
       position: params.position || 'top',
       closeable: true,
       action: params.action,
-      timeout: (params.timeout == 0 ? params.timeout : 3000) ,
+      timeout: (params.timeout >= 0 ? params.timeout : 3000),
       // autoHeight: true,
       // multiLine: !!params.title || params.text.length > 80,
     };
