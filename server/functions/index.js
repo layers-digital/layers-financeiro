@@ -23,7 +23,7 @@ mockedData.groups.push(data2)
 mockedData.groups.push(data1)
 mockedData.groups.push(data3)
 
-app.get('/', function (req, res) {
+app.get('/related', function (req, res) {
   //Validate token
 
   //get user info
@@ -48,4 +48,4 @@ app.get('/', function (req, res) {
 })
 
 // Expose Express API as a single Cloud Function:
-exports.financeiro = functions.https.onRequest(app);
+exports.api = functions.https.onRequest(app);

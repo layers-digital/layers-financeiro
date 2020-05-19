@@ -24,24 +24,22 @@
       </div>
       <TransitionExpand>
         <div v-if="expanded">
-          <div v-for="link in links"
+          <router-link v-for="link in links"
             :key="link.id"
-            @click="setCurrentPage(link)"
-            class="ls-row ls-no-gutters ellipsis p-3">
+            tag="a"
+            :to="link.route"
+            @click.native="setCurrentPage(link)"
+            class="ls-row ls-no-gutters ellipsis p-3"
+            style="text-decoration: none;">
             <div class="ls-col ls-align-self-center mr-2 ls-flex-grow-0" style="max-width: 24px;">
               <img src="../assets/bill.svg" height="24" width="24" class="app-icon-radius"/>
             </div>
-            <router-link
-              tag="a"
+            <span
               class="align-center title"
-              :class="{'link--text': link.id == currentPage.id, 'lead--text': link.id != currentPage.id}"
-              :to="link.route">
+              :class="{'link--text': link.id == currentPage.id, 'lead--text': link.id != currentPage.id}">
               {{link.title}}
-            </router-link>
-            <!-- <div v-if="link.route.params && link.route.params.groupId && criticalPayablesCountByGroup(link.route.params.groupId).length">
-              {{criticalPayablesCountByGroup(link.route.params.groupId)}}
-            </div> -->
-          </div>
+            </span>
+          </router-link>
         </div>
       </TransitionExpand>
     </div>

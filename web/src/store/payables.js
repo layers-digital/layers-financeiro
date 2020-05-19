@@ -23,7 +23,7 @@ const actions = {
   async fetchData(context) {
     context.commit('setLoading', true)
     try {
-      let res = await Axios.get("/financeiro")
+      let res = await Axios.get("/related")
       context.commit('setPayablesData', res.data)
       context.commit('setLoading', false)
     } catch(err) {

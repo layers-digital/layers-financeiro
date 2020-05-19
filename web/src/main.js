@@ -9,10 +9,11 @@ import Colors from './styles/Colors.css'
 import Transitions from './styles/Transitions.css'
 import Text from './styles/Text.css'
 import Utils from './styles/Utils.css'
+import Environment from './environment'
 
 Vue.config.productionTip = false
 
-Axios.defaults.baseURL = "http://localhost:8050/layers-financeiro/us-central1"
+Axios.defaults.baseURL = Environment.API_URL
 
 new Vue({
   router,
@@ -24,5 +25,6 @@ new Vue({
   Text,
   Utils,
   Axios,
+  Environment,
   render: function (h) { return h(App) }
 }).$mount('#app')
