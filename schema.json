@@ -1,0 +1,136 @@
+{
+  "type": "object",
+  "properties": {
+    "result": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "installments": {
+              "type": "integer"
+            },
+            "payables": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "alias": {
+                      "type": ["string", "number"]
+                    },
+                    "installment": {
+                      "type": "integer"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": ["paid", "partially_paid", "pending", "open", "canceled", "late"]
+                    },
+                    "dueAt": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "paidAt": {
+                      "type": ["string", "null"],
+                      "format": "date"
+                    },
+                    "sentAt": {
+                      "type": ["string", "null"],
+                      "format": "date"
+                    },
+                    "centsPaid": {
+                      "type": "integer"
+                    },
+                    "centsTotal": {
+                      "type": "integer"
+                    },
+                    "centsOriginal": {
+                      "type": "integer"
+                    },
+                    "boleto": {
+                      "type": "object",
+                      "properties": {
+                        "link": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "link",
+                        "code"
+                      ]
+                    },
+                    "attachments": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "type": "string",
+                              "enum": ["invoice", "file"]
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": "string"
+                            },
+                            "url": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "title",
+                            "url"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "installment",
+                    "status",
+                    "dueAt",
+                    "centsPaid",
+                    "centsTotal",
+                    "centsOriginal",
+                    "boleto"
+                  ]
+                }
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "installments",
+            "payables"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "result"
+  ]
+}
