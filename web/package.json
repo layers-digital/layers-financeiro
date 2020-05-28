@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "dayjs": "^1.8.27",
     "dompurify": "^2.0.10",
     "marked": "^1.0.0",
     "vue": "^2.6.11",

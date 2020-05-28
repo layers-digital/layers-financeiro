@@ -4,41 +4,104 @@ const cors = require('cors');
 const hydratePayables = require('./pipes/hydratePayables');
 const filterCriticalPayables = require('./pipes/filterCriticalPayables');
 const hydrateGroups = require('./pipes/hydrateGroups');
-const dataset_1 = require('./mockedData/dataset_1')
-const dataset_2 = require('./mockedData/dataset_2')
-const dataset_3 = require('./mockedData/dataset_3')
+const axios = require('axios');
 
 const app = express();
 
 // Automatically allow cross-origin requests
 app.use(cors({ origin: true }))
 
-let data1 = dataset_1()
-let data3 = dataset_3()
-let data2 = dataset_2()
+app.get('/related', async function (req, res) {
+  const { userToken, community } = req.query
 
-let mockedData = {groups: []}
+  if(!userToken) {
+    return res.status(400).send({error: `user token not provided`})
+  }
 
-mockedData.groups.push(data2)
-mockedData.groups.push(data1)
-mockedData.groups.push(data3)
+  if(!community) {
+    return res.status(400).send({error: `community not provided`})
+  }
 
-app.get('/related', function (req, res) {
-  //Validate token
+  const Layers = axios.create({
+    baseURL: functions.config().layers.url || 'http://localhost:8009/v1',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'community-id': community
+    }
+  })
 
-  //get user info
+  //Fetch user data
+  let userData = null
+  try {
+    let res = await Layers.get('/user/me/', {
+      headers: { 'Authorization': `Bearer ${userToken}`}
+    })
+    userData = res.data
+  } catch(err) {
+    console.log('ERROR', err)
+    return res.status(500).send({error: `Error fetching user data`})
+  }
 
-  //get layers secret
-  const secret = functions.config().layers.secret
+  //Discovery providers
+  let providers = null
+  try {
+    let res = await Layers.get(`/services/discover/@layers:payments:Payables:getRelated?version=1`,
+    {
+      headers: { 'Authorization': functions.config().layers.token,}
+    })
 
-  if(!secret) {
-    res.status(500).send({error: `secret not found`})
-	}
+    providers = res.data
+    console.log('Providers', providers)
+  } catch(err) {
+    console.log('Error fetching providers', err)
+  }
 
-  //Mount request
+  // Call intents
+  const promises = providers.map(async provider => {
+    const data = {
+      user: {
+        id: userData._id,  // ID do usuário
+        name: userData.name,  // Nome do usuário
+        alias: userData.alias,  // Alias do usuário
+        // timezone: String,  // Fuso horário do usuário
+        // language: String,  // Língua preferencial do usuário
+        // accountId: String,  // ID da account do usuário
+      },
+      // createdAfter: Date | null, // Se for diferente de nulo a resposta deverá conter apenas os novos dados depois dessa data
+    }
+    try {
+      return {
+        status: 'success',
+        provider: provider,
+        payload: await Layers.post(`/services/call/@layers:payments:Payables:getRelated/${provider.id}?version=1`, data,
+        {
+          headers: { 'Authorization': functions.config().layers.token }
+        })
+      }
+    } catch(err) {
+      return {
+        status: 'error',
+        provider: provider,
+        payload: err
+      }
+    }
+  })
+
+  let providersData = await Promise.all(promises)
+
+  let payload = []
+
+  providersData.forEach(data => {
+    let providerPayload = {
+      provider: data.provider,
+      result: data.payload.data.data.result,
+    }
+    payload.push(providerPayload)
+  })
+
 
   //Make request
-  let payload = mockedData
+  // let payload = mockedData
 
   payload = hydrateGroups(payload)
   payload = hydratePayables(payload)

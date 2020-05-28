@@ -3,10 +3,10 @@
     <!-- Data provider label -->
     <div class="ls-row ls-no-gutters ls-align-items-center mb-2">
       <!-- <div> -->
-      <img :src="group.icon" height="24" width="24" class="app-icon-radius mr-2"/>
+      <img :src="group.provider.icon" height="24" width="24" class="app-icon-radius mr-2"/>
       <!-- </div> -->
       <span class="grey-70--text" style="font-size: 12px;">
-        Dados Fornecido pela Totvs <b>hoje</b>
+        Dados fornecidos por {{group.provider.displayName}} <b>{{lastFetchedAt}}</b>
       </span>
     </div>
     <!-- Group description -->
@@ -101,6 +101,10 @@ export default {
 
     group() {
       return this.$store.getters['payables/getGroup'](this.groupId)
+    },
+
+    lastFetchedAt() {
+      return this.$store.getters['payables/getLastFetchedAt']
     },
 
     payablesByGroup() {

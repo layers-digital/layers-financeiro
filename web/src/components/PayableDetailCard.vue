@@ -38,7 +38,7 @@
 import PayableStatusBadge from './PayableStatusBadge'
 import PayablesCount from './PayablesCount'
 import relativeDueDate from '@/helpers/relativeDueDate'
-import formatDate from '@/helpers/formatDate'
+import dayjs from 'dayjs'
 
 export default {
   name: 'PayableDetailCard',
@@ -78,7 +78,7 @@ export default {
     },
 
     formatedDueDate() {
-      return formatDate(this.payable.dueAt)
+      return dayjs(this.payable.dueAt).format('DD/MM/YYYY')
     }
   }
 

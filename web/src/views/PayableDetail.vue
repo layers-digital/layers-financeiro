@@ -67,7 +67,7 @@
   <!-- Description -->
   <div class="lead-light--text" id="description" v-html="compiledDescriptionMarkdown"></div>
   <!-- Attachments -->
-  <div v-if="payable.attachments.length" class="ls-row ls-flex-grow-1 ls-no-gutters">
+  <div v-if="payable.attachments && payable.attachments.length" class="ls-row ls-flex-grow-1 ls-no-gutters">
     <div class="ls-col">
       <div class="amount-label mb-2">Anexos</div>
       <button
@@ -91,7 +91,7 @@
   <div class="ls-row ls-no-gutters actions p-3">
     <button
       class="action-btn ls-flex-grow-1 mr-1"
-      @click="copyToClipboard(payable.boleto.link)">
+      @click="copyToClipboard(payable.boleto.code)">
       <span class="icon mr-2">
         <img src="../assets/barcode.svg"
         height="20" width="20"/>
