@@ -5,6 +5,7 @@ const hydratePayables = require('./pipes/hydratePayables');
 const filterCriticalPayables = require('./pipes/filterCriticalPayables');
 const hydrateGroups = require('./pipes/hydrateGroups');
 const axios = require('axios');
+const _ = require('lodash');
 // const dataset_1 = require('./mockedData/dataset_1')
 // const dataset_2 = require('./mockedData/dataset_2')
 // const dataset_3 = require('./mockedData/dataset_3')
@@ -56,7 +57,7 @@ app.get('/related', async function (req, res) {
   }
 
   //Discovery providers
-  let providers = null
+  let providers = []
   try {
     let res = await Layers.get(`/services/discover/@layers:payments:Payables:getRelated?version=1`,
     {
@@ -64,7 +65,6 @@ app.get('/related', async function (req, res) {
     })
 
     providers = res.data
-    console.log('Providers', providers)
   } catch(err) {
     console.log('Error fetching providers', err)
     return res.status(500).send({error: `Error fetching providers`})
@@ -108,7 +108,7 @@ app.get('/related', async function (req, res) {
   providersData.forEach(data => {
     let providerPayload = {
       provider: data.provider,
-      result: data.payload.data.data.result,
+      result: _.get(data, 'payload.data.data.result', [])
     }
     payload.push(providerPayload)
   })

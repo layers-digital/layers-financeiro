@@ -17,6 +17,7 @@
     "express": "^4.17.1",
     "firebase-admin": "^8.10.0",
     "firebase-functions": "^3.6.1",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "remove-markdown": "^0.3.0"
   },
