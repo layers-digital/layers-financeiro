@@ -48,8 +48,6 @@ const actions = {
         groups: [],
       }
 
-      console.log('res', res)
-
       for(let i = 0; i < res.data.length; i++){
         let intentResult = res.data[i]
         if(!intentResult.result) continue
@@ -75,7 +73,6 @@ const actions = {
 // getters
 const getters = {
   getCriticalPayables(state) {
-    console.log('state.payablesData', state.payablesData)
     if(state.payablesData) {
       return state.payablesData.criticalPayables
     }
