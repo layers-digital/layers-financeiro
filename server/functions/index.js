@@ -54,6 +54,7 @@ app.get('/related', async function (req, res) {
     console.log('Providers', providers)
   } catch(err) {
     console.log('Error fetching providers', err)
+    return res.status(500).send({error: `Error fetching providers`})
   }
 
   // Call intents
