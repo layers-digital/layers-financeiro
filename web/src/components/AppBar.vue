@@ -1,7 +1,7 @@
 <template>
   <div class="app-bar-container">
     <div class="app-bar grey-30-outline">
-      <div @click="setCurrentPage(currentPage)" class="ls-row ls-no-gutters p-3 ls-align-items-center" style="height: 56px; z-index: 5;">
+      <div @click="setCurrentPage(currentPage)" class="ls-row ls-no-gutters p-3 ls-flex-nowrap ls-align-items-center" style="height: 56px; z-index: 5;">
         <div class="ls-col ls-align-self-center mr-2 ls-flex-grow-0" style="max-width: 24px;">
           <div v-if="loadingData" class="loader-container">
             <div class="loader">
@@ -12,15 +12,15 @@
           </div>
           <img v-else src="../assets/logo-meufinanceiro.svg" height="24" width="24" class="app-icon-radius"/>
         </div>
-        <span class="title ls-flex-grow-1">
+        <span class="title ls-flex-grow-1 ellipsis">
           {{currentPage.title}}
         </span>
-        <div class="ls-col ls-align-self-center ls-flex-grow-0">
+        <!-- <div class="ls-col ls-align-self-center ls-flex-grow-0"> -->
           <img src="../assets/arrow-down.svg"
             class="group-chevron"
             :class="{'active': expanded}"
             height="24" width="24"/>
-        </div>
+        <!-- </div> -->
       </div>
       <TransitionExpand>
         <div v-if="expanded">
@@ -29,13 +29,13 @@
             tag="a"
             :to="link.route"
             @click.native="setCurrentPage(link)"
-            class="ls-row ls-no-gutters ellipsis p-3"
+            class="ls-row ls-no-gutters ls-flex-nowrap ellipsis p-3"
             style="text-decoration: none;">
             <div class="ls-col ls-align-self-center mr-2 ls-flex-grow-0" style="max-width: 24px;">
               <img src="../assets/bill.svg" height="24" width="24" class="app-icon-radius"/>
             </div>
             <span
-              class="align-center title"
+              class="align-center title ellipsis"
               :class="{'link--text': link.id == currentPage.id, 'lead--text': link.id != currentPage.id}">
               {{link.title}}
             </span>

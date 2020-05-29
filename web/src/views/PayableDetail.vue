@@ -117,10 +117,10 @@
 import PayableStatusBadge from '../components/PayableStatusBadge'
 import PayablesCount from '../components/PayablesCount'
 import relativeDueDate from '@/helpers/relativeDueDate'
-import formatDate from '@/helpers/formatDate'
 import Marked from 'marked'
 import DOMPurify from 'dompurify'
 import Toast from '@/helpers/toast'
+import dayjs from 'dayjs'
 
 export default {
   name: 'PayableDetail',
@@ -156,7 +156,7 @@ export default {
     },
 
     formatedDueDate() {
-      return formatDate(this.payable.dueAt)
+      return dayjs(this.payable.dueAt).format('DD/MM/YYYY')
     },
 
     formatedSentAt() {
@@ -164,7 +164,7 @@ export default {
         return null
       }
 
-      return formatDate(this.payable.sentAt)
+      return dayjs(this.payable.sentAt).format('DD/MM/YYYY')
     }
   },
 

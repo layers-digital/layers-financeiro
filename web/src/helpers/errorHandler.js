@@ -31,9 +31,6 @@ export default function errorHandler(e, fnToRetry, fnToRetryParams) {
     retryable = true
   } else if (e.response && e.response.status >=  500) {
     params.message = 'Ops, encontramos um erro. Tente novamente mais tarde.'
-  } else if (e.message) {
-    params.message = e.message
-    retryable = true
   } else {
     params.message = 'Um problema aconteceu e foi enviado para análise'
     retryable = true

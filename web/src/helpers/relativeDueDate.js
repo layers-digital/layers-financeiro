@@ -1,54 +1,20 @@
+import dayjs from 'dayjs'
+import 'dayjs/locale/pt-br'
+import relativeTime from 'dayjs/plugin/relativeTime'
+
 export default function relativeDueDate(dueDate) {
-  let seconds = Math.floor((new Date() - new Date(dueDate)) / 1000)
-  let prefix = ''
-  let isFuture = false
-
-  if(seconds < 0) {
-    prefix = 'Vencerá em'
-    isFuture = true
-    seconds = seconds * -1
-  } else {
-    prefix = 'Venceu há'
+  dayjs.extend(relativeTime)
+  if(dayjs().isSame(dayjs(dueDate), 'day')) {
+    return "Vence hoje"
   }
 
-  let diffModule = getTimeDiffModule(seconds, isFuture)
-
-  let readableDiff = `${prefix} ${diffModule}`
-
-  //Special cases
-  if(diffModule == 'Vence hoje' || diffModule == 'Vencerá amanhã' || diffModule == 'Venceu ontem') {
-    readableDiff = diffModule
+  if(dayjs().isBefore(dayjs(dueDate), 'day')) {
+    return `Vencerá ${dayjs(dueDate).locale('pt-br').fromNow()}`
   }
 
-  return readableDiff
-}
-
-function getTimeDiffModule(seconds, isFuture) {
-  let diff = Math.floor(seconds / 31536000)
-
-  if (diff > 1) {
-    return `${diff} anos`;
-  }
-  diff = Math.floor(seconds / 2592000);
-  if (diff > 1) {
-    return `${diff} meses`;
-  }
-  diff = Math.floor(seconds / 86400);
-  if (diff > 1) {
-    return `${diff} dias`;
-  }
-  diff = Math.floor(seconds / 3600);
-  let today = new Date()
-  let dueDateHours = new Date()
-  dueDateHours.setHours(dueDateHours.getHours() - diff)
-
-  if(today.getDay() == dueDateHours.getDay()) {
-    return 'Vence hoje'
+  if(dayjs().isAfter(dayjs(dueDate), 'day')) {
+    return `Venceu ${dayjs(dueDate).locale('pt-br').fromNow()}`
   }
 
-  if(isFuture) {
-    return 'Vencerá amanhã'
-  } else {
-    return 'Venceu ontem'
-  }
+  return ''
 }

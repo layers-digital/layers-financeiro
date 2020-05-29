@@ -7,7 +7,7 @@ function dataset_1() {
       id: "RA0",
 
       // Título do grupo de cobranças. Pode ser o nome do aluno, ou como preferirem que apareça este "grupo"
-      title: "Tchela Digital - Robótca",
+      title: "Tchela Digital - Robótca - Tchela Digital - Robótca - Tchela Digital - Robótca",
 
       // Descrição do grupo de cobranças (aceita Quebras de linha)
       description: "Responsável Financeiro: John Doe. Descrição: Cobranças referentes a matricula no curso de robótica K12",
@@ -376,7 +376,7 @@ function dataset_1() {
           status: "pending",
 
           // Data de vencimento da cobrança (formato AAAA-MM-DD)
-          dueAt: "2020-05-27",
+          dueAt: "2020-05-29",
 
           // Quando a cobrança foi paga (opcional. formato AAAA-MM-DD)
           paidAt: null,

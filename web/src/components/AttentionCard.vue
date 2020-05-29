@@ -2,10 +2,10 @@
 <div class="ls-row ls-no-gutters card p-3 ls-align-items-center">
   <img v-if="payable.status == 'late'" src="../assets/attention-icon.svg" height="32" width="32" class="mr-3"/>
   <img v-else src="../assets/attention-yellow-icon.svg" height="32" width="32" class="mr-3"/>
-  <div class="ls-col ellipsis mr-2">
-    <div>
+  <div class="ls-col mr-2 ellipsis">
+    <span>
       {{payable.title}}
-    </div>
+    </span>
     <div class="relative-date">
       {{readableRelativeDueDate}}
     </div>
