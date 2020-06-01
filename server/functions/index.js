@@ -87,7 +87,7 @@ app.get('/related', async function (req, res) {
       return {
         status: 'success',
         provider: provider,
-        payload: await Layers.post(`/services/call/@layers:payments:Payables:getRelated/${provider.id}?version=1&timeout=10`, data,
+        payload: await Layers.post(`/services/call/@layers:payments:Payables:getRelated/${provider.id}?version=1&timeout=10000`, data,
         {
           headers: { 'Authorization': functions.config().layers.token }
         })
