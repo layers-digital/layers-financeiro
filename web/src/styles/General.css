@@ -1,5 +1,4 @@
 body {
-  font-family: 'Nunito', sans-serif;
   overflow: auto;
   font-weight: 400;
   padding: 0;
@@ -10,4 +9,7 @@ body {
 }
 html {
   overflow-y: initial;
+}
+* {
+  font-family: 'Nunito', sans-serif;
 }
