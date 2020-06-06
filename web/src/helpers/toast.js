@@ -1,10 +1,16 @@
-
 import Vue from 'vue';
 import Template from '@/components/Toast';
 let queue = [];
+let toasts = [];
 let showing = false;
 export { Template };
 export default {
+  hideAll() {
+    toasts.map(toast => {
+      toast.close()
+    })
+  },
+
   open(params) {
     if (!params.message) return console.error('[toast] no message supplied');
     if (!params.type) params.type = 'info';
@@ -18,10 +24,9 @@ export default {
       position: params.position || 'top',
       closeable: true,
       action: params.action,
-      timeout: (params.timeout >= 0 ? params.timeout : 3000),
-      // autoHeight: true,
-      // multiLine: !!params.title || params.text.length > 80,
+      timeout: (params.timeout >= 0 ? params.timeout : 1000),
     };
+
     params.options = Object.assign(defaultOptions, params.options);
     propsData.options = params.options;
 
@@ -30,6 +35,8 @@ export default {
     processQueue();
   },
 };
+
+
 function processQueue() {
   if (queue.length < 1) return;
   if (showing) return;
@@ -38,9 +45,10 @@ function processQueue() {
   showing = true;
   queue.shift();
 }
+
 function spawn(propsData) {
   const ToastComponent = Vue.extend(Template);
-  return new ToastComponent({
+  const toast = new ToastComponent({
     el: document.createElement('div'),
     propsData,
     onClose: function() {
@@ -48,4 +56,6 @@ function spawn(propsData) {
       processQueue();
     },
   });
+
+  toasts.push(toast)
 }

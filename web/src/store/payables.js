@@ -3,6 +3,7 @@ import errorHandler from '@/helpers/errorHandler'
 import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import Toast from '@/helpers/toast'
 
 const state = {
   loading: false,
@@ -40,6 +41,13 @@ const mutations = {
 const actions = {
   async fetchData(context) {
     context.commit('setLoading', true)
+    Toast.open({
+      message: 'Estamos atualizando as informações.',
+      position: 'bottom',
+      timeout: 0,
+      options: { loading: true }
+    })
+
     try {
       let res = await Axios.get(`/related?userToken=${context.state.layersToken}&community=${context.state.layersCommunity}`)
 
@@ -63,7 +71,9 @@ const actions = {
       context.commit('setPayablesData', payables)
       context.commit('setLastFetchedAt', new Date())
       context.commit('setLoading', false)
+      Toast.hideAll()
     } catch(err) {
+      Toast.hideAll()
       errorHandler(err, context.dispatch, 'fetchData')
       context.commit('setLoading', false)
     }

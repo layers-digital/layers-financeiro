@@ -13,3 +13,6 @@ html {
 * {
   font-family: 'Nunito', sans-serif;
 }
+button:focus{
+  outline: none;
+}

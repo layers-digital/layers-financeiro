@@ -2,7 +2,7 @@
   <div class="app-bar-container">
     <div class="app-bar grey-30-outline">
       <div @click="setCurrentPage(currentPage)" class="ls-row ls-no-gutters p-3 ls-flex-nowrap ls-align-items-center" style="height: 56px; z-index: 5;">
-        <div class="ls-col ls-align-self-center mr-2 ls-flex-grow-0" style="max-width: 24px;">
+        <!-- <div class="ls-col ls-align-self-center mr-2 ls-flex-grow-0" style="max-width: 24px;">
           <div v-if="loadingData" class="loader-container">
             <div class="loader">
               <svg class="circular" viewBox="25 25 50 50">
@@ -11,15 +11,13 @@
             </div>
           </div>
           <img v-else src="../assets/logo-meufinanceiro.svg" height="24" width="24" class="app-icon-radius"/>
-        </div>
+        </div> -->
         <span class="title ls-flex-grow-1 ellipsis">
           {{currentPage.title}}
         </span>
-        <!-- <div class="ls-col ls-align-self-center ls-flex-grow-0"> -->
-          <img src="../assets/arrow-down.svg"
-            class="group-chevron"
-            :class="{'active': expanded}"
-            height="24" width="24"/>
+        <div class="ls-align-items-center ls-flex-grow-0 ml-5 ls-d-flex" style="height: 100%;">
+          <img src="@/assets/menu.svg" height="24" width="24" />
+        </div>
         <!-- </div> -->
       </div>
       <TransitionExpand>
@@ -82,9 +80,6 @@ export default {
     this.reactToRouteChanges(this.$route.name, this.$route.params)
   },
   computed: {
-    loadingData() {
-      return this.$store.state.payables.loading
-    },
 
     payablesGroups() {
       return this.$store.getters['payables/getPayablesGroups']
@@ -134,10 +129,6 @@ export default {
       this.currentPage = page
       this.expanded = !this.expanded
     },
-
-    // criticalPayablesCountByGroup(groupId) {
-    //   return this.$store.getters['payables/getCriticalPayablesCountByGroup'](groupId)
-    // },
   }
 }
 </script>
@@ -186,78 +177,5 @@ export default {
   font-weight: 600;
   margin-bottom: 3px;
   text-decoration: none !important;
-}
-
-.loader-container {
-  width: 24px;
-  height: 24px;
-  border-radius: 24px;
-  background: #FFFFFF;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.16);
-  flex: 1 1 auto; display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 5px;
-}
-
-.loader {
-  position: relative;
-  margin: 0 auto;
-  width: 18px;
-}
-
-.loader:before {
-  content: '';
-  display: block;
-  padding-top: 100%;
-}
-
-.circular {
-  animation: rotate 2s linear infinite;
-  height: 100%;
-  transform-origin: center center;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-}
-
-.path {
-  stroke-dasharray: 1, 200;
-  stroke-dashoffset: 0;
-  animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
-  stroke-linecap: round;
-}
-
-@keyframes rotate {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes dash {
-  0% {
-    stroke-dasharray: 1, 200;
-    stroke-dashoffset: 0;
-  }
-  50% {
-    stroke-dasharray: 89, 200;
-    stroke-dashoffset: -35px;
-  }
-  100% {
-    stroke-dasharray: 89, 200;
-    stroke-dashoffset: -124px;
-  }
-}
-
-@keyframes color {
-  100%,
-  0% {
-    stroke: var(--link);
-  }
 }
 </style>

@@ -11,23 +11,23 @@ export default function errorHandler(e, fnToRetry, fnToRetryParams) {
     message: '',
     type: 'danger',
     position: 'bottom',
-    timeout: 8000,
+    timeout: 10000,
     options: {},
   }
 
   let action = {
-    label: 'Tentar novamente',
+    label: 'ATUALIZAR',
     color: 'white',
     fn: fnToRetry,
     fnParams: fnToRetryParams,
   }
 
   if(!window.navigator.onLine) {
-    params.message = 'Parece que você está desconectado'
+    params.message = 'Parece que você está offline.'
     params.type = 'info'
     retryable = true
   } else if (e.response && e.response.status && e.response.status >=  400 && e.response.status < 500) {
-    params.message = 'Ops, algo deu errado :('
+    params.message = 'Algumas informações não foram atualizadas.'
     retryable = true
   } else if (e.response && e.response.status >=  500) {
     params.message = 'Ops, encontramos um erro. Tente novamente mais tarde.'

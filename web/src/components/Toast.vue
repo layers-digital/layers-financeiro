@@ -4,14 +4,17 @@
       <div class="ls-row ls-no-gutters toast ls-align-items-center" :class="color">
         <div class="ls-col">
           <div v-if="message" class="message">{{ message }}</div>
-          <button
-            v-if="options.action"
-            @click="callAction()"
-            class="action-btn" :class="actionColor">
-            {{ options.action.label }}
-          </button>
         </div>
-        <button v-if="options.closeable" @click="close()" class="close-btn">
+        <button
+          v-if="options.action"
+          @click="callAction()"
+          class="action-btn cursor-pointer" :class="actionColor">
+          {{ options.action.label }}
+        </button>
+        <div v-else-if="options.loading">
+          <Loader />
+        </div>
+        <button v-else @click="close()" class="close-btn cursor-pointer">
           <img src="@/assets/cancel.svg"
             height="24" width="24"/>
         </button>
@@ -20,6 +23,7 @@
   </transition>
 </template>
 <script>
+import Loader from '@/components/Loader'
 export default {
   name: 'Toast',
   props: {
@@ -38,12 +42,14 @@ export default {
       },
     },
   },
+  components: {
+    Loader
+  },
   data() {
     return {
       open: false,
     };
   },
-
   created() {
     if(this.options.timeout > 0){
       setTimeout(() => {
@@ -51,23 +57,19 @@ export default {
       }, this.options.timeout)
     }
   },
-
   watch: {
     open: function(val) {
       if (!val) {
         this.close();
       }
-    },
+    }
   },
-
   beforeMount() {
     document.body.appendChild(this.$el);
   },
-
   mounted() {
     this.open = true;
   },
-
   computed: {
     color() {
       return {
@@ -79,7 +81,6 @@ export default {
     },
     actionColor() {
       let color = (this.options && this.options.action && this.options.action.color) || 'lead'
-      // _.get(this.options, 'action.color', 'lead')
       return {
         'danger': 'danger--text',
         'warning': 'warning--text',
@@ -104,12 +105,9 @@ export default {
         removeElement(this.$el);
       }, 0);
     },
-
     callAction() {
       let fn = (this.options && this.options.action && this.options.action.fn) || null
-      //_.get(this.options, 'action.fn', null)
       if(!fn || typeof fn != 'function') return
-
       return this.options.action.fn(this.options.action.fnParams)
     }
   },

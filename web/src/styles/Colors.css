@@ -1,10 +1,20 @@
 :root{
+  --grey-10: #F4F6F8;
   --grey-20: #EEF1F5;
   --grey-30: #E8ECEF;
-  --link: #2F8AF5;
-  --lead: #232B34;
   --grey-50: #C8D0D8;
+  --grey-60: #A3B1BF;
+  --grey-70: #748494;
+  --grey-70-light: #E8ECEF;
   --grey-80: #405261;
+  --link: #2F8AF5;
+  --link-light: rgba(47, 138, 245, 0.12);
+  --white: #FFFFFF;
+  --purple: #5451D6;
+  --aqua: #00B8AD;
+  --aqua-opacity: rgba(0, 184, 173, 0.08);
+  --lead: #232B34;
+  --lead-light: #434E5B;
   --danger: #ED6B4F;
   --danger-light: rgba(237, 107, 79, 0.1);
   --warning: #F0AF09;
@@ -16,13 +26,13 @@
   grey-10 - Text color, border color and background color
 */
 .grey-10 {
-  background-color: #F4F6F8!important;
+  background-color: var(--grey-10)!important;
 }
 .grey-10-outline {
-  border-color: #F4F6F8 !important;
+  border-color: var(--grey-10) !important;
 }
 .grey-10--text {
-  color: #F4F6F8 !important;
+  color: var(--grey-10) !important;
 }
 
 /*
@@ -55,7 +65,7 @@
   grey-50 - Text color, border color and background color
 */
 .grey-50 {
-  background-color: var(--grey-50) !important;
+  background-color: var(--grey-50)!important;
 }
 .grey-50-outline {
   border-color: var(--grey-50) !important;
@@ -65,44 +75,54 @@
 }
 
 /*
+  grey-60 - Text color, border color and background color
+*/
+.grey-60 {
+  background-color: var(--grey-60)!important;
+}
+.grey-60-outline {
+  border-color: var(--grey-60) !important;
+}
+.grey-60--text {
+  color: var(--grey-60) !important;
+}
+
+/*
   grey-70 - Text color, border color and background color
 */
 .grey-70 {
-  background-color: #748494!important;
+  background-color: var(--grey-70)!important;
 }
 .grey-70-outline {
-  border-color: #748494 !important;
+  border-color: var(--grey-70) !important;
 }
 .grey-70--text {
-  color: #748494 !important;
+  color: var(--grey-70) !important;
 }
 
 /*
   grey-70-light - Text color, border color and background color
 */
 .grey-70-light {
-  background-color: #e8ecef !important;
+  background-color: var(--grey-70-light)!important;
 }
 .grey-70-light-outline {
-  border-color: #e8ecef !important;
+  border-color: var(--grey-70-light) !important;
 }
 .grey-70-light--text {
-  color: #e8ecef !important;
+  color: var(--grey-70-light) !important;
 }
 
 /*
   grey-80 - Text color, border color and background color
 */
 .grey-80 {
-  --dash-color: var(--grey-80);
-  background-color: var(--grey-80) !important;
+  background-color: var(--grey-80)!important;
 }
 .grey-80-outline {
-  --dash-color: var(--grey-80);
   border-color: var(--grey-80) !important;
 }
 .grey-80--text {
-  --dash-color: var(--grey-80);
   color: var(--grey-80) !important;
 }
 
@@ -110,15 +130,12 @@
   danger - Text color, border color and background color
 */
 .danger {
-  --dash-color: var(--danger);
-  background-color: var(--danger) !important;
+  background-color: var(--danger)!important;
 }
 .danger-outline {
-  --dash-color: var(--danger);
   border-color: var(--danger) !important;
 }
 .danger--text {
-  --dash-color: var(--danger);
   color: var(--danger) !important;
 }
 
@@ -139,15 +156,12 @@
   warning - Text color, border color and background color
 */
 .warning {
-  --dash-color: var(--warning);
-  background-color: var(--warning) !important;
+  background-color: var(--warning)!important;
 }
 .warning-outline {
-  --dash-color: var(--warning);
   border-color: var(--warning) !important;
 }
 .warning--text {
-  --dash-color: var(--warning);
   color: var(--warning) !important;
 }
 
@@ -168,15 +182,12 @@
   success - Text color, border color and background color
 */
 .success {
-  --dash-color: var(--success);
   background-color: var(--success) !important;
 }
 .success-outline {
-  --dash-color: var(--success);
   border-color: var(--success) !important;
 }
 .success--text {
-  --dash-color: var(--success);
   color: var(--success) !important;
 }
 
@@ -207,6 +218,19 @@
 }
 
 /*
+  link light - Text color, border color and background color
+*/
+.link-light {
+  background-color: var(--link-light) !important;
+}
+.link-light-outline {
+  border-color: var(--link-light) !important;
+}
+.link-light--text {
+  color: var(--link-light) !important;
+}
+
+/*
   lead - Text color, border color and background color
 */
 .lead {
@@ -223,11 +247,66 @@
   lead-light - Text color, border color and background color
 */
 .lead-light {
-  background-color: #434E5B !important;
+  background-color: var(--lead-light) !important;
 }
 .lead-light-outline {
-  border-color: #434E5B !important;
+  border-color: var(--lead-light) !important;
 }
 .lead-light--text {
-  color: #434E5B !important;
+  color: var(--lead-light) !important;
+}
+
+
+/*
+  white - Text color, border color and background color
+*/
+.white {
+  background-color: var(--white) !important;
+}
+.white-outline {
+  border-color: var(--white) !important;
+}
+.white--text {
+  color: var(--white) !important;
+}
+
+/*
+  purple - Text color, border color and background color
+*/
+.purple {
+  background-color: var(--purple) !important;
+}
+.purple-outline {
+  border-color: var(--purple) !important;
+}
+.purple--text {
+  color: var(--purple) !important;
+}
+
+
+/*
+  aqua - Text color, border color and background color
+*/
+.aqua {
+  background-color: var(--aqua) !important;
+}
+.aqua-outline {
+  border-color: var(--aqua) !important;
+}
+.aqua--text {
+  color: var(--aqua) !important;
+}
+
+
+/*
+  aqua opacity - Text color, border color and background color
+*/
+.aqua-opacity {
+  background-color: var(--aqua-opacity) !important;
+}
+.aqua-opacity-outline {
+  border-color: var(--aqua-opacity) !important;
+}
+.aqua-opacity--text {
+  color: var(--aqua-opacity) !important;
 }
