@@ -10,9 +10,9 @@ import Transitions from './styles/Transitions.css'
 import Text from './styles/Text.css'
 import Utils from './styles/Utils.css'
 import Environment from './environment'
-import * as firebase from "firebase/app";
+import * as firebase from "firebase/app"
 import "firebase/analytics"
-import "firebase/performance";
+import "firebase/performance"
 
 const firebaseConfig = {
   apiKey: "AIzaSyA74S5V0iMvqNokEhyrgWeejZmOIPGl7SE",
@@ -25,10 +25,9 @@ const firebaseConfig = {
   measurementId: "G-ZN6ZTYL4YG"
 }
 
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
-firebase.performance();
-
+firebase.initializeApp(firebaseConfig)
+firebase.analytics()
+firebase.performance()
 
 Vue.prototype.$analytics = firebase.analytics()
 
