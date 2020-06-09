@@ -11,7 +11,7 @@
         {{criticalPayables.length}} cobranças precisam de atenção
       </div>
       <AttentionCard
-        class="mb-2"
+        class="mb-2 cursor-pointer"
         v-for="payable in criticalPayables"
         :key="payable.id"
         :payable="payable"
@@ -29,7 +29,7 @@
       class="remove-style"
       :to="{name: 'payables.group', params:{groupId: payablesGroup.id}}">
       <PayablesCard
-        class="mb-2"
+        class="mb-2 cursor-pointer"
         :payablesGroup="payablesGroup"/>
     </router-link>
     <div v-if="!loading && payablesGroups.length == 0" class="ls-col ls-no-gutters ls-justify-content-center">

@@ -4161,6 +4161,11 @@ launch-editor@^2.2.1:
     chalk "^2.3.0"
     shell-quote "^1.6.1"
 
+layers-portal-sdk@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/layers-portal-sdk/-/layers-portal-sdk-1.0.4.tgz#5b125428be3124cdf429689a93d1fdea5bef7d4f"
+  integrity sha512-a4O7G8i2QKQ17u4LKgmzBJI8ZA51mCaZSrhv+iqhIjN4bvqcHUbbIdeZOFpswCdRfOUwBDx9YP5dkaPybKVIBw==
+
 lcid@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/lcid/-/lcid-2.0.0.tgz#6ef5d2df60e52f82eb228a4c373e8d1f397253cf"

@@ -36,8 +36,7 @@
         de atenção
       </div>
       <PayableDetailCard
-        class="mb-2"
-        style="cursor: pointer;"
+        class="mb-2 cursor-pointer"
         v-for="payable in criticalPayablesByGroup"
         :key="payable.id"
         :payable="payable"
@@ -50,7 +49,7 @@
       Demais cobranças
     </div>
     <PayableDetailCard
-      class="mb-2"
+      class="mb-2 cursor-pointer"
       v-for="payable in payablesByGroup"
       :key="payable.id"
       :payable="payable"

@@ -59,3 +59,7 @@
   width: 100%;
   background-color: var(--grey-50);
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}

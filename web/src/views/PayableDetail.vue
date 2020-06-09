@@ -73,8 +73,8 @@
       <button
         v-for="(attachment, index) in payable.attachments"
         :key="index"
-        class="attachment-btn mb-2"
-        @click="openAttachment(attachment.url)">
+        class="attachment-btn mb-2 link-light"
+        @click="openAttachment(attachment.url, attachment.title)">
         <div class="ls-flex-grow-1" style="margin-top: 4px;">
           <span class="ellipsis-1" style="font-weight: 600; text-align: left; word-break: break-all;">
             {{attachment.title}}
@@ -102,7 +102,7 @@
     </div> -->
     <button
       class="action-btn ls-flex-grow-1 ml-1"
-      @click="openAttachment(payable.boleto.link)">
+      @click="openAttachment(payable.boleto.link, 'boleto')">
       <span class="icon mr-2">
         <img src="../assets/download.svg"
         height="20" width="20"/>
@@ -121,6 +121,7 @@ import Marked from 'marked'
 import DOMPurify from 'dompurify'
 import Toast from '@/helpers/toast'
 import dayjs from 'dayjs'
+import downloadFile from '@/helpers/downloadFile'
 
 export default {
   name: 'PayableDetail',
@@ -169,10 +170,8 @@ export default {
   },
 
   methods: {
-    openAttachment(url) {
-      if(url) {
-        window.open(url, "_blank");
-      }
+    async openAttachment(url, name) {
+      return downloadFile(url, name)
     },
 
     copyToClipboard(code) {
