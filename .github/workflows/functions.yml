@@ -1,0 +1,32 @@
+name: CI/CD - Cloud Functions
+on:
+  push:
+    paths:
+      - '!.github/workflows/**'
+      - server/**
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Install Dependencies
+        working-directory: ./server/functions
+        run: npm install      
+      - name: Deploy to Firebase
+        run: npm run deploy
+        working-directory: ./server/functions
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
