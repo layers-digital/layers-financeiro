@@ -102,7 +102,7 @@
     </div> -->
     <button
       class="action-btn ls-flex-grow-1 ml-1"
-      @click="openAttachment(payable.boleto.link, 'boleto')">
+      @click="openAttachment(payable.boleto.link, payable.title)">
       <span class="icon mr-2">
         <img src="../assets/download.svg"
         height="20" width="20"/>
@@ -171,7 +171,7 @@ export default {
 
   methods: {
     async openAttachment(url, name) {
-      return downloadFile(url, name)
+      await downloadFile(url, name)
     },
 
     copyToClipboard(code) {
