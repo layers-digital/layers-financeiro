@@ -7,7 +7,7 @@ function isLocal() {
 }
 
 function isStaging() {
-  if (URL == 'id.staging.layers.digital') return true
+  if (URL.includes('layers-financeiro-staging')) return true
   return false
 }
 
@@ -33,7 +33,7 @@ function ApiLocation() {
   }
 
   if (isStaging()) {
-    return 'https://us-central1-layers-financeiro.cloudfunctions.net/api'
+    return 'https://us-central1-layers-financeiro-staging.cloudfunctions.net/api'
   }
 
   // Defaults to production api

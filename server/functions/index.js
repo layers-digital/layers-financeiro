@@ -6,24 +6,10 @@ const filterCriticalPayables = require('./pipes/filterCriticalPayables');
 const hydrateGroups = require('./pipes/hydrateGroups');
 const axios = require('axios');
 const _ = require('lodash');
-// const dataset_1 = require('./mockedData/dataset_1')
-// const dataset_2 = require('./mockedData/dataset_2')
-// const dataset_3 = require('./mockedData/dataset_3')
-
 const app = express();
 
 // Automatically allow cross-origin requests
 app.use(cors({ origin: true }))
-
-// let data1 = dataset_1()
-// let data2 = dataset_2()
-// let data3 = dataset_3()
-
-// let mockedData = [{result: []}]
-
-// mockedData[0].result.push(data1)
-// mockedData[0].result.push(data2)
-// mockedData[0].result.push(data3)
 
 app.get('/related', async function (req, res) {
   const { userToken, community } = req.query
@@ -112,10 +98,6 @@ app.get('/related', async function (req, res) {
     }
     payload.push(providerPayload)
   })
-
-
-  //Mocked data
-  // payload = mockedData
 
   payload = hydrateGroups(payload)
   payload = hydratePayables(payload)

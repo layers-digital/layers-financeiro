@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "layers-financeiro"
+    "default": "layers-financeiro-staging",
+    "staging": "layers-financeiro-staging",
+    "production": "layers-financeiro"
   }
 }
