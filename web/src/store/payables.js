@@ -10,6 +10,8 @@ const state = {
   payablesData: null,
   layersToken: null,
   layersCommunity: null,
+  layersSession: null,
+  layersUserId: null,
   lastFetchedAt: null,
 }
 
@@ -34,6 +36,14 @@ const mutations = {
 
   setLastFetchedAt(state, value) {
     state.lastFetchedAt = value
+  },
+
+  setLayersSession(state, value) {
+    state.layersSession = value
+  },
+
+  setLayersUserId(state, value) {
+    state.layersUserId = value
   }
 }
 

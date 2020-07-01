@@ -1,5 +1,11 @@
 <template>
   <div class="ls-container p-3 grey-10" style="min-height: 100%; overflow: auto !important;">
+    <div>
+      {{session}}
+    </div>
+    <div>
+      {{userId}}
+    </div>
     <!-- Critical payables skeleton -->
     <div v-if="loading && !hasState" class="mb-4">
       <div class="placeholder loading-placeholder mb-2">
@@ -81,6 +87,17 @@ export default {
       this.$store.commit('payables/setLayersToken', layersData.token)
     }
 
+
+    let session = window.LayersPortal.session
+    if(session) {
+      this.$store.commit('payables/setLayersSession', session)
+    }
+
+    let userId = window.LayersPortal.userId
+    if(userId) {
+      this.$store.commit('payables/setLayersUserId', userId)
+    }
+
     await this.$store.dispatch('payables/fetchData')
   },
   computed: {
@@ -98,6 +115,14 @@ export default {
 
     loading() {
       return this.$store.state.payables.loading
+    },
+
+    session() {
+      return this.$store.state.payables.layersSession
+    },
+
+    userId() {
+      return this.$store.state.payables.layersUserId
     }
   },
   methods: {
