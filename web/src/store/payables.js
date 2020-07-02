@@ -58,8 +58,12 @@ const actions = {
       options: { loading: true }
     })
 
+    const session = context.rootState.layers.session
+    const userId = context.rootState.layers.userId
+    const community = context.rootState.layers.communityId || context.state.layersCommunity
+
     try {
-      let res = await Axios.get(`/related?userToken=${context.state.layersToken}&community=${context.state.layersCommunity}`)
+      let res = await Axios.get(`/related?userToken=${context.state.layersToken}&community=${community}&session=${session}&userId=${userId}`)
 
       let payables = {
         criticalPayables: [],

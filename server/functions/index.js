@@ -12,10 +12,14 @@ const app = express();
 app.use(cors({ origin: true }))
 
 app.get('/related', async function (req, res) {
-  const { userToken, community } = req.query
+  const { userToken, community, session, userId } = req.query
 
-  if(!userToken) {
-    return res.status(400).send({error: `user token not provided`})
+  if(!userToken && !session) {
+    return res.status(400).send({error: `user token or session not provided`})
+  }
+
+  if(!userToken && session && !userId) {
+    return res.status(400).send({error: `userId not provided`})
   }
 
   if(!community) {
@@ -32,14 +36,36 @@ app.get('/related', async function (req, res) {
 
   //Fetch user data
   let userData = null
-  try {
-    let res = await Layers.get('/user/me/', {
-      headers: { 'Authorization': `Bearer ${userToken}`}
-    })
-    userData = res.data
-  } catch(err) {
-    console.log('ERROR', err)
-    return res.status(500).send({error: `Error fetching user data`})
+
+  if(session) {
+    try {
+      await Layers.get(`/sso/session/validate?community=${community}&session=${session}&userId=${userId}`, {
+        headers: { 'Authorization': functions.config().layers.token,}
+      })
+    } catch(err) {
+      console.log('Invalid session', err)
+      return res.status(400).send({error: `Invalid session`})
+    }
+
+    try {
+      let res = await Layers.get(`/user/${userId}`, {
+        headers: { 'Authorization': functions.config().layers.token,}
+      })
+      userData = res.data
+    } catch(err) {
+      console.log('Fetch user error (session)', err)
+      return res.status(500).send({error: `Error fetching user data`})
+    }
+  } else {
+    try {
+      let res = await Layers.get('/user/me/', {
+        headers: { 'Authorization': `Bearer ${userToken}`}
+      })
+      userData = res.data
+    } catch(err) {
+      console.log('Fetch user error', err)
+      return res.status(500).send({error: `Error fetching user data`})
+    }
   }
 
   //Discovery providers
