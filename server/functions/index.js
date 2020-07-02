@@ -48,7 +48,7 @@ app.get('/related', async function (req, res) {
     }
 
     try {
-      let res = await Layers.get(`/user/${userId}`, {
+      let res = await Layers.get(`/users/${userId}`, {
         headers: { 'Authorization': functions.config().layers.token,}
       })
       userData = res.data
