@@ -88,8 +88,9 @@
     </div>
   </div>
   <!-- Action buttons -->
-  <div class="ls-row ls-no-gutters actions p-3">
+  <div v-if="payable && payable.boleto" class="ls-row ls-no-gutters actions p-3">
     <button
+      v-if="payable.boleto.code"
       class="action-btn ls-flex-grow-1 mr-1"
       @click="copyToClipboard(payable.boleto.code)">
       <span class="icon mr-2">
@@ -101,6 +102,7 @@
     <!-- <div class="ls-flex">
     </div> -->
     <button
+      v-if="payable.boleto.link"
       class="action-btn ls-flex-grow-1 ml-1"
       @click="openAttachment(payable.boleto.link, payable.title)">
       <span class="icon mr-2">
