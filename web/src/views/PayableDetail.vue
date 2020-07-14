@@ -171,7 +171,8 @@ export default {
 
   methods: {
     async openAttachment(url, name) {
-      await downloadFile(url, name)
+      //Force extension (layers new app should support a better solution)
+      await downloadFile(url, `${name}.pdf`)
     },
 
     copyToClipboard(code) {
