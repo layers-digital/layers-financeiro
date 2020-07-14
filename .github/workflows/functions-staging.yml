@@ -1,15 +1,11 @@
-name: CI/CD - Hosting
+name: CI/CD - Cloud Functions
 on:
   push:
     paths:
       - '!.github/workflows/**'
-      - 'web/**'
+      - server/**
     branches:
       - master
-
-defaults:
-  run:
-    working-directory: ./web
 
 jobs:
   build:
@@ -27,13 +23,10 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
       - name: Install Dependencies
-        run: yarn install
-      - name: Build
-        run: yarn build
+        working-directory: ./server/functions
+        run: npm install
       - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting
+        run: ENVIRONMENT=staging npm run deploy
+        working-directory: ./server/functions
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_PATH: ./web/dist
