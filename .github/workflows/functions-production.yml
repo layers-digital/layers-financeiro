@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@master
       - name: Install Dependencies
         working-directory: ./server/functions
-        run: npm install
+        run: npm install      
       - name: Deploy to Firebase
         run: ENVIRONMENT=production npm run deploy
         working-directory: ./server/functions

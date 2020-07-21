@@ -1,4 +1,4 @@
-name: CI/CD - Cloud Functions
+name: CI/CD - Cloud Functions (Staging)
 on:
   push:
     paths:
@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@master
       - name: Install Dependencies
         working-directory: ./server/functions
-        run: npm install
+        run: npm install      
       - name: Deploy to Firebase
         run: ENVIRONMENT=staging npm run deploy
         working-directory: ./server/functions

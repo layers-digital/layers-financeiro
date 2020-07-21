@@ -1,4 +1,4 @@
-name: CI/CD - Hosting (production)
+name: CI/CD - Hosting (Staging)
 on:
   push:
     paths:
