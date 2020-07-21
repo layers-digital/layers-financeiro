@@ -5,9 +5,8 @@
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log",
-    "tchela": "firebase functions:config:set layers.api='https://api.layers.digital/v1' layers.secret='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYXV0aDphcHAiLCJkYXRlIjoiMjAyMC0wNi0zMFQyMzoyMzo1OC44MThaIiwiYXBwSWQiOiJsYXllcnMtZmluYW5jZWlybyIsImlhdCI6MTU5MzU1OTQzOH0.IEmJniZleEfv4dN8kvrCqKD2_q3b4DGgMoOuoLF_Mkc' -P production"
+    "deploy": "firebase deploy --only functions -P $ENVIRONMENT",
+    "logs": "firebase functions:log"
   },
   "engines": {
     "node": "10"
