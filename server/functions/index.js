@@ -62,6 +62,7 @@ app.get('/related', async function (req, res) {
       await Layers.get('/user/me/', {
         headers: { 'Authorization': `Bearer ${userToken}`}
       })
+      userData = res.data
     } catch(err) {
       return res.status(500).send({error: `Error fetching user data using deprecated method`})
     }
