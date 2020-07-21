@@ -58,7 +58,7 @@ const actions = {
 
     const session = context.rootState.layers.session
     const userId = context.rootState.layers.userId
-    const community = context.rootState.layers.communityId || context.state.community
+    const communityId = context.rootState.layers.communityId || context.state.community
 
     try {
       const res = await Axios.get('/related', {
