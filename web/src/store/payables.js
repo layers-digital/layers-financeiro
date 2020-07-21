@@ -10,6 +10,8 @@ const state = {
   payablesData: null,
   layersToken: null,
   layersCommunity: null,
+  layersSession: null,
+  layersUserId: null,
   lastFetchedAt: null,
 }
 
@@ -34,6 +36,14 @@ const mutations = {
 
   setLastFetchedAt(state, value) {
     state.lastFetchedAt = value
+  },
+
+  setLayersSession(state, value) {
+    state.layersSession = value
+  },
+
+  setLayersUserId(state, value) {
+    state.layersUserId = value
   }
 }
 
@@ -48,8 +58,12 @@ const actions = {
       options: { loading: true }
     })
 
+    const session = context.rootState.layers.session
+    const userId = context.rootState.layers.userId
+    const community = context.rootState.layers.communityId || context.state.layersCommunity
+
     try {
-      let res = await Axios.get(`/related?userToken=${context.state.layersToken}&community=${context.state.layersCommunity}`)
+      let res = await Axios.get(`/related?userToken=${context.state.layersToken}&community=${community}&session=${session}&userId=${userId}`)
 
       let payables = {
         criticalPayables: [],

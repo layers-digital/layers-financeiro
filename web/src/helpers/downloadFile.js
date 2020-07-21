@@ -1,3 +1,5 @@
+/* global LayersPortal */
+
 import Toast from '@/helpers/toast'
 
 export default async function downloadFile(url, name) {
@@ -10,7 +12,7 @@ export default async function downloadFile(url, name) {
   //  })
 
   try {
-    await window.LayersPortal('download', {
+    await LayersPortal('download', {
       url: url,
       name: name,
     })

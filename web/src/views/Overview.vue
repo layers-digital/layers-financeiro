@@ -98,7 +98,7 @@ export default {
 
     loading() {
       return this.$store.state.payables.loading
-    }
+    },
   },
   methods: {
     goToDetails(payable) {
