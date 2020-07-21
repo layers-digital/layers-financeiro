@@ -69,18 +69,6 @@ export default {
     }
   },
   async created() {
-    let layersData = { token: null, community: null }
-
-    layersData.community = this.$route.query.community
-    if(layersData.community) {
-      this.$store.commit('payables/setLayersCommunity', layersData.community)
-    }
-
-    layersData.token = this.$route.query.token
-    if(layersData.token) {
-      this.$store.commit('payables/setLayersToken', layersData.token)
-    }
-
     await this.$store.dispatch('payables/fetchData')
   },
   computed: {
