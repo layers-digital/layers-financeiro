@@ -38,7 +38,6 @@ app.get('/related', async function (req, res) {
 
   //Fetch user data
   let userData = null
-
   if(session) {
     try {
       await Layers.get(`/sso/session/validate?community=${community}&session=${session}&userId=${userId}`, {
@@ -59,7 +58,7 @@ app.get('/related', async function (req, res) {
   } else {
     // Deprecated method to validate user token
     try {
-      await Layers.get('/user/me/', {
+      let res = await Layers.get('/user/me/', {
         headers: { 'Authorization': `Bearer ${userToken}`}
       })
       userData = res.data
@@ -78,7 +77,6 @@ app.get('/related', async function (req, res) {
 
     providers = res.data
   } catch(err) {
-    console.log('Error fetching providers', err)
     return res.status(500).send({error: `Error fetching providers`})
   }
 
