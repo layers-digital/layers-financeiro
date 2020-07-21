@@ -8,6 +8,8 @@ const axios = require('axios');
 const _ = require('lodash');
 const app = express();
 
+const INTENT = '@layers:payments:Payables:getRelated'
+
 // Automatically allow cross-origin requests
 app.use(cors({ origin: true }))
 
@@ -27,10 +29,10 @@ app.get('/related', async function (req, res) {
   }
 
   const Layers = axios.create({
-    baseURL: functions.config().layers.url || 'http://localhost:8009/v1',
+    baseURL: functions.config().layers.api || 'http://localhost:8009/v1',
     headers: {
       'Accept': 'application/json, text/plain, */*',
-      'community-id': community
+      'X-Community-Id': community
     }
   })
 
@@ -40,40 +42,37 @@ app.get('/related', async function (req, res) {
   if(session) {
     try {
       await Layers.get(`/sso/session/validate?community=${community}&session=${session}&userId=${userId}`, {
-        headers: { 'Authorization': functions.config().layers.token,}
+        headers: { 'Authorization': 'Bearer ' + functions.config().layers.secret }
       })
     } catch(err) {
-      console.log('Invalid session', err)
       return res.status(400).send({error: `Invalid session`})
     }
 
     try {
       let res = await Layers.get(`/users/${userId}`, {
-        headers: { 'Authorization': functions.config().layers.token,}
+        headers: { 'Authorization': 'Bearer ' + functions.config().layers.secret }
       })
       userData = res.data
     } catch(err) {
-      console.log('Fetch user error (session)', err)
       return res.status(500).send({error: `Error fetching user data`})
     }
   } else {
+    // Deprecated method to validate user token
     try {
-      let res = await Layers.get('/user/me/', {
+      await Layers.get('/user/me/', {
         headers: { 'Authorization': `Bearer ${userToken}`}
       })
-      userData = res.data
     } catch(err) {
-      console.log('Fetch user error', err)
-      return res.status(500).send({error: `Error fetching user data`})
+      return res.status(500).send({error: `Error fetching user data using deprecated method`})
     }
   }
 
   //Discovery providers
   let providers = []
   try {
-    let res = await Layers.get(`/services/discover/@layers:payments:Payables:getRelated?version=1`,
+    let res = await Layers.get(`/services/discover/${INTENT}?version=1`,
     {
-      headers: { 'Authorization': functions.config().layers.token,}
+      headers: { 'Authorization': 'Bearer ' + functions.config().layers.secret }
     })
 
     providers = res.data
@@ -99,9 +98,9 @@ app.get('/related', async function (req, res) {
       return {
         status: 'success',
         provider: provider,
-        payload: await Layers.post(`/services/call/@layers:payments:Payables:getRelated/${provider.id}?version=1&timeout=10000`, data,
+        payload: await Layers.post(`/services/call/${INTENT}/${provider.id}?version=1&timeout=10000`, data,
         {
-          headers: { 'Authorization': functions.config().layers.token }
+          headers: { 'Authorization': 'Bearer ' + functions.config().layers.secret }
         })
       }
     } catch(err) {

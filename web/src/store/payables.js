@@ -63,7 +63,14 @@ const actions = {
     const community = context.rootState.layers.communityId || context.state.layersCommunity
 
     try {
-      let res = await Axios.get(`/related?userToken=${context.state.layersToken}&community=${community}&session=${session}&userId=${userId}`)
+      const res = await Axios.get('/related', {
+        params: {
+          userToken: context.state.token,
+          community: communityId,
+          session: session,
+          userId: userId
+        }
+      })
 
       let payables = {
         criticalPayables: [],
