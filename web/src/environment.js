@@ -29,15 +29,15 @@ function LayersApiLocation() {
 function ApiLocation() {
   // Handle local development
   if (isLocal()) {
-    return 'http://localhost:8050/layers-financeiro/us-central1/api'
+    return 'http://localhost:8050/layers-financeiro/us-central1'
   }
 
   if (isStaging()) {
-    return 'https://us-central1-layers-financeiro-staging.cloudfunctions.net/api'
+    return '/api'
   }
 
   // Defaults to production api
-  return 'https://us-central1-layers-financeiro.cloudfunctions.net/api'
+  return '/api'
 }
 
 export default {

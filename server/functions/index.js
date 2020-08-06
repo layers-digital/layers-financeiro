@@ -1,19 +1,18 @@
 const functions = require('firebase-functions');
-const express = require('express');
-const cors = require('cors');
 const hydratePayables = require('./pipes/hydratePayables');
 const filterCriticalPayables = require('./pipes/filterCriticalPayables');
 const hydrateGroups = require('./pipes/hydrateGroups');
 const axios = require('axios');
 const _ = require('lodash');
-const app = express();
 
 const INTENT = '@layers:payments:Payables:getRelated'
 
-// Automatically allow cross-origin requests
-app.use(cors({ origin: true }))
+const relatedAPI = async function (req, res) {
+  // Disable CORS when is running locally
+  if(process.env.FUNCTIONS_EMULATOR) {
+    res.set({ 'Access-Control-Allow-Origin': '*' })
+  }
 
-app.get('/related', async function (req, res) {
   const { userToken, community, session, userId } = req.query
 
   if(!userToken && !session) {
@@ -44,7 +43,7 @@ app.get('/related', async function (req, res) {
         headers: { 'Authorization': 'Bearer ' + functions.config().layers.secret }
       })
     } catch(err) {
-      return res.status(400).send({error: `Invalid session`})
+      return res.status(401).send({error: `Invalid session`})
     }
 
     try {
@@ -53,7 +52,7 @@ app.get('/related', async function (req, res) {
       })
       userData = res.data
     } catch(err) {
-      return res.status(500).send({error: `Error fetching user data`})
+      return res.status(401).send({error: `Error fetching user data`})
     }
   } else {
     // Deprecated method to validate user token
@@ -63,7 +62,7 @@ app.get('/related', async function (req, res) {
       })
       userData = res.data
     } catch(err) {
-      return res.status(500).send({error: `Error fetching user data using deprecated method`})
+      return res.status(401).send({error: `Error fetching user data using deprecated method`})
     }
   }
 
@@ -128,7 +127,7 @@ app.get('/related', async function (req, res) {
   payload = filterCriticalPayables(payload)
 
   res.status(200).send(payload)
-})
+}
 
 // Expose Express API as a single Cloud Function:
-exports.api = functions.https.onRequest(app);
+exports.related = functions.https.onRequest(relatedAPI);
