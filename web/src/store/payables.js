@@ -4,15 +4,16 @@ import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Toast from '@/helpers/toast'
+import getQueryVariable from '@/helpers/getQueryVariable'
 
 const state = {
   loading: false,
   payablesData: null,
-  layersToken: null,
-  layersCommunity: null,
-  layersSession: null,
-  layersUserId: null,
   lastFetchedAt: null,
+
+  // deprecated
+  token: null,
+  community: null,
 }
 
 
@@ -26,30 +27,27 @@ const mutations = {
     state.payablesData = payablesData
   },
 
-  setLayersCommunity(state, value) {
-    state.layersCommunity = value
-  },
-
-  setLayersToken(state, value) {
-    state.layersToken = value
-  },
-
   setLastFetchedAt(state, value) {
     state.lastFetchedAt = value
   },
 
-  setLayersSession(state, value) {
-    state.layersSession = value
+  setCommunity(state, community) {
+    state.community = community
   },
 
-  setLayersUserId(state, value) {
-    state.layersUserId = value
-  }
+  setToken(state, token) {
+    state.token = token
+  },
 }
 
 // actions
 const actions = {
   async fetchData(context) {
+    const community = getQueryVariable('community')
+    const token = getQueryVariable('token')
+    if(community) context.commit('setCommunity', community)
+    if(token) context.commit('setToken', token)
+
     context.commit('setLoading', true)
     Toast.open({
       message: 'Estamos atualizando as informações.',
@@ -60,10 +58,17 @@ const actions = {
 
     const session = context.rootState.layers.session
     const userId = context.rootState.layers.userId
-    const community = context.rootState.layers.communityId || context.state.layersCommunity
+    const communityId = context.rootState.layers.communityId || context.state.community
 
     try {
-      let res = await Axios.get(`/related?userToken=${context.state.layersToken}&community=${community}&session=${session}&userId=${userId}`)
+      const res = await Axios.get('/related', {
+        params: {
+          userToken: context.state.token,
+          community: communityId,
+          session: session,
+          userId: userId
+        }
+      })
 
       let payables = {
         criticalPayables: [],

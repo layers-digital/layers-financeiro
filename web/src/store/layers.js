@@ -1,3 +1,5 @@
+
+import getQueryVariable from '@/helpers/getQueryVariable'
 /* global LayersPortal */
 
 const state = {
@@ -34,34 +36,45 @@ const actions = {
   async init(context) {
     context.commit('setBridgeConnected', false)
 
-    let res = await LayersPortal.connectedPromise
-    console.log('LayersPlatform', LayersPortal.platform)
-    if (!LayersPortal.platform) {
-      return context.dispatch('updateSession', {
+    try {
+      // Check if has token in query params and ignore Layers SDK connection
+      const token = getQueryVariable('token')
+      if(token) {
+        throw new Error('Deprecated authenticate method') 
+      }
+
+      if(!LayersPortal) {
+        throw new Error('LayersPortal is not defined')
+      }
+
+      await LayersPortal.readyPromise
+      if (!LayersPortal.platform || !LayersPortal.connected) {
+        throw new Error('Layers Portal not connected')
+      }
+
+      await LayersPortal && LayersPortal.connectedPromise
+      const session = LayersPortal.session
+      const communityId = LayersPortal.communityId
+      const userId = LayersPortal.userId
+      const accountId = LayersPortal.accountId
+      const connected = LayersPortal.connected
+      
+      context.dispatch('updateSession', { 
+        session,
+        communityId,
+        userId,
+        accountId,
+        connected,
+      })
+    } catch (err) {
+      return context.dispatch('updateSession', { 
         session: null,
         communityId: null,
         userId: null,
         accountId: null,
-        bridgeConnected: null,
+        connected: null,
       })
-    }
-
-    console.log('LayersPortal', res)
-    const session = LayersPortal.session
-    const communityId = LayersPortal.communityId
-    const userId = LayersPortal.userId
-    const accountId = LayersPortal.accountId
-    const bridgeConnected = LayersPortal.bridgeConnected
-
-    console.log('bridgeConnected', bridgeConnected)
-
-    context.dispatch('updateSession', {
-      session,
-      communityId,
-      userId,
-      accountId,
-      bridgeConnected,
-    })
+    }  
   },
 
   async updateSession(context, { session, communityId, userId, accountId, bridgeConnected }) {
