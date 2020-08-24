@@ -16,19 +16,23 @@ export default {
   computed: {
     statusLabel() {
       return {
-        'late': 'Vencida',
-        'pending': 'Pendente',
         'paid': 'Pago',
+        'partially_paid': 'Parcialmente pago',
+        'pending': 'Pendente',
         'open': 'Futura',
+        'canceled': 'Cancelado',
+        'late': 'Vencida',
       } [this.status] || this.status
     },
 
     colors() {
       return {
-        'late': 'danger',
-        'pending': 'warning',
         'paid': 'success',
+        'partially_paid': 'purple',
+        'pending': 'warning',
         'open': 'grey-70',
+        'canceled': 'grey-70',
+        'late': 'danger',
       } [this.status] || this.status
     }
   }
