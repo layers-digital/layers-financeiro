@@ -93,7 +93,19 @@ const actions = {
       Toast.hideAll()
     } catch(err) {
       Toast.hideAll()
-      errorHandler(err, context.dispatch, 'fetchData')
+      errorHandler({
+        error: err,
+        parameters: {
+          action: {
+            callback: () => {
+              Toast.hideAll()
+              context.dispatch('fetchData')
+            },
+            label: 'ATUALIZAR'
+          },
+          timeout: 0
+        }
+      })
       context.commit('setLoading', false)
     }
   }

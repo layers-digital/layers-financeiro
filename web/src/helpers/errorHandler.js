@@ -1,42 +1,43 @@
 import Toast from '@/helpers/toast'
 
-export default function errorHandler(e, fnToRetry, fnToRetryParams) {
-  if(!e) {
+export default function errorHandler({ error, callback, parameters }) {
+  if(!error || (parameters && parameters.hideError)) {
     return
   }
 
   let retryable = false
 
-  let params = {
+  let params = Object.assign({
     message: '',
     type: 'danger',
     position: 'bottom',
-    timeout: 10000,
+    timeout: 5000,
     options: {},
-  }
+  }, parameters)
 
-  let action = {
+  let action = Object.assign({
     label: 'ATUALIZAR',
     color: 'white',
-    fn: fnToRetry,
-    fnParams: fnToRetryParams,
-  }
+    callback,
+  }, parameters && parameters.action)
 
   if(!window.navigator.onLine) {
     params.message = 'Parece que você está offline.'
     params.type = 'info'
     retryable = true
-  } else if (e.response && e.response.status && e.response.status >=  400 && e.response.status < 500) {
+  } else if (params.fixedMessageError) {
+    params.message = params.fixedMessageError
+  } else if (error.response && error.response.status && error.response.status >=  400 && error.response.status < 500) {
     params.message = 'Algumas informações não foram atualizadas.'
     retryable = true
-  } else if (e.response && e.response.status >=  500) {
+  } else if (error.response && error.response.status >=  500) {
     params.message = 'Ops, encontramos um erro. Tente novamente mais tarde.'
   } else {
     params.message = 'Um problema aconteceu e foi enviado para análise'
     retryable = true
   }
 
-  if(retryable) {
+  if(retryable && typeof callback == 'function') {
     params.action = action
   }
 
