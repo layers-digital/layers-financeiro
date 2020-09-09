@@ -8,7 +8,7 @@
         <button
           v-if="options.action"
           @click="callAction()"
-          class="action-btn cursor-pointer" :class="actionColor">
+          class="action-btn cursor-pointer pl-2" :class="actionColor">
           {{ options.action.label }}
         </button>
         <div v-else-if="options.loading">
@@ -106,9 +106,9 @@ export default {
       }, 0);
     },
     callAction() {
-      let fn = (this.options && this.options.action && this.options.action.fn) || null
+      const fn = (this.options && this.options.action && this.options.action.callback) || null
       if(!fn || typeof fn != 'function') return
-      return this.options.action.fn(this.options.action.fnParams)
+      return fn()
     }
   },
 };
@@ -158,6 +158,8 @@ function removeElement(el) {
 .close-btn {
   background-color: transparent !important;
   border: none !important;
+  height: 24px;
+  outline: none;
 }
 .action-btn {
   background: none;
