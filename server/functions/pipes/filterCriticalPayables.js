@@ -14,7 +14,7 @@ function filterCriticalPayables(payload) {
 
         //Ordenar pelo q venceu a mais tempo
         //Incluir pending <= 15
-        if(diff <= 7 && payable.status != 'paid' || payable.status == 'pending') {
+        if(diff <= 7 && payable.status != 'paid' && payables.status != 'canceled' || payable.status == 'pending') {
           //Flag to define if this payable is critical
           payable.isCritical = true
 
