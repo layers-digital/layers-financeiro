@@ -152,9 +152,9 @@ export default {
     totalAmountColor() {
       return {
         'paid': 'success--text',
-        'partially_paid': 'purple--text',
+        'partially_paid': 'link--text',
         'pending': 'warning--text',
-        'open': 'grey-80--text',
+        'open': 'purple--text',
         'canceled': 'grey-80--text',
         'late': 'danger--text',
       } [this.payable.status] || 'grey-80--text'
