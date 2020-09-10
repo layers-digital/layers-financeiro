@@ -28,9 +28,9 @@ export default {
     colors() {
       return {
         'paid': 'success',
-        'partially_paid': 'purple',
+        'partially_paid': 'link',
         'pending': 'warning',
-        'open': 'grey-70',
+        'open': 'purple',
         'canceled': 'grey-70',
         'late': 'danger',
       } [this.status] || this.status
