@@ -284,6 +284,19 @@
   color: var(--purple) !important;
 }
 
+/*
+  purple-light - Text color, border color and background color
+*/
+.purple-light {
+  background-color: var(--purple-light) !important;
+}
+.purple-light-outline {
+  border-color: var(--purple-light) !important;
+}
+.purple-light--text {
+  color: var(--purple-light) !important;
+}
+
 
 /*
   aqua - Text color, border color and background color
