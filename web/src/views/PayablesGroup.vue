@@ -99,8 +99,6 @@ export default {
     // },
 
     group() {
-      console.log('GRUPID', this.groupId)
-      console.log('GRoUP', this.$store.getters['payables/getGroup'](this.groupId))
       return this.$store.getters['payables/getGroup'](this.groupId)
     },
 

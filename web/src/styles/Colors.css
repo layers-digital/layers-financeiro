@@ -4,6 +4,7 @@
   --grey-30: #E8ECEF;
   --grey-50: #C8D0D8;
   --grey-60: #A3B1BF;
+  --grey-60-light: rgba(163, 177, 191, 0.12);
   --grey-70: #748494;
   --grey-70-light: #E8ECEF;
   --grey-80: #405261;
@@ -86,6 +87,19 @@
 }
 .grey-60--text {
   color: var(--grey-60) !important;
+}
+
+/*
+  grey-60-light - Text color, border color and background color
+*/
+.grey-60-light {
+  background-color: var(--grey-60-light)!important;
+}
+.grey-60-light-outline {
+  border-color: var(--grey-60-light) !important;
+}
+.grey-60-light--text {
+  color: var(--grey-60-light) !important;
 }
 
 /*

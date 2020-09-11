@@ -27,7 +27,7 @@ export default {
       }
 
       if(this.payable.status == 'open') {
-        return 'purple'
+        return 'grey-60'
       }
 
       return 'grey-50'
