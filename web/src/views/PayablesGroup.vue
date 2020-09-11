@@ -3,9 +3,9 @@
     <!-- Data provider label -->
     <div class="ls-row ls-no-gutters ls-align-items-center mb-2">
       <!-- <div> -->
-      <img :src="group.provider.icon" height="24" width="24" class="app-icon-radius mr-2"/>
+      <img v-if="group" :src="group.provider.icon" height="24" width="24" class="app-icon-radius mr-2"/>
       <!-- </div> -->
-      <span class="grey-70--text" style="font-size: 12px;">
+      <span v-if="group" class="grey-70--text" style="font-size: 12px;">
         Dados fornecidos por {{group.provider.displayName}} <b>{{lastFetchedAt}}</b>
       </span>
     </div>
