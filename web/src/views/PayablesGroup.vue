@@ -1,11 +1,11 @@
 <template>
-  <div class="ls-container p-3 grey-10" style="min-height: 100%; overflow: auto !important;">
+  <div v-if="group" class="ls-container p-3 grey-10" style="min-height: 100%; overflow: auto !important;">
     <!-- Data provider label -->
     <div class="ls-row ls-no-gutters ls-align-items-center mb-2">
       <!-- <div> -->
-      <img v-if="group" :src="group.provider.icon" height="24" width="24" class="app-icon-radius mr-2"/>
+      <img :src="group.provider.icon" height="24" width="24" class="app-icon-radius mr-2"/>
       <!-- </div> -->
-      <span v-if="group" class="grey-70--text" style="font-size: 12px;">
+      <span class="grey-70--text" style="font-size: 12px;">
         Dados fornecidos por {{group.provider.displayName}} <b>{{lastFetchedAt}}</b>
       </span>
     </div>
@@ -14,12 +14,12 @@
       <!-- IMPROVE TRANSITIONS -->
       <TransitionExpand>
         <!-- <div v-if="descriptionExpanded" id="description" v-html="compiledDescriptionMarkdown"></div> -->
-        <div v-if="descriptionExpanded" id="description">{{this.group.description}}</div>
+        <div v-if="descriptionExpanded" id="description">{{group.description}}</div>
       </TransitionExpand>
       <transition name="slowfade"
         mode="out-in">
         <!-- <div v-if="!descriptionExpanded" id="description" v-html="compiledDescriptionMarkdown" class="ellipsis-2"></div> -->
-        <div v-if="!descriptionExpanded" id="description" class="ellipsis-2">{{this.group.description}}</div>
+        <div v-if="!descriptionExpanded" id="description" class="ellipsis-2">{{group.description}}</div>
       </transition>
       <button v-if="showReadMoreButton"
         @click="descriptionExpanded = !descriptionExpanded"
