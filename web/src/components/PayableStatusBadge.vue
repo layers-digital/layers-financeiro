@@ -30,8 +30,8 @@ export default {
         'paid': 'success',
         'partially_paid': 'link',
         'pending': 'warning',
-        'open': 'purple',
-        'canceled': 'grey-70',
+        'open': 'grey-60',
+        'canceled': 'grey-80',
         'late': 'danger',
       } [this.status] || this.status
     }

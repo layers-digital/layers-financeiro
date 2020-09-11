@@ -76,7 +76,7 @@ export default {
         'paid': 'success--text',
         'partially_paid': 'link--text',
         'pending': 'warning--text',
-        'open': 'purple--text',
+        'open': 'grey-60--text',
         'canceled': 'grey-80--text',
         'late': 'danger--text',
       } [this.payable.status] || 'grey-80--text'
