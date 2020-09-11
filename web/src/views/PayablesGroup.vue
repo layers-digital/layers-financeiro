@@ -1,5 +1,5 @@
 <template>
-  <div v-if="group" class="ls-container p-3 grey-10" style="min-height: 100%; overflow: auto !important;">
+  <div class="ls-container p-3 grey-10" style="min-height: 100%; overflow: auto !important;">
     <!-- Data provider label -->
     <div class="ls-row ls-no-gutters ls-align-items-center mb-2">
       <!-- <div> -->
@@ -99,6 +99,8 @@ export default {
     // },
 
     group() {
+      console.log('GRUPID', this.groupId)
+      console.log('GRoUP', this.$store.getters['payables/getGroup'](this.groupId))
       return this.$store.getters['payables/getGroup'](this.groupId)
     },
 

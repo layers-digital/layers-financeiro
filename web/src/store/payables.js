@@ -75,6 +75,11 @@ const actions = {
         groups: [],
       }
 
+      // Makes sure that the id is string
+      payables.groups.forEach(group => {
+        group.id = group.id.toString()
+      })
+
       for(let i = 0; i < res.data.length; i++){
         let intentResult = res.data[i]
         if(!intentResult.result) continue
