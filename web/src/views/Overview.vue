@@ -17,7 +17,7 @@
         :payable="payable"
         @click.native="goToDetails(payable)"/>
     </div>
-    <NoCriticalPayablesCard v-if="hasState && criticalPayables.length == 0" class="mb-4"/>
+    <NoCriticalPayablesCard v-if="hasState && payablesGroups.length != 0 && criticalPayables.length == 0" class="mb-4"/>
     <PayablesCardSkeleton
       v-if="loading && !hasState"/>
     <router-link
