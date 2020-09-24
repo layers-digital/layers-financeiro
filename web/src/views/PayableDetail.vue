@@ -74,7 +74,7 @@
         v-for="(attachment, index) in payable.attachments"
         :key="index"
         class="attachment-btn mb-2 link-light"
-        @click="openAttachment(attachment.url, attachment.title)">
+        @click="openAttachment(attachment.url)">
         <div class="ls-flex-grow-1" style="margin-top: 4px;">
           <span class="ellipsis-1" style="font-weight: 600; text-align: left; word-break: break-all;">
             {{attachment.title}}
@@ -124,7 +124,6 @@ import Marked from 'marked'
 import DOMPurify from 'dompurify'
 import Toast from '@/helpers/toast'
 import dayjs from 'dayjs'
-import downloadFile from '@/helpers/downloadFile'
 
 export default {
   name: 'PayableDetail',
@@ -175,7 +174,7 @@ export default {
   },
 
   methods: {
-    async openAttachment(url, name) {
+    async openAttachment(url) {
       await LayersPortal('go', url)
     },
 
