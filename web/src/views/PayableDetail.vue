@@ -116,6 +116,7 @@
 </template>
 
 <script>
+/* global LayersPortal */
 import PayableStatusBadge from '../components/PayableStatusBadge'
 import PayablesCount from '../components/PayablesCount'
 import relativeDueDate from '@/helpers/relativeDueDate'
@@ -175,8 +176,7 @@ export default {
 
   methods: {
     async openAttachment(url, name) {
-      //Force extension (layers new app should support a better solution)
-      await downloadFile(url, `${name}.pdf`)
+      await LayersPortal('go', url)
     },
 
     copyToClipboard(code) {
