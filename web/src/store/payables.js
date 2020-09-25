@@ -45,15 +45,17 @@ const actions = {
   async fetchData(context) {
     const community = getQueryVariable('community')
     const token = getQueryVariable('token')
-    if(community) context.commit('setCommunity', community)
-    if(token) context.commit('setToken', token)
+    if (community) context.commit('setCommunity', community)
+    if (token) context.commit('setToken', token)
 
     context.commit('setLoading', true)
     Toast.open({
       message: 'Estamos atualizando as informações.',
       position: 'bottom',
       timeout: 0,
-      options: { loading: true }
+      options: {
+        loading: true
+      }
     })
 
     const session = context.rootState.layers.session
@@ -75,15 +77,11 @@ const actions = {
         groups: [],
       }
 
-      // Makes sure that the id is string
-      payables.groups.forEach(group => {
-        group.id = group.id.toString()
-      })
 
-      for(let i = 0; i < res.data.length; i++){
+      for (let i = 0; i < res.data.length; i++) {
         let intentResult = res.data[i]
-        if(!intentResult.result) continue
-        if(intentResult.provider){
+        if (!intentResult.result) continue
+        if (intentResult.provider) {
           intentResult.result.map((payableGroup) => {
             payableGroup.provider = intentResult.provider
           })
@@ -92,11 +90,16 @@ const actions = {
         payables.criticalPayables.push(...intentResult.criticalPayables)
       }
 
+      // Makes sure that the id is string
+      payables.groups.forEach(group => {
+        group.id = group.id.toString()
+      })
+
       context.commit('setPayablesData', payables)
       context.commit('setLastFetchedAt', new Date())
       context.commit('setLoading', false)
       Toast.hideAll()
-    } catch(err) {
+    } catch (err) {
       Toast.hideAll()
       errorHandler({
         error: err,
@@ -119,7 +122,7 @@ const actions = {
 // getters
 const getters = {
   getCriticalPayables(state) {
-    if(state.payablesData) {
+    if (state.payablesData) {
       return state.payablesData.criticalPayables
     }
 
@@ -127,7 +130,7 @@ const getters = {
   },
 
   getPayablesGroups(state) {
-    if(state.payablesData) {
+    if (state.payablesData) {
       return state.payablesData.groups
     }
 
@@ -135,17 +138,17 @@ const getters = {
   },
 
   getGroup(state) {
-    if(!state.payablesData) {
+    if (!state.payablesData) {
       return null
     }
 
-    return groupId => state.payablesData.groups.filter(group =>{
+    return groupId => state.payablesData.groups.filter(group => {
       return group.id === groupId
     })[0]
   },
 
   getPayablesByGroup(state) {
-    return groupId => state.payablesData.groups.filter(group =>{
+    return groupId => state.payablesData.groups.filter(group => {
       return group.id === groupId
     })[0].payables.filter(payable => {
       return !payable.isCritical
@@ -153,7 +156,7 @@ const getters = {
   },
 
   getCriticalPayablesByGroup(state) {
-    return groupId => state.payablesData.groups.filter(group =>{
+    return groupId => state.payablesData.groups.filter(group => {
       return group.id === groupId
     })[0].payables.filter(payable => {
       return payable.isCritical
@@ -161,7 +164,7 @@ const getters = {
   },
 
   getCriticalPayablesCountByGroup() {
-    return groupId => state.payablesData.groups.filter(group =>{
+    return groupId => state.payablesData.groups.filter(group => {
       return group.id === groupId
     })[0].payables.filter(payable => {
       return payable.isCritical
@@ -174,7 +177,7 @@ const getters = {
   },
 
   hasState(state) {
-    if(!state.payablesData) {
+    if (!state.payablesData) {
       return false
     }
 
