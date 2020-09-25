@@ -74,7 +74,7 @@
         v-for="(attachment, index) in payable.attachments"
         :key="index"
         class="attachment-btn mb-2 link-light"
-        @click="openAttachment(attachment.url)">
+        @click="attachmentHandler(attachment.url, attachment.title, attachment.kind || attachment.type)">
         <div class="ls-flex-grow-1" style="margin-top: 4px;">
           <span class="ellipsis-1" style="font-weight: 600; text-align: left; word-break: break-all;">
             {{attachment.title}}
@@ -104,7 +104,7 @@
     <button
       v-if="payable.boleto.link"
       class="action-btn ls-flex-grow-1 ml-1"
-      @click="openAttachment(payable.boleto.link, payable.title)">
+      @click="attachmentHandler(payable.boleto.link || payable.boleto.url, payable.boleto.title, payable.boleto.type)">
       <span class="icon mr-2">
         <img src="../assets/download.svg"
         height="20" width="20"/>
@@ -174,8 +174,11 @@ export default {
   },
 
   methods: {
-    async openAttachment(url) {
-      await LayersPortal('go', url)
+    async attachmentHandler(url, title, type) {
+      if(type == 'link') {
+        return await window.LayersPortal('go', url)
+      }
+      return downloadFile(url, title)
     },
 
     copyToClipboard(code) {

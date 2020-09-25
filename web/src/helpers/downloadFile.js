@@ -3,18 +3,19 @@
 import Toast from '@/helpers/toast'
 
 export default async function downloadFile(url, name) {
-  //  Toast.open({
-  //   message: 'Estamos fazendo download do arquivo...',
-  //   position: 'top',
-  //   type: 'success',
-  //   timeout: 4000,
-  //   options: { loading: true }
-  //  })
+   Toast.open({
+    message: 'Estamos fazendo download do arquivo...',
+    position: 'top',
+    type: 'success',
+    timeout: 4000,
+    options: { loading: true }
+   })
 
   try {
     await LayersPortal('download', {
       url: url,
-      name: name,
+      name: 'file-' + Date.now() + '.pdf'
+      // name: name,
     })
   } catch (error) {
     Toast.hideAll()
