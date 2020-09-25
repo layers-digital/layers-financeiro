@@ -2,7 +2,7 @@
 
 import Toast from '@/helpers/toast'
 
-export default async function downloadFile(url, name) {
+export default async function downloadFile(url) {
    Toast.open({
     message: 'Estamos fazendo download do arquivo...',
     position: 'top',
