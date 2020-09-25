@@ -120,6 +120,7 @@
 import PayableStatusBadge from '../components/PayableStatusBadge'
 import PayablesCount from '../components/PayablesCount'
 import relativeDueDate from '@/helpers/relativeDueDate'
+import downloadFile from '@/helpers/downloadFile'
 import Marked from 'marked'
 import DOMPurify from 'dompurify'
 import Toast from '@/helpers/toast'
@@ -176,7 +177,7 @@ export default {
   methods: {
     async attachmentHandler(url, title, type) {
       if(type == 'link') {
-        return await window.LayersPortal('go', url)
+        return await LayersPortal('go', url)
       }
       return downloadFile(url, title)
     },
