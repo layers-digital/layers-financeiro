@@ -102,7 +102,7 @@
     <!-- <div class="ls-flex">
     </div> -->
     <button
-      v-if="payable.boleto.link"
+      v-if="payable.boleto.url || payable.boleto.link"
       class="action-btn ls-flex-grow-1 ml-1"
       @click="attachmentHandler(payable.boleto.link || payable.boleto.url, payable.boleto.title, payable.boleto.type)">
       <span class="icon mr-2">
