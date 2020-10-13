@@ -24,7 +24,6 @@ export default function errorHandler({ error, callback, parameters }) {
   if(!window.navigator.onLine) {
     params.message = 'Parece que você está offline.'
     params.type = 'info'
-    retryable = true
   } else if (params.fixedMessageError) {
     params.message = params.fixedMessageError
   } else if (error.response && error.response.status && error.response.status >=  400 && error.response.status < 500) {
