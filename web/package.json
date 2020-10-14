@@ -5,11 +5,13 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "start": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build && yarn archive",
     "lint": "vue-cli-service lint",
-    "build-report": "vue-cli-service build --report"
+    "build-report": "vue-cli-service build --report",
+    "archive": "ARCHIVE_URL=${ARCHIVE_URL:=https://layers-financeiro-staging.web.app}; webarchiver generate $ARCHIVE_URL ./dist/index.html ./dist/portal.webarchive"
   },
   "dependencies": {
+    "@tenda.digital/webarchiver": "^1.1.4",
     "axios": "^0.19.2",
     "dayjs": "^1.8.27",
     "dompurify": "^2.0.10",

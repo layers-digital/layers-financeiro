@@ -37,3 +37,4 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           PROJECT_PATH: ./web/dist
+          ARCHIVE_URL: https://layers-financeiro.web.app

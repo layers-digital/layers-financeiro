@@ -9,14 +9,20 @@ Vue.use(Vuex)
 
 const community = getQueryVariable('community')
 
-export default new Vuex.Store({
-  strict: true,
-  plugins: [
+let plugins
+try {
+  plugins = [
     persistedState({
       key: `${community}-layers-financeiro`
     })
-  ],
+  ]
+} catch {
+  plugins = null
+}
 
+export default new Vuex.Store({
+  strict: true,
+  plugins: plugins,
   modules: {
     layers,
     payables,
