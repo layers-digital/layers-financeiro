@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import Axios from 'axios'
-import store from './store'
+import createStore from './store'
 import General from './styles/General.css'
 import Grid from './styles/Grid.css'
 import Colors from './styles/Colors.css'
@@ -37,6 +37,21 @@ Axios.defaults.baseURL = Environment.API_URL
 
 
 async function init() {
+  let communityId, userId
+  try {
+    await LayersPortal.connectedPromise;
+    communityId = LayersPortal.communityId;
+    userId = LayersPortal.userId;
+  } catch (err) {
+    communityId = getQueryVariable("community");
+    userId = getQueryVariable("token");
+  }
+
+  const store = createStore({
+    communityId,
+    userId
+  })
+
   await store.dispatch('layers/init')
 
   new Vue({

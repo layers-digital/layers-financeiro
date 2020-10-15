@@ -3,35 +3,33 @@ import Vuex from 'vuex'
 import payables from './payables'
 import layers from './layers'
 import persistedState from 'vuex-persistedstate';
-import getQueryVariable from '@/helpers/getQueryVariable'
 
 Vue.use(Vuex)
 
-const community = getQueryVariable('community')
+export default function createStore({ communityId, userId }) {
+  let options
+  try {
+    options = {
+      strict: true,
+      plugins: [
+        persistedState({
+          key: `@${communityId}:${userId}-layers-financeiro`,
+        }),
+      ],
+      modules: {
+        layers,
+        payables,
+      },
+    };
+  } catch (err) {
+    options = {
+      strict: true,
+      modules: {
+        layers,
+        payables,
+      },
+    };
+  }
 
-let options
-try {
-  options = 
-  {
-    strict: true,
-    plugins: [
-      persistedState({
-        key: `${community}-layers-financeiro`
-      })
-    ],
-    modules: {
-      layers,
-      payables,
-    },
-  }
-} catch {
-  options =  {
-    strict: true,
-    modules: {
-      layers,
-      payables,
-    },
-  }
+  return new Vuex.Store(options);
 }
-
-export default new Vuex.Store(options)
