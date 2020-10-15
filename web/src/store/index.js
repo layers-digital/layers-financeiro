@@ -21,7 +21,7 @@ export default function createStore({ communityId, userId }) {
         payables,
       },
     };
-  } catch {
+  } catch (err) {
     options = {
       strict: true,
       modules: {
