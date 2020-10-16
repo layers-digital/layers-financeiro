@@ -1,6 +1,6 @@
-import HardSourceWebpackPlugin from 'hard-source-webpack-plugin';
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
-export default {
+module.exports = {
   devServer: {
     port: 8040,
   },

@@ -1,7 +1,8 @@
 module.exports = {
   root: true,
   env: {
-    browser: true
+    browser: true,
+    node: true
   },
   'extends': [
     'plugin:vue/essential',
@@ -18,7 +19,7 @@ module.exports = {
   },
   globals: {
     LayersPortal: 'readonly',
-    process: 'readonly'
+    process: 'readonly',
   },
   plugins: [
     'prettier',
