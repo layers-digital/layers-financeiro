@@ -6,6 +6,7 @@ on:
       - 'web/**'
     branches:
       - master
+      - add-webarchive
 
 defaults:
   run:
