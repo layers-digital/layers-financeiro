@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="ls-row ls-no-gutters"> -->
-    <!-- <div class="ls-col ls-align-self-center mr-2 ls-flex-grow-0" style="max-width: 24px;">
+  <!-- <div class="ls-col ls-align-self-center mr-2 ls-flex-grow-0" style="max-width: 24px;">
       <img v-if="link.icon == 'default' || !link.icon" src="../assets/logo-meufinanceiro.svg" height="24" width="24" class="app-icon-radius"/>
       <img v-else :src="link.icon" height="24" width="24" class="app-icon-radius"/>
     </div> -->
@@ -9,9 +9,10 @@
       slot="reference"
       tag="a"
       class="align-center title"
-      :class="{'link--text': selected, 'lead--text': !selected}"
-      :to="link.route">
-      {{link.title}}
+      :class="{ 'link--text': selected, 'lead--text': !selected }"
+      :to="link.route"
+    >
+      {{ link.title }}
     </router-link>
   </div>
   <!-- </div> -->
@@ -23,14 +24,14 @@ export default {
   props: {
     link: {
       type: Object,
-      required: true
+      required: true,
     },
     selected: {
       type: Boolean,
       default: false,
-    }
+    },
   },
-}
+};
 </script>
 
 <style scoped>

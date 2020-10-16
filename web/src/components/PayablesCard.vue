@@ -1,24 +1,22 @@
 <template>
-<div class="ls-row ls-no-gutters card grey-30-outline p-3 ls-align-items-center">
-  <div class="ls-col">
-    <div class="card-title mb-1 ellipsis-2">
-      {{payablesGroup.title}}
+  <div class="ls-row ls-no-gutters card grey-30-outline p-3 ls-align-items-center">
+    <div class="ls-col">
+      <div class="card-title mb-1 ellipsis-2">
+        {{ payablesGroup.title }}
+      </div>
+      <span class="description grey-70--text ellipsis-1 mb-2">
+        {{ payablesGroup.description }}
+      </span>
+      <PayablesVisualCount v-if="payablesGroup.installments > 1" :payablesGroup="payablesGroup" />
     </div>
-    <span class="description grey-70--text ellipsis-1 mb-2">
-      {{payablesGroup.description}}
-    </span>
-    <PayablesVisualCount
-      v-if="payablesGroup.installments > 1"
-      :payablesGroup="payablesGroup"/>
+    <div class="ls-col" style="max-width: 24px">
+      <img src="../assets/arrow-right.svg" height="24" width="24" />
+    </div>
   </div>
-  <div class="ls-col" style="max-width: 24px;">
-    <img src="../assets/arrow-right.svg" height="24" width="24"/>
-  </div>
-</div>
 </template>
 
 <script>
-import PayablesVisualCount from '../components/PayablesVisualCount'
+import PayablesVisualCount from '../components/PayablesVisualCount';
 
 export default {
   name: 'PayablesCard',
@@ -28,10 +26,10 @@ export default {
   props: {
     payablesGroup: {
       type: Object,
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+  },
+};
 </script>
 
 <style scoped>

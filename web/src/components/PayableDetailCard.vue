@@ -1,47 +1,41 @@
 <template>
-<div class="ls-col ls-no-gutters card p-3 ls-align-items-center"
-  :class="borderColor">
-  <div class="ls-row ls-no-gutters mb-3 ls-align-items-center">
-    <div class="ls-col ls-flex-grow-0 mr-2">
-      <PayableStatusBadge
-        :status="payable.status"/>
+  <div class="ls-col ls-no-gutters card p-3 ls-align-items-center" :class="borderColor">
+    <div class="ls-row ls-no-gutters mb-3 ls-align-items-center">
+      <div class="ls-col ls-flex-grow-0 mr-2">
+        <PayableStatusBadge :status="payable.status" />
+      </div>
+      <div v-if="payable.status != 'paid'" class="ls-col mr-2 ellipsis">
+        <span class="due-date grey-70--text">
+          {{ readableRelativeDueDate }}
+        </span>
+      </div>
+      <div v-else class="ls-flex-grow-1"></div>
+      <PayablesCount :friendlyInstallmentsCount="payable.friendlyInstallmentsCount" />
     </div>
-    <div v-if="payable.status != 'paid'" class="ls-col mr-2 ellipsis">
-      <span class="due-date grey-70--text">
-        {{readableRelativeDueDate}}
+    <div class="ls-row ls-no-gutters mb-3">
+      <span class="description grey-70--text ellipsis-2">
+        {{ payable.textDescription }}
       </span>
     </div>
-    <div v-else class="ls-flex-grow-1">
+    <div class="ls-row ls-no-gutters">
+      <div class="ls-col mr-2 amount" :class="amountColor">
+        <span v-if="payable.status == 'paid'" style="white-space: nowrap">
+          {{ payable.amountPaid }}
+        </span>
+        <span v-else style="white-space: nowrap">
+          {{ payable.amountTotal }}
+        </span>
+      </div>
+      <span style="white-space: nowrap">Vencimento: {{ formatedDueDate }}</span>
     </div>
-    <PayablesCount
-      :friendlyInstallmentsCount="payable.friendlyInstallmentsCount"/>
   </div>
-  <div class="ls-row ls-no-gutters mb-3">
-    <span class="description grey-70--text ellipsis-2">
-      {{payable.textDescription}}
-    </span>
-  </div>
-  <div class="ls-row ls-no-gutters">
-    <div class="ls-col mr-2 amount" :class="amountColor">
-      <span v-if="payable.status == 'paid'" style="white-space:nowrap;">
-        {{payable.amountPaid}}
-      </span>
-      <span v-else style="white-space:nowrap;">
-        {{payable.amountTotal}}
-      </span>
-    </div>
-    <span style="white-space:nowrap;">
-      Vencimento: {{formatedDueDate}}
-    </span>
-  </div>
-</div>
 </template>
 
 <script>
-import PayableStatusBadge from './PayableStatusBadge'
-import PayablesCount from './PayablesCount'
-import relativeDueDate from '@/helpers/relativeDueDate'
-import dayjs from 'dayjs'
+import PayableStatusBadge from './PayableStatusBadge';
+import PayablesCount from './PayablesCount';
+import relativeDueDate from '@/helpers/relativeDueDate';
+import dayjs from 'dayjs';
 
 export default {
   name: 'PayableDetailCard',
@@ -52,42 +46,45 @@ export default {
   props: {
     payable: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     readableRelativeDueDate() {
-      return relativeDueDate(this.payable.dueAt)
+      return relativeDueDate(this.payable.dueAt);
     },
 
     borderColor() {
-      if(!this.payable.isCritical) {
-        return 'neutral-state'
+      if (!this.payable.isCritical) {
+        return 'neutral-state';
       }
 
-      return {
-        'late': 'danger-state',
-        'pending': 'warning-state',
-      } [this.payable.status] || 'neutral-state'
+      return (
+        {
+          late: 'danger-state',
+          pending: 'warning-state',
+        }[this.payable.status] || 'neutral-state'
+      );
     },
 
     amountColor() {
-      return {
-        'paid': 'success--text',
-        'partially_paid': 'link--text',
-        'pending': 'warning--text',
-        'open': 'grey-60--text',
-        'canceled': 'grey-80--text',
-        'late': 'danger--text',
-      } [this.payable.status] || 'grey-80--text'
+      return (
+        {
+          paid: 'success--text',
+          partially_paid: 'link--text',
+          pending: 'warning--text',
+          open: 'grey-60--text',
+          canceled: 'grey-80--text',
+          late: 'danger--text',
+        }[this.payable.status] || 'grey-80--text'
+      );
     },
 
     formatedDueDate() {
-      return dayjs(this.payable.dueAt).format('DD/MM/YYYY')
-    }
-  }
-
-}
+      return dayjs(this.payable.dueAt).format('DD/MM/YYYY');
+    },
+  },
+};
 </script>
 
 <style scoped>

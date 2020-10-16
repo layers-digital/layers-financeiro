@@ -1,6 +1,4 @@
-/* global LayersPortal */
-
-import Toast from '@/helpers/toast'
+import Toast from '@/helpers/toast';
 
 export default async function downloadFile(url, name) {
   //  Toast.open({
@@ -15,14 +13,14 @@ export default async function downloadFile(url, name) {
     await LayersPortal('download', {
       url: url,
       name: name,
-    })
+    });
   } catch (error) {
-    Toast.hideAll()
+    Toast.hideAll();
     Toast.open({
       message: 'Ops! Algo deu errado no seu download, tente novamente.',
       type: 'danger',
       position: 'top',
-      timeout: 10000
-    })
+      timeout: 10000,
+    });
   }
 }

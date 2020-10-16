@@ -1,7 +1,11 @@
 <template>
   <div class="app-bar-container">
     <div class="app-bar grey-30-outline">
-      <div @click="setCurrentPage(currentPage)" class="ls-row ls-no-gutters p-3 ls-flex-nowrap ls-align-items-center" style="height: 56px; z-index: 5;">
+      <div
+        @click="setCurrentPage(currentPage)"
+        class="ls-row ls-no-gutters p-3 ls-flex-nowrap ls-align-items-center"
+        style="height: 56px; z-index: 5"
+      >
         <!-- <div class="ls-col ls-align-self-center mr-2 ls-flex-grow-0" style="max-width: 24px;">
           <div v-if="loadingData" class="loader-container">
             <div class="loader">
@@ -13,29 +17,32 @@
           <img v-else src="../assets/logo-meufinanceiro.svg" height="24" width="24" class="app-icon-radius"/>
         </div> -->
         <span class="title ls-flex-grow-1 ellipsis">
-          {{currentPage.title}}
+          {{ currentPage.title }}
         </span>
-        <div class="ls-align-items-center ls-flex-grow-0 ml-5 ls-d-flex" style="height: 100%;">
+        <div class="ls-align-items-center ls-flex-grow-0 ml-5 ls-d-flex" style="height: 100%">
           <img src="@/assets/menu.svg" height="24" width="24" />
         </div>
         <!-- </div> -->
       </div>
       <TransitionExpand>
         <div v-if="expanded">
-          <router-link v-for="link in links"
+          <router-link
+            v-for="link in links"
             :key="link.id"
             tag="a"
             :to="link.route"
             @click.native="setCurrentPage(link)"
             class="ls-row ls-no-gutters ls-flex-nowrap ellipsis p-3"
-            style="text-decoration: none;">
-            <div class="ls-col ls-align-self-center mr-2 ls-flex-grow-0" style="max-width: 24px;">
-              <img src="../assets/bill.svg" height="24" width="24" class="app-icon-radius"/>
+            style="text-decoration: none"
+          >
+            <div class="ls-col ls-align-self-center mr-2 ls-flex-grow-0" style="max-width: 24px">
+              <img src="../assets/bill.svg" height="24" width="24" class="app-icon-radius" />
             </div>
             <span
               class="align-center title ellipsis"
-              :class="{'link--text': link.id == currentPage.id, 'lead--text': link.id != currentPage.id}">
-              {{link.title}}
+              :class="{ 'link--text': link.id == currentPage.id, 'lead--text': link.id != currentPage.id }"
+            >
+              {{ link.title }}
             </span>
           </router-link>
         </div>
@@ -48,7 +55,7 @@
 </template>
 
 <script>
-import TransitionExpand from './TransitionExpand'
+import TransitionExpand from './TransitionExpand';
 // import PayablesGroupLink from './PayablesGroupLink'
 
 const OVERVIEW_PAGE = {
@@ -57,8 +64,8 @@ const OVERVIEW_PAGE = {
   icon: 'default',
   route: {
     name: 'overview',
-  }
-}
+  },
+};
 export default {
   name: 'AppBar',
   components: {
@@ -69,68 +76,67 @@ export default {
     return {
       expanded: false,
       currentPage: OVERVIEW_PAGE,
-    }
+    };
   },
   watch: {
     $route(to) {
-      this.reactToRouteChanges(to.name, to.params)
-    }
+      this.reactToRouteChanges(to.name, to.params);
+    },
   },
   created() {
-    this.reactToRouteChanges(this.$route.name, this.$route.params)
+    this.reactToRouteChanges(this.$route.name, this.$route.params);
   },
   computed: {
-
     payablesGroups() {
-      return this.$store.getters['payables/getPayablesGroups']
+      return this.$store.getters['payables/getPayablesGroups'];
     },
 
     links() {
-      let links = this.payablesGroups.map((group)=> {
+      let links = this.payablesGroups.map((group) => {
         let link = {
           id: null,
           title: null,
           icon: null,
           route: {
             name: null,
-            params: {}
-          }
-        }
+            params: {},
+          },
+        };
 
-        link.id = group.id
-        link.title = group.title
-        link.icon= group.icon
-        link.route.name = 'payables.group'
-        link.route.params.groupId = group.id
+        link.id = group.id;
+        link.title = group.title;
+        link.icon = group.icon;
+        link.route.name = 'payables.group';
+        link.route.params.groupId = group.id;
 
-        return link
-      })
+        return link;
+      });
 
-      links.push(OVERVIEW_PAGE)
+      links.push(OVERVIEW_PAGE);
 
-      return links.sort((x,y) => {
-        return x.id == 'overview' ? -1 : y == 'overview' ? 1 : 0
-      })
-    }
+      return links.sort((x, y) => {
+        return x.id == 'overview' ? -1 : y == 'overview' ? 1 : 0;
+      });
+    },
   },
 
   methods: {
     reactToRouteChanges(routeName, params) {
-      if(routeName == 'overview') {
-        this.currentPage = OVERVIEW_PAGE
+      if (routeName == 'overview') {
+        this.currentPage = OVERVIEW_PAGE;
       }
 
-      if(routeName == 'payables.group') {
-        this.currentPage = this.links.find(link => link.id == params.groupId)
+      if (routeName == 'payables.group') {
+        this.currentPage = this.links.find((link) => link.id == params.groupId);
       }
     },
 
     setCurrentPage(page) {
-      this.currentPage = page
-      this.expanded = !this.expanded
+      this.currentPage = page;
+      this.expanded = !this.expanded;
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -151,7 +157,7 @@ export default {
   font-size: 16px;
   font-weight: 600;
   text-decoration: none !important;
-  color: #232B34;
+  color: #232b34;
 }
 
 .overlay {
