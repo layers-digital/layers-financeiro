@@ -1,13 +1,13 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import payables from './payables'
-import layers from './layers'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import payables from './payables';
+import layers from './layers';
 import persistedState from 'vuex-persistedstate';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default function createStore({ communityId, userId }) {
-  let options
+  let options;
   try {
     options = {
       strict: true,

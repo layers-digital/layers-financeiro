@@ -1,6 +1,5 @@
 <template>
-<div class="circle" :class="circleColor">
-</div>
+  <div class="circle" :class="circleColor"></div>
 </template>
 
 <script>
@@ -9,32 +8,31 @@ export default {
   props: {
     payable: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     circleColor() {
-      if(this.payable.isCritical && this.payable.status == 'late') {
-        return 'danger'
+      if (this.payable.isCritical && this.payable.status == 'late') {
+        return 'danger';
       }
 
-      if(this.payable.isCritical && this.payable.status != 'late') {
-        return 'warning'
+      if (this.payable.isCritical && this.payable.status != 'late') {
+        return 'warning';
       }
 
-      if(this.payable.status == 'paid') {
-        return 'success'
+      if (this.payable.status == 'paid') {
+        return 'success';
       }
 
-      if(this.payable.status == 'open') {
-        return 'grey-60'
+      if (this.payable.status == 'open') {
+        return 'grey-60';
       }
 
-      return 'grey-50'
-    }
-  }
-
-}
+      return 'grey-50';
+    },
+  },
+};
 </script>
 
 <style scoped>

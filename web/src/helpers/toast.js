@@ -6,9 +6,9 @@ let showing = false;
 export { Template };
 export default {
   hideAll() {
-    toasts.map(toast => {
-      toast.close()
-    })
+    toasts.map((toast) => {
+      toast.close();
+    });
   },
 
   open(params) {
@@ -24,7 +24,7 @@ export default {
       position: params.position || 'top',
       closeable: true,
       action: params.action,
-      timeout: (params.timeout >= 0 ? params.timeout : 1000),
+      timeout: params.timeout >= 0 ? params.timeout : 1000,
     };
 
     params.options = Object.assign(defaultOptions, params.options);
@@ -35,7 +35,6 @@ export default {
     processQueue();
   },
 };
-
 
 function processQueue() {
   if (queue.length < 1) return;
@@ -51,11 +50,11 @@ function spawn(propsData) {
   const toast = new ToastComponent({
     el: document.createElement('div'),
     propsData,
-    onClose: function() {
+    onClose: function () {
       showing = false;
       processQueue();
     },
   });
 
-  toasts.push(toast)
+  toasts.push(toast);
 }

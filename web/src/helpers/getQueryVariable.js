@@ -7,5 +7,5 @@ export default function getQueryVariable(variable) {
       return decodeURIComponent(pair[1]);
     }
   }
-  return null
+  return null;
 }
