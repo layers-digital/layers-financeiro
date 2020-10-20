@@ -7,29 +7,31 @@ import persistedState from 'vuex-persistedstate';
 Vue.use(Vuex);
 
 export default function createStore({ communityId, userId }) {
-  let options;
-  try {
-    options = {
-      strict: true,
-      plugins: [
-        persistedState({
-          key: `@${communityId}:${userId}-layers-financeiro`,
-        }),
-      ],
-      modules: {
-        layers,
-        payables,
-      },
-    };
-  } catch (err) {
-    options = {
-      strict: true,
-      modules: {
-        layers,
-        payables,
-      },
-    };
+  const options = {
+    strict: true,
+    plugins: [],
+    modules: {
+      layers,
+      payables,
+    },
+  };
+
+  // Enable persisted state if user's LocalStore is enabled
+  if (isLocalStorageEnabled()) {
+    options.plugins.push(
+      persistedState({
+        key: `@${communityId}:${userId}-layers-financeiro`,
+      })
+    );
   }
 
   return new Vuex.Store(options);
+}
+
+function isLocalStorageEnabled() {
+  try {
+    return window.localStorage instanceof Storage;
+  } catch (error) {
+    return false;
+  }
 }
