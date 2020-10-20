@@ -16,8 +16,7 @@ const actions = {
       return;
     }
 
-    const readyResult = await LayersPortal.readyPromise;
-    console.log({ readyResult });
+    await LayersPortal.readyPromise;
     if (!LayersPortal.platform) {
       throw new Error('Layers Portal not connected');
     }
