@@ -43,6 +43,8 @@ async function init() {
     communityId = LayersPortal.communityId;
     userId = LayersPortal.userId;
   } catch (err) {
+    console.error(err);
+
     communityId = getQueryVariable('community');
     userId = getQueryVariable('token');
   }

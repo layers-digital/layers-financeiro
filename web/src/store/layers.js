@@ -5,37 +5,23 @@ const state = {
   userId: null,
   communityId: null,
   accountId: null,
-  bridgeConnected: false,
-};
-
-const mutations = {
-  setBridgeConnected(context, bridgeConnected) {
-    context.bridgeConnected = bridgeConnected;
-  },
 };
 
 const actions = {
   async init(context) {
-    context.commit('setBridgeConnected', false);
-
-    try {
-      // Check if has token in query params and ignore Layers SDK connection
-      const token = getQueryVariable('token');
-      if (token) {
-        throw new Error('Deprecated authenticate method');
-      }
-
-      if (!LayersPortal) {
-        throw new Error('LayersPortal is not defined');
-      }
-
-      await LayersPortal.readyPromise;
-      if (!LayersPortal.platform || !LayersPortal.connected) {
-        throw new Error('Layers Portal not connected');
-      }
-    } catch (err) {
-      console.error(err);
+    // Check if has token in query params and ignore Layers SDK connection
+    const token = getQueryVariable('token');
+    if (token) {
+      console.warn('Using user\'s token instead of session')
+      return;
     }
+
+    await LayersPortal.readyPromise;
+    if (!LayersPortal.platform) {
+      throw new Error('Layers Portal not connected');
+    }
+
+    await LayersPortal.connectedPromise;
   },
 };
 
@@ -54,5 +40,4 @@ export default {
   state,
   getters,
   actions,
-  mutations,
 };
