@@ -8,11 +8,11 @@ const state = {
 };
 
 const actions = {
-  async init(context) {
+  async init() {
     // Check if has token in query params and ignore Layers SDK connection
     const token = getQueryVariable('token');
     if (token) {
-      console.warn('Using user\'s token instead of session')
+      console.warn("Using user's token instead of session");
       return;
     }
 
