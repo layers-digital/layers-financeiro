@@ -37,20 +37,17 @@ Vue.config.productionTip = false;
 Axios.defaults.baseURL = Environment.API_URL;
 
 async function init() {
-  let communityId, userId;
+  let userId;
   try {
     await LayersPortal.connectedPromise;
-    communityId = LayersPortal.communityId;
     userId = LayersPortal.userId;
   } catch (err) {
     console.error(err);
 
-    communityId = getQueryVariable('community');
     userId = getQueryVariable('token');
   }
 
   const store = createStore({
-    communityId,
     userId,
   });
 

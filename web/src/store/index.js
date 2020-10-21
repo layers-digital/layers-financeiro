@@ -6,7 +6,7 @@ import persistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
-export default function createStore({ communityId, userId }) {
+export default function createStore({ userId }) {
   const options = {
     strict: true,
     plugins: [],
@@ -20,7 +20,7 @@ export default function createStore({ communityId, userId }) {
   if (isLocalStorageEnabled()) {
     options.plugins.push(
       persistedState({
-        key: `@${communityId}:${userId}-layers-financeiro`,
+        key: `vuex:${userId}`,
       })
     );
   }
