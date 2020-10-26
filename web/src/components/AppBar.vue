@@ -51,12 +51,15 @@
     <transition name="fade">
       <div v-if="expanded" @click="expanded = !expanded" class="overlay"></div>
     </transition>
+    <LinearProgress v-if="loading" />
   </div>
 </template>
 
 <script>
 import TransitionExpand from './TransitionExpand';
 // import PayablesGroupLink from './PayablesGroupLink'
+import LinearProgress from './LinearProgress';
+import { mapState } from 'vuex';
 
 const OVERVIEW_PAGE = {
   id: 'overview',
@@ -70,6 +73,7 @@ export default {
   name: 'AppBar',
   components: {
     TransitionExpand,
+    LinearProgress,
     // PayablesGroupLink
   },
   data() {
@@ -87,6 +91,8 @@ export default {
     this.reactToRouteChanges(this.$route.name, this.$route.params);
   },
   computed: {
+    ...mapState('payables', ['loading']),
+
     payablesGroups() {
       return this.$store.getters['payables/getPayablesGroups'];
     },

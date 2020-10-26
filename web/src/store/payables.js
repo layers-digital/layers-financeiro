@@ -3,7 +3,6 @@ import errorHandler from '@/helpers/errorHandler';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pt-br';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import Toast from '@/helpers/toast';
 import getQueryVariable from '@/helpers/getQueryVariable';
 
 const state = {
@@ -48,14 +47,6 @@ const actions = {
     if (token) context.commit('setToken', token);
 
     context.commit('setLoading', true);
-    Toast.open({
-      message: 'Estamos atualizando as informações.',
-      position: 'bottom',
-      timeout: 0,
-      options: {
-        loading: true,
-      },
-    });
 
     const session = LayersPortal.session;
     const userId = LayersPortal.userId;
@@ -96,15 +87,12 @@ const actions = {
       context.commit('setPayablesData', payables);
       context.commit('setLastFetchedAt', new Date());
       context.commit('setLoading', false);
-      Toast.hideAll();
     } catch (err) {
-      Toast.hideAll();
       errorHandler({
         error: err,
         parameters: {
           action: {
             callback: () => {
-              Toast.hideAll();
               context.dispatch('fetchData');
             },
             label: 'ATUALIZAR',
