@@ -1,24 +1,37 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import payables from './payables'
-import layers from './layers'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import payables from './payables';
+import layers from './layers';
 import persistedState from 'vuex-persistedstate';
-import getQueryVariable from '@/helpers/getQueryVariable'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
-const community = getQueryVariable('community')
+export default function createStore({ userId }) {
+  const options = {
+    strict: true,
+    plugins: [],
+    modules: {
+      layers,
+      payables,
+    },
+  };
 
-export default new Vuex.Store({
-  strict: true,
-  plugins: [
-    persistedState({
-      key: `${community}-layers-financeiro`
-    })
-  ],
+  // Enable persisted state if user's LocalStore is enabled
+  if (isLocalStorageEnabled()) {
+    options.plugins.push(
+      persistedState({
+        key: `vuex:${userId}`,
+      })
+    );
+  }
 
-  modules: {
-    layers,
-    payables,
-  },
-})
+  return new Vuex.Store(options);
+}
+
+function isLocalStorageEnabled() {
+  try {
+    return window.localStorage instanceof Storage;
+  } catch (error) {
+    return false;
+  }
+}

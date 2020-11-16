@@ -1,6 +1,6 @@
 <template>
   <span class="count-badge grey-70--text">
-    {{friendlyInstallmentsCount}}
+    {{ friendlyInstallmentsCount }}
   </span>
 </template>
 
@@ -10,10 +10,10 @@ export default {
   props: {
     friendlyInstallmentsCount: {
       type: String,
-      default: '--'
-    }
-  }
-}
+      default: '--',
+    },
+  },
+};
 </script>
 
 <style scoped>

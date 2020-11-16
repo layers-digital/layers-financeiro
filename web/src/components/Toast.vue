@@ -5,25 +5,21 @@
         <div class="ls-col">
           <div v-if="message" class="message">{{ message }}</div>
         </div>
-        <button
-          v-if="options.action"
-          @click="callAction()"
-          class="action-btn cursor-pointer pl-2" :class="actionColor">
+        <button v-if="options.action" @click="callAction()" class="action-btn cursor-pointer pl-2" :class="actionColor">
           {{ options.action.label }}
         </button>
         <div v-else-if="options.loading">
           <Loader />
         </div>
         <button v-else @click="close()" class="close-btn cursor-pointer">
-          <img src="@/assets/cancel.svg"
-            height="24" width="24"/>
+          <img src="@/assets/cancel.svg" height="24" width="24" />
         </button>
       </div>
     </div>
   </transition>
 </template>
 <script>
-import Loader from '@/components/Loader'
+import Loader from '@/components/Loader';
 export default {
   name: 'Toast',
   props: {
@@ -37,13 +33,13 @@ export default {
     },
     options: {
       type: Object,
-      default: function() {
+      default: function () {
         return {};
       },
     },
   },
   components: {
-    Loader
+    Loader,
   },
   data() {
     return {
@@ -51,18 +47,18 @@ export default {
     };
   },
   created() {
-    if(this.options.timeout > 0){
+    if (this.options.timeout > 0) {
       setTimeout(() => {
-        this.close()
-      }, this.options.timeout)
+        this.close();
+      }, this.options.timeout);
     }
   },
   watch: {
-    open: function(val) {
+    open: function (val) {
       if (!val) {
         this.close();
       }
-    }
+    },
   },
   beforeMount() {
     document.body.appendChild(this.$el);
@@ -72,29 +68,33 @@ export default {
   },
   computed: {
     color() {
-      return {
-        'danger': 'danger',
-        'warning': 'warning',
-        'success': 'success',
-        'info': 'lead',
-      } [this.options && this.options.color] || 'lead'
+      return (
+        {
+          danger: 'danger',
+          warning: 'warning',
+          success: 'success',
+          info: 'lead',
+        }[this.options && this.options.color] || 'lead'
+      );
     },
     actionColor() {
-      let color = (this.options && this.options.action && this.options.action.color) || 'lead'
+      let color = (this.options && this.options.action && this.options.action.color) || 'lead';
       return {
-        'danger': 'danger--text',
-        'warning': 'warning--text',
-        'success': 'success--text',
-        'info': 'lead--text',
-        'white': 'white--text',
-      } [color]
+        danger: 'danger--text',
+        warning: 'warning--text',
+        success: 'success--text',
+        info: 'lead--text',
+        white: 'white--text',
+      }[color];
     },
     position() {
-      return {
-        'top': 'top',
-        'bottom': 'bottom',
-      } [this.options && this.options.position] || 'top'
-    }
+      return (
+        {
+          top: 'top',
+          bottom: 'bottom',
+        }[this.options && this.options.position] || 'top'
+      );
+    },
   },
   methods: {
     close() {
@@ -106,10 +106,10 @@ export default {
       }, 0);
     },
     callAction() {
-      const fn = (this.options && this.options.action && this.options.action.callback) || null
-      if(!fn || typeof fn != 'function') return
-      return fn()
-    }
+      const fn = (this.options && this.options.action && this.options.action.callback) || null;
+      if (!fn || typeof fn != 'function') return;
+      return fn();
+    },
   },
 };
 function removeElement(el) {
@@ -140,7 +140,7 @@ function removeElement(el) {
   width: 100%;
   z-index: 10000;
   position: fixed;
-  top:8px;
+  top: 8px;
   left: 0;
   display: -ms-flexbox;
   display: flex;

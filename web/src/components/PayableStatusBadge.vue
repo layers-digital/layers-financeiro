@@ -1,6 +1,6 @@
 <template>
   <span class="label" :class="`${colors}-light ${colors}--text`">
-    {{statusLabel}}
+    {{ statusLabel }}
   </span>
 </template>
 
@@ -11,32 +11,36 @@ export default {
     status: {
       type: String,
       required: true,
-    }
+    },
   },
   computed: {
     statusLabel() {
-      return {
-        'paid': 'Pago',
-        'partially_paid': 'Parcialmente pago',
-        'pending': 'Pendente',
-        'open': 'Futura',
-        'canceled': 'Cancelado',
-        'late': 'Vencida',
-      } [this.status] || this.status
+      return (
+        {
+          paid: 'Pago',
+          partially_paid: 'Parcialmente pago',
+          pending: 'Pendente',
+          open: 'Futura',
+          canceled: 'Cancelado',
+          late: 'Vencida',
+        }[this.status] || this.status
+      );
     },
 
     colors() {
-      return {
-        'paid': 'success',
-        'partially_paid': 'link',
-        'pending': 'warning',
-        'open': 'grey-60',
-        'canceled': 'grey-80',
-        'late': 'danger',
-      } [this.status] || this.status
-    }
-  }
-}
+      return (
+        {
+          paid: 'success',
+          partially_paid: 'link',
+          pending: 'warning',
+          open: 'grey-60',
+          canceled: 'grey-80',
+          late: 'danger',
+        }[this.status] || this.status
+      );
+    },
+  },
+};
 </script>
 
 <style scoped>

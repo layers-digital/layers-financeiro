@@ -1,10 +1,6 @@
 <template>
-  <transition
-    name="expand"
-    @enter="enter"
-    @after-enter="afterEnter"
-    @leave="leave">
-    <slot/>
+  <transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
+    <slot />
   </transition>
 </template>
 
@@ -37,23 +33,23 @@ export default {
       });
     },
     afterEnter(element) {
-      element.style.height = 'auto'
+      element.style.height = 'auto';
     },
     leave(element) {
-      const height = getComputedStyle(element).height
+      const height = getComputedStyle(element).height;
 
-      element.style.height = height
+      element.style.height = height;
 
       // Force repaint to make sure the
       // animation is triggered correctly.
-      getComputedStyle(element).height
+      getComputedStyle(element).height;
 
       requestAnimationFrame(() => {
-        element.style.height = 0
-      })
+        element.style.height = 0;
+      });
     },
   },
-}
+};
 </script>
 
 <style scoped>

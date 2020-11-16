@@ -1,29 +1,27 @@
-/* global LayersPortal */
-
-import Toast from '@/helpers/toast'
+import Toast from '@/helpers/toast';
 
 export default async function downloadFile(url) {
-   Toast.open({
+  Toast.open({
     message: 'Estamos fazendo download do arquivo...',
     position: 'top',
     type: 'success',
     timeout: 4000,
-    options: { loading: true }
-   })
+    options: { loading: true },
+  });
 
   try {
     await LayersPortal('download', {
       url: url,
-      name: 'file-' + Date.now() + '.pdf'
+      name: 'file-' + Date.now() + '.pdf',
       // name: name,
-    })
+    });
   } catch (error) {
-    Toast.hideAll()
+    Toast.hideAll();
     Toast.open({
       message: 'Ops! Algo deu errado no seu download, tente novamente.',
       type: 'danger',
       position: 'top',
-      timeout: 10000
-    })
+      timeout: 10000,
+    });
   }
 }

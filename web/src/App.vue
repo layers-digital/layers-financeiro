@@ -3,12 +3,9 @@
     <div class="content-wrap grey-10">
       <!-- <AppBar
       class="app-bar-layout"/> -->
-      <router-view name="navigation"
-        class="app-bar-layout">
-      </router-view>
-      <transition :name="transitionName"
-        mode="out-in">
-        <router-view style="padding-top: 72px !important;"></router-view>
+      <router-view name="navigation" class="app-bar-layout"></router-view>
+      <transition :name="transitionName" mode="out-in">
+        <router-view style="padding-top: 72px !important"></router-view>
       </transition>
     </div>
   </div>
@@ -29,13 +26,13 @@ export default {
   }),
 
   watch: {
-    '$route' (to, from) {
-      const toDepth = to.path.split('/').length
-      const fromDepth = from.path.split('/').length
-      this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
-    }
+    $route(to, from) {
+      const toDepth = to.path.split('/').length;
+      const fromDepth = from.path.split('/').length;
+      this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left';
+    },
   },
-}
+};
 </script>
 
 <style scoped>
