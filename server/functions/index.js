@@ -39,7 +39,8 @@ const relatedAPI = async function (req, res) {
   let userData = null
   if(session) {
     try {
-      await Layers.get(`/sso/session/validate?community=${community}&session=${session}&userId=${userId}`, {
+      await Layers.get('/sso/session/validate', {
+        params: { community, session, userId },
         headers: { 'Authorization': 'Bearer ' + functions.config().layers.secret }
       })
     } catch(err) {
