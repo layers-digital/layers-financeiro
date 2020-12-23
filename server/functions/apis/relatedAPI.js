@@ -3,9 +3,9 @@ const express = require('express')
 const cors = require('cors')
 const _ = require('lodash')
 
-const filterCriticalPayables = require('./pipes/filterCriticalPayables')
-const hydratePayables = require('./pipes/hydratePayables')
-const hydrateGroups = require('./pipes/hydrateGroups')
+const filterCriticalPayables = require('../pipes/filterCriticalPayables')
+const hydratePayables = require('../pipes/hydratePayables')
+const hydrateGroups = require('../pipes/hydrateGroups')
 
 const { BadRequest, AxiosError, InternalError } = require('../errors')
 const LayersAPI = require('../LayersAPI')
