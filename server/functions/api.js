@@ -3,20 +3,19 @@ const express = require('express')
 const cors = require('cors')
 const _ = require('lodash')
 
-const filterCriticalPayables = require('../pipes/filterCriticalPayables')
-const hydratePayables = require('../pipes/hydratePayables')
-const hydrateGroups = require('../pipes/hydrateGroups')
+const filterCriticalPayables = require('./pipes/filterCriticalPayables')
+const hydratePayables = require('./pipes/hydratePayables')
+const hydrateGroups = require('./pipes/hydrateGroups')
 
-const { BadRequest, AxiosError, InternalError } = require('../errors')
-const LayersAPI = require('../LayersAPI')
+const { BadRequest, AxiosError, InternalError } = require('./errors')
+const LayersAPI = require('./LayersAPI')
 
 const app = express()
 
 app.use(Sentry.Handlers.requestHandler())
-
 app.use(cors())
 
-app.get('/', async function (req, res, next) {
+app.get('/api/related', async function (req, res, next) {
   try {
     // Disable CORS when is running locally
     if(process.env.FUNCTIONS_EMULATOR) {
@@ -105,7 +104,7 @@ app.get('/', async function (req, res, next) {
     providersData.forEach(data => {
       let providerPayload = {
         provider: data.provider,
-        result: _.get(data, 'payload.data.data.result', [])
+        result: _.get(data, 'payload.data.result', [])
       }
       payload.push(providerPayload)
     })
