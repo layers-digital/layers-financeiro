@@ -13,6 +13,7 @@ export default async function downloadFile(url) {
     await LayersPortal('download', {
       url: url,
       name: 'file-' + Date.now() + '.pdf',
+      filename: 'file-' + Date.now() + '.pdf',
       // name: name,
     });
   } catch (error) {
