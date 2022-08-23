@@ -1,0 +1,15 @@
+{
+  "sentry": {
+    "dsn": "SENTRY_DSN",
+    "env": "staging"
+  },
+  "layers": {
+    "app": {
+      "secret": "APP_SECRET",
+      "id": "layers-financeiro",
+      "community": "admin"
+    },
+    "token": "Bearer local-test-layers-financeiro",
+    "api": "http://localhost:8009/v1"
+  }
+}

@@ -29,7 +29,7 @@ function LayersApiLocation() {
 function ApiLocation() {
   // Handle local development
   if (isLocal()) {
-    return 'http://localhost:8050/layers-financeiro/us-central1';
+    return 'http://localhost:8058/layers-financeiro/us-central1/api/api/';
   }
 
   if (isStaging()) {

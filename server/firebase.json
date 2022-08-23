@@ -1,7 +1,7 @@
 {
   "emulators": {
     "functions": {
-      "port": "8050"
+      "port": "8058"
     }
   }
 }
