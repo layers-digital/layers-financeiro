@@ -1,8 +1,8 @@
 const removeMd = require('remove-markdown');
 
-module.exports = hidratePayables
+module.exports = hydratePayables
 
-function hidratePayables(payload) {
+function hydratePayables(payload) {
   payload.forEach((provider) => {
     provider.result.forEach(group => {
       group.payables.forEach(payable => {

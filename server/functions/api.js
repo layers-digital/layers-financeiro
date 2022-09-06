@@ -104,7 +104,7 @@ app.get('/api/related', async function (req, res, next) {
     providersData.forEach(data => {
       let providerPayload = {
         provider: data.provider,
-        result: _.get(data, 'payload.data.result', [])
+        result: _.get(data, 'payload.data.result', []).filter(result => result)
       }
       payload.push(providerPayload)
     })
