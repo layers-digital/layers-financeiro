@@ -1,4 +1,5 @@
 import getQueryVariable from '@/helpers/getQueryVariable';
+import { setUserPropsLogEvents } from '@/services/logEvent';
 
 const state = {
   session: null,
@@ -8,20 +9,51 @@ const state = {
 };
 
 const actions = {
-  async init() {
-    // Check if has token in query params and ignore Layers SDK connection
-    const token = getQueryVariable('token');
-    if (token) {
-      console.warn("Using user's token instead of session");
-      return;
-    }
+  async init(context) {
+    try {
+      // Check if has token in query params and ignore Layers SDK connection
+      const token = getQueryVariable('token');
+      if (token) {
+        throw new Error("Deprecated authenticate method: Using user's token instead of session");
+      }
 
-    await LayersPortal.readyPromise;
-    if (!LayersPortal.platform) {
-      throw new Error('Layers Portal not connected');
-    }
+      if (!LayersPortal) {
+        throw new Error('LayersPortal is not defined');
+      }
 
-    await LayersPortal.connectedPromise;
+      await LayersPortal.readyPromise;
+      await LayersPortal.connectedPromise;
+
+      if (!LayersPortal.platform || !LayersPortal.connected) {
+        throw new Error('Layers Portal not connected');
+      }
+
+      const { session, communityId, userId, accountId, connected } = LayersPortal;
+      const sessionInfo = {
+        session,
+        communityId,
+        userId,
+        accountId,
+        connected,
+      };
+      context.dispatch('updateSession', sessionInfo);
+    } catch (error) {
+      const sessionInfo = {
+        session: null,
+        communityId: null,
+        userId: null,
+        accountId: null,
+        connected: null,
+      };
+      return context.dispatch('updateSession', sessionInfo);
+    }
+  },
+
+  async updateSession(context, { communityId, userId, accountId }) {
+    setUserPropsLogEvents(userId, {
+      community: communityId,
+      ...(accountId ? { accountId } : {}),
+    });
   },
 };
 
