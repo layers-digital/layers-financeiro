@@ -4,7 +4,7 @@ import { initializeAnalytics, setUserProperties, logEvent, setUserId } from 'fir
 import environment from '@/environment';
 
 const firebaseConfig = environment.GA_CONFIG;
-const amplitudeConfig = environment.AMPLITUDE_KEY;
+const amplitudeConfig = environment.AMPLITUDE_CONFIG;
 
 const hasFirebaseConfig = firebaseConfig.apiKey;
 const hasAmplitudeConfig = amplitudeConfig.apiKey;

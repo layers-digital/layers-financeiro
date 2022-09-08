@@ -88,5 +88,5 @@ export default {
   GA_CONFIG: getGAEnvs(),
 
   // Amplitude Analytics
-  AMPLITUDE_KEY: getAmplitudeEnvs(),
+  AMPLITUDE_CONFIG: getAmplitudeEnvs(),
 };
