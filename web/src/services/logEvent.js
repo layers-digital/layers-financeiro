@@ -6,8 +6,8 @@ import environment from '@/environment';
 const firebaseConfig = environment.GA_CONFIG;
 const amplitudeConfig = environment.AMPLITUDE_CONFIG;
 
-const hasFirebaseConfig = firebaseConfig.apiKey;
-const hasAmplitudeConfig = amplitudeConfig.apiKey;
+const hasFirebaseConfig = !!firebaseConfig.apiKey;
+const hasAmplitudeConfig = !!amplitudeConfig.apiKey;
 
 let analytics = null;
 const amplitudeInstance = amplitude.getInstance();
@@ -22,7 +22,7 @@ if (hasFirebaseConfig) {
 }
 
 if (hasAmplitudeConfig) {
-  amplitudeInstance.init(hasAmplitudeConfig);
+  amplitudeInstance.init(amplitudeConfig.apiKey);
 }
 
 function setUserPropsLogEvents(userId, customProps) {
