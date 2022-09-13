@@ -42,19 +42,17 @@ function ApiLocation() {
 
 function getGAEnvs() {
   if (isLocal() || isStaging()) {
-    // CRIAR PROJETO NO FIREBASE E PEGAR ENVS
     return {
-      apiKey: '',
-      authDomain: '',
-      databaseURL: '',
-      projectId: '',
-      storageBucket: '',
-      messagingSenderId: '',
-      appId: '',
-      measurementId: '',
+      apiKey: 'AIzaSyClS3lDBKyTg1AI2E9IESLZDEDX9EpDOhM',
+      authDomain: 'layers-financeiro-staging.firebaseapp.com',
+      databaseURL: 'https://layers-financeiro-staging.firebaseio.com',
+      projectId: 'layers-financeiro-staging',
+      storageBucket: 'layers-financeiro-staging.appspot.com',
+      messagingSenderId: '320015245972',
+      appId: '1:320015245972:web:c2bf16ad1888b2ff0c8a81',
+      measurementId: 'G-Y8FNK8LH4G',
     };
   }
-  // PEGAR ENVS
   return {
     apiKey: 'AIzaSyA74S5V0iMvqNokEhyrgWeejZmOIPGl7SE',
     authDomain: 'layers-financeiro.firebaseapp.com',
@@ -68,10 +66,10 @@ function getGAEnvs() {
 }
 
 function getAmplitudeEnvs() {
-  //DEFINIR ORGANIZACAO DO AMPLITUDE E PEGAR ENVS
+  // DEFINIR ORGANIZACAO DO AMPLITUDE PROD E PEGAR ENVS
   if (isLocal() || isStaging()) {
     return {
-      apiKey: '',
+      apiKey: '8a1851e3850941ec180e615198eae946',
     };
   }
 
