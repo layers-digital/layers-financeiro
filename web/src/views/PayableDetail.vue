@@ -109,6 +109,7 @@ import Marked from 'marked';
 import DOMPurify from 'dompurify';
 import Toast from '@/helpers/toast';
 import dayjs from 'dayjs';
+import { sendLogEvents } from '@/services/logEvent';
 
 export default {
   name: 'PayableDetail',
@@ -121,6 +122,9 @@ export default {
   components: {
     PayableStatusBadge,
     PayablesCount,
+  },
+  mounted() {
+    sendLogEvents('Open View', { viewName: 'PayableDetail' });
   },
   computed: {
     readableRelativeDueDate() {

@@ -40,7 +40,58 @@ function ApiLocation() {
   return '/api';
 }
 
+function getGAEnvs() {
+  if (isLocal() || isStaging()) {
+    return {
+      apiKey: 'AIzaSyClS3lDBKyTg1AI2E9IESLZDEDX9EpDOhM',
+      authDomain: 'layers-financeiro-staging.firebaseapp.com',
+      databaseURL: 'https://layers-financeiro-staging.firebaseio.com',
+      projectId: 'layers-financeiro-staging',
+      storageBucket: 'layers-financeiro-staging.appspot.com',
+      messagingSenderId: '320015245972',
+      appId: '1:320015245972:web:c2bf16ad1888b2ff0c8a81',
+      measurementId: 'G-Y8FNK8LH4G',
+    };
+  }
+  return {
+    apiKey: 'AIzaSyA74S5V0iMvqNokEhyrgWeejZmOIPGl7SE',
+    authDomain: 'layers-financeiro.firebaseapp.com',
+    databaseURL: 'https://layers-financeiro.firebaseio.com',
+    projectId: 'layers-financeiro',
+    storageBucket: 'layers-financeiro.appspot.com',
+    messagingSenderId: '268095587401',
+    appId: '1:268095587401:web:0c7cab8f9239ca94356b98',
+    measurementId: 'G-ZN6ZTYL4YG',
+  };
+}
+
+function getAmplitudeEnvs() {
+  if (isLocal() || isStaging()) {
+    return {
+      apiKeys: [
+        // Staging
+        '8a1851e3850941ec180e615198eae946',
+      ],
+    };
+  }
+
+  return {
+    apiKeys: [
+      // Prod - All Apps
+      '170800e1ae63cf63ad50a65917e50fcb',
+      // Prod - Single App
+      'e53fc2c03fec02ddf6bc1cb39afe3aa2',
+    ],
+  };
+}
+
 export default {
   LAYERS_API_URL: LayersApiLocation(),
   API_URL: ApiLocation(),
+
+  // Google Analytics
+  GA_CONFIG: getGAEnvs(),
+
+  // Amplitude Analytics
+  AMPLITUDE_CONFIG: getAmplitudeEnvs(),
 };
