@@ -66,15 +66,22 @@ function getGAEnvs() {
 }
 
 function getAmplitudeEnvs() {
-  // DEFINIR ORGANIZACAO DO AMPLITUDE PROD E PEGAR ENVS
   if (isLocal() || isStaging()) {
     return {
-      apiKey: '8a1851e3850941ec180e615198eae946',
+      apiKeys: [
+        // Staging
+        '8a1851e3850941ec180e615198eae946',
+      ],
     };
   }
 
   return {
-    apiKey: '',
+    apiKeys: [
+      // Prod - All Apps
+      '170800e1ae63cf63ad50a65917e50fcb',
+      // Prod - Single App
+      'e53fc2c03fec02ddf6bc1cb39afe3aa2',
+    ],
   };
 }
 

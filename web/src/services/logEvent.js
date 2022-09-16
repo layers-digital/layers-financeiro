@@ -7,10 +7,14 @@ const firebaseConfig = environment.GA_CONFIG;
 const amplitudeConfig = environment.AMPLITUDE_CONFIG;
 
 const hasFirebaseConfig = !!firebaseConfig.apiKey;
-const hasAmplitudeConfig = !!amplitudeConfig.apiKey;
+const amplitudeConfigKeys = amplitudeConfig.apiKeys.filter((key) => key);
 
 let analytics = null;
-const amplitudeInstance = amplitude.getInstance();
+const amplitudeInstances = amplitudeConfigKeys.map((key) => {
+  const instance = amplitude.getInstance(key);
+  instance.init(key);
+  return instance;
+});
 
 if (hasFirebaseConfig) {
   const app = initializeApp(firebaseConfig);
@@ -21,15 +25,11 @@ if (hasFirebaseConfig) {
   });
 }
 
-if (hasAmplitudeConfig) {
-  amplitudeInstance.init(amplitudeConfig.apiKey);
-}
-
 function setUserPropsLogEvents(userId, customProps) {
-  if (hasAmplitudeConfig) {
-    amplitudeInstance.setUserId(userId);
-    amplitudeInstance.setUserProperties(customProps);
-  }
+  amplitudeInstances.forEach((instance) => {
+    instance.setUserId(userId);
+    instance.setUserProperties(customProps);
+  });
 
   if (hasFirebaseConfig) {
     setUserId(analytics, userId);
@@ -40,9 +40,9 @@ function setUserPropsLogEvents(userId, customProps) {
 function sendLogEvents(event, props = {}) {
   const appId = window.LayersPortalOptions.appId;
 
-  if (hasAmplitudeConfig) {
-    amplitudeInstance.logEvent(event, { ...props, appId });
-  }
+  amplitudeInstances.forEach((instance) => {
+    instance.logEvent(event, { ...props, appId });
+  });
 
   if (hasFirebaseConfig) {
     logEvent(analytics, event, { ...props, appId });
