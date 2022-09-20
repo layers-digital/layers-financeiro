@@ -6,6 +6,29 @@ const state = {
   userId: null,
   communityId: null,
   accountId: null,
+  bridgeConnected: false,
+};
+
+const mutations = {
+  setSession(context, session) {
+    context.session = session;
+  },
+
+  setUserId(context, userId) {
+    context.userId = userId;
+  },
+
+  setCommunityId(context, communityId) {
+    context.communityId = communityId;
+  },
+
+  setAccountId(context, accountId) {
+    context.accountId = accountId;
+  },
+
+  setBridgeConnected(context, bridgeConnected) {
+    context.bridgeConnected = bridgeConnected;
+  },
 };
 
 const actions = {
@@ -14,7 +37,7 @@ const actions = {
       // Check if has token in query params and ignore Layers SDK connection
       const token = getQueryVariable('token');
       if (token) {
-        throw new Error("Deprecated authenticate method: Using user's token instead of session");
+        throw new Error('Deprecated authenticate method');
       }
 
       if (!LayersPortal) {
@@ -25,7 +48,7 @@ const actions = {
       await LayersPortal.connectedPromise;
 
       if (!LayersPortal.platform || !LayersPortal.connected) {
-        throw new Error('Layers Portal not connected');
+        throw new Error('Layers Portal is not connected');
       }
 
       const { session, communityId, userId, accountId, connected } = LayersPortal;
@@ -37,7 +60,7 @@ const actions = {
         connected,
       };
       context.dispatch('updateSession', sessionInfo);
-    } catch (error) {
+    } catch (err) {
       const sessionInfo = {
         session: null,
         communityId: null,
@@ -49,11 +72,17 @@ const actions = {
     }
   },
 
-  async updateSession(context, { communityId, userId, accountId }) {
+  async updateSession(context, { session, communityId, userId, accountId, bridgeConnected }) {
     setUserPropsLogEvents(userId, {
       community: communityId,
       ...(accountId ? { accountId } : {}),
     });
+
+    context.commit('setSession', session);
+    context.commit('setCommunityId', communityId);
+    context.commit('setUserId', userId);
+    context.commit('setAccountId', accountId);
+    context.commit('setBridgeConnected', bridgeConnected);
   },
 };
 
@@ -72,4 +101,5 @@ export default {
   state,
   getters,
   actions,
+  mutations,
 };

@@ -69,7 +69,7 @@ function getAmplitudeEnvs() {
   if (isLocal() || isStaging()) {
     return {
       apiKeys: [
-        // Staging
+        // Staging - All Apps
         '8a1851e3850941ec180e615198eae946',
       ],
     };
