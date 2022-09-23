@@ -12,10 +12,11 @@
   },
   "dependencies": {
     "@tenda.digital/webarchiver": "^1.1.4",
+    "amplitude-js": "^8.20.1",
     "axios": "^0.19.2",
     "dayjs": "^1.8.27",
     "dompurify": "^2.0.10",
-    "firebase": "^7.15.0",
+    "firebase": "^9.9.4",
     "marked": "^1.0.0",
     "vue": "^2.6.11",
     "vue-router": "^3.1.6",
