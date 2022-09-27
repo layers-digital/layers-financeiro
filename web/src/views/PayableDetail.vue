@@ -61,7 +61,7 @@
           v-for="(attachment, index) in payable.attachments"
           :key="index"
           class="attachment-btn mb-2 link-light"
-          @click="attachmentHandler(attachment.url, attachment.title, attachment.kind || attachment.type)"
+          @click="attachmentHandler(attachment.url, attachment.title, attachment.kind || attachment.type, 'attachment')"
         >
           <div class="ls-flex-grow-1" style="margin-top: 4px">
             <span class="ellipsis-1" style="font-weight: 600; text-align: left; word-break: break-all">
@@ -89,7 +89,14 @@
       <button
         v-if="payable.boleto.url || payable.boleto.link"
         class="action-btn ls-flex-grow-1 ml-1"
-        @click="attachmentHandler(payable.boleto.link || payable.boleto.url, payable.boleto.title, payable.boleto.type)"
+        @click="
+          attachmentHandler(
+            payable.boleto.link || payable.boleto.url,
+            payable.boleto.title,
+            payable.boleto.type,
+            'boleto'
+          )
+        "
       >
         <span class="icon mr-2">
           <img src="../assets/download.svg" height="20" width="20" />
@@ -169,7 +176,9 @@ export default {
   },
 
   methods: {
-    async attachmentHandler(url, title, type) {
+    async attachmentHandler(url, title, type, description) {
+      sendLogEvents('Download Files', { description });
+
       if (type == 'link') {
         return await LayersPortal('go', url);
       }
@@ -184,6 +193,8 @@ export default {
       el.select();
       document.execCommand('copy');
       document.body.removeChild(el);
+
+      sendLogEvents('Copy Barcode');
 
       Toast.open({ message: 'Código copiado com sucesso!' });
     },
