@@ -1,15 +1,5 @@
 <template>
   <div class="ls-container p-3 grey-10" style="min-height: 100%; overflow: auto !important">
-    <!-- Data provider label -->
-    <div class="ls-row ls-no-gutters ls-align-items-center mb-2">
-      <!-- <div> -->
-      <img :src="group.provider.icon" height="24" width="24" class="app-icon-radius mr-2" />
-      <!-- </div> -->
-      <span class="grey-70--text" style="font-size: 12px">
-        Dados fornecidos por {{ group.provider.displayName }}
-        <b>{{ lastFetchedAt }}</b>
-      </span>
-    </div>
     <!-- Group description -->
     <div style="font-size: 16px">
       <!-- IMPROVE TRANSITIONS -->
