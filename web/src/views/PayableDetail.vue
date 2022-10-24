@@ -40,7 +40,7 @@
             {{ payable.amountOriginal }}
           </span>
         </div>
-        <div v-if="payable.centsPaid && payable.centsPaid.toString() != 0" class="ls-col mt-3">
+        <div v-if="payable.amountPaid" class="ls-col mt-3">
           <div class="amount-label">Valor pago</div>
           <span class="amount success--text" style="white-space: nowrap">
             {{ payable.amountPaid }}
