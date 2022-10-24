@@ -18,11 +18,7 @@
       </span>
     </div>
     <div class="ls-row ls-no-gutters">
-      <div
-        class="ls-col mr-2 amount"
-        :class="amountColor"
-        v-if="payable.centsPaid && payable.centsPaid.toString() != 0"
-      >
+      <div class="ls-col mr-2 amount" :class="amountColor" v-if="payable.centsPaid && payable.centsPaid != 0">
         <span v-if="payable.status == 'paid'" style="white-space: nowrap">
           {{ payable.amountPaid }}
         </span>
