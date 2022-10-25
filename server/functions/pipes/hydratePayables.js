@@ -22,7 +22,11 @@ function hydratePayables(payload) {
         payable.amountTotal = (payable.centsTotal/100).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
 
         //Friendly paid amount
-        payable.amountPaid = (payable.centsPaid/100).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
+        const amountPaid = payable.centsPaid / 100
+        
+        if (!isNaN(amountPaid)) {
+          payable.amountPaid = amountPaid.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+        }
 
         //Friendly original amount
         payable.amountOriginal = (payable.centsOriginal/100).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
