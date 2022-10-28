@@ -19,7 +19,7 @@
     <div class="dashed mt-3" :class="totalAmountColor"></div>
     <div class="py-2" :class="totalAmountColor">
       <div class="ls-row ls-no-gutters ls-align-items-center">
-        <div class="ls-col mr-3">
+        <div class="ls-col mr-3" v-if="payable.amountTotal">
           <div class="amount-label">Valor total</div>
           <span class="amount" :class="totalAmountColor" style="white-space: nowrap">
             {{ payable.amountTotal }}

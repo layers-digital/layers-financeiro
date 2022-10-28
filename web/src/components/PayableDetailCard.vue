@@ -22,7 +22,7 @@
         <span v-if="payable.status == 'paid'" style="white-space: nowrap">
           {{ payable.amountPaid }}
         </span>
-        <span v-else style="white-space: nowrap">
+        <span v-else-if="payable.amountTotal" style="white-space: nowrap">
           {{ payable.amountTotal }}
         </span>
       </div>
