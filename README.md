@@ -9,7 +9,7 @@ App que pode ser integrado a qualquer Sistema de Gestão ou planilha para mostra
 A [Layers](https://layers.education) é um ecossistema que unifica soluções educacionais e os Apps by Layers são Open Source. Você também pode construir seus próprios Apps dentro da Layers de maneira simples e rápida utilizando nosso Hub de APIs. Saiba mais no [Layers Developer Center](https://developers.layers.education).
 
 ### User Interface
-Deixamos aberto também o Figma da interface do Aplicativo. [Acesse aqui](https://developers.layers.education) para visualizar e entender melhor sobre o como funcionam as interações do usuário.
+Deixamos aberto também o Figma da interface do Aplicativo. [Acesse aqui](https://www.figma.com/file/jhNnpLKwUp5nQQClC3h9Pn/%E2%9C%85-App-Vis%C3%A3o-Financeira?node-id=1%3A4&t=kfTGIzlBLCw6OXFz-1) para visualizar e entender melhor sobre o como funcionam as interações do usuário.
 
 ![Figma Screen](https://i.ibb.co/HFpMbRC/Captura-de-Tela-2022-11-21-a-s-11-09-33.png)
 
