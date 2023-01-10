@@ -1,5 +1,5 @@
 <template>
-  <div class="circle" :class="circleColor"></div>
+  <img :src="circleColor" height="10" width="10" />
 </template>
 
 <script>
@@ -14,31 +14,25 @@ export default {
   computed: {
     circleColor() {
       if (this.payable.isCritical && this.payable.status == 'late') {
-        return 'danger';
+        return require('../assets/danger-circle.svg');
       }
 
       if (this.payable.isCritical && this.payable.status != 'late') {
-        return 'warning';
+        return require('../assets/warning-circle.svg');
       }
 
       if (this.payable.status == 'paid') {
-        return 'success';
+        return require('../assets/success-circle.svg');
       }
 
       if (this.payable.status == 'open') {
-        return 'grey-60';
+        return require('../assets/grey-60-circle.svg');
       }
 
-      return 'grey-50';
+      return require('../assets/grey-50-circle.svg');
     },
   },
 };
 </script>
 
-<style scoped>
-.circle {
-  width: 10px;
-  height: 10px;
-  border-radius: 10px;
-}
-</style>
+<style scoped></style>
