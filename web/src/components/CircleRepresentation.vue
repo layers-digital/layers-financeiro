@@ -25,10 +25,6 @@ export default {
         return require('../assets/success-circle.svg');
       }
 
-      if (this.payable.status == 'open') {
-        return require('../assets/grey-60-circle.svg');
-      }
-
       return require('../assets/grey-50-circle.svg');
     },
   },
