@@ -1,5 +1,5 @@
 <template>
-  <img :src="circleColor" height="10" width="10" />
+  <img :src="circleColor" height="16" width="16" />
 </template>
 
 <script>
