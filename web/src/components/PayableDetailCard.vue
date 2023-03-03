@@ -36,7 +36,7 @@ import PayableStatusBadge from './PayableStatusBadge';
 import PayablesCount from './PayablesCount';
 import relativeDueDate from '@/helpers/relativeDueDate';
 import dayjs from 'dayjs';
-import currencyFormatter from '../helpers/currencyFormatter';
+import currencyFormatter from '@/helpers/currencyFormatter';
 
 export default {
   name: 'PayableDetailCard',

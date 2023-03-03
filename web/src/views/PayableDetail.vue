@@ -117,7 +117,7 @@ import DOMPurify from 'dompurify';
 import Toast from '@/helpers/toast';
 import dayjs from 'dayjs';
 import { sendLogEvents } from '@/services/logEvent';
-import currencyFormatter from '../helpers/currencyFormatter';
+import currencyFormatter from '@/helpers/currencyFormatter';
 
 export default {
   name: 'PayableDetail',
