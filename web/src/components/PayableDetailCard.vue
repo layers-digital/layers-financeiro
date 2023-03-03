@@ -51,10 +51,6 @@ export default {
     },
   },
 
-  mounted() {
-    console.log(navigator.language);
-  },
-
   computed: {
     amountPaid() {
       return currencyFormatter(this.payable.centsPaid, this.payable.currency, navigator.language);
