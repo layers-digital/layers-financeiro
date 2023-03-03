@@ -1,5 +1,5 @@
 export default function currencyFormatter(value, currency, locale) {
-  let integerValue = value / 100;
+  const integerValue = value / 100;
   if (!currency) {
     currency = 'BRL';
   }
