@@ -22,7 +22,7 @@
         <div class="ls-col mr-3" v-if="payable.amountTotal">
           <div class="amount-label">Valor total</div>
           <span class="amount" :class="totalAmountColor" style="white-space: nowrap">
-            {{ payable.amountTotal }}
+            {{ amountTotal }}
           </span>
         </div>
         <div class="ls-col">
@@ -37,13 +37,13 @@
         <div v-if="payable.centsOriginal && payable.centsOriginal != payable.centsTotal" class="ls-col mr-3 mt-3">
           <div class="amount-label">Valor original</div>
           <span class="amount-light lead--text" style="white-space: nowrap">
-            {{ payable.amountOriginal }}
+            {{ amountOriginal }}
           </span>
         </div>
         <div v-if="payable.amountPaid" class="ls-col mt-3">
           <div class="amount-label">Valor pago</div>
           <span class="amount success--text" style="white-space: nowrap">
-            {{ payable.amountPaid }}
+            {{ amountPaid }}
           </span>
         </div>
       </div>
@@ -117,6 +117,7 @@ import DOMPurify from 'dompurify';
 import Toast from '@/helpers/toast';
 import dayjs from 'dayjs';
 import { sendLogEvents } from '@/services/logEvent';
+import currencyFormatter from '../helpers/currencyFormatter';
 
 export default {
   name: 'PayableDetail',
@@ -134,6 +135,15 @@ export default {
     sendLogEvents('Open View', { viewName: 'PayableDetail' });
   },
   computed: {
+    amountOriginal() {
+      return currencyFormatter(this.payable.centsOriginal, this.payable.currency, navigator.language);
+    },
+    amountPaid() {
+      return currencyFormatter(this.payable.centsPaid, this.payable.currency, navigator.language);
+    },
+    amountTotal() {
+      return currencyFormatter(this.payable.centsTotal, this.payable.currency, navigator.language);
+    },
     readableRelativeDueDate() {
       return relativeDueDate(this.payable.dueAt);
     },
