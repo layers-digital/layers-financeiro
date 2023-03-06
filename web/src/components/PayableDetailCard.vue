@@ -18,7 +18,7 @@
       </span>
     </div>
     <div class="ls-row ls-no-gutters">
-      <div class="ls-col mr-2 amount" :class="amountColor" v-if="payable.amountPaid">
+      <div class="ls-col mr-2 amount" :class="amountColor" v-if="amountPaid">
         <span v-if="payable.status == 'paid'" style="white-space: nowrap">
           {{ amountPaid }}
         </span>
