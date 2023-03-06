@@ -18,12 +18,12 @@
       </span>
     </div>
     <div class="ls-row ls-no-gutters">
-      <div class="ls-col mr-2 amount" :class="amountColor" v-if="payable.amountPaid">
+      <div class="ls-col mr-2 amount" :class="amountColor" v-if="amountPaid">
         <span v-if="payable.status == 'paid'" style="white-space: nowrap">
-          {{ payable.amountPaid }}
+          {{ amountPaid }}
         </span>
         <span v-else-if="payable.amountTotal" style="white-space: nowrap">
-          {{ payable.amountTotal }}
+          {{ amountTotal }}
         </span>
       </div>
       <span style="white-space: nowrap">Vencimento: {{ formatedDueDate }}</span>
@@ -36,6 +36,7 @@ import PayableStatusBadge from './PayableStatusBadge';
 import PayablesCount from './PayablesCount';
 import relativeDueDate from '@/helpers/relativeDueDate';
 import dayjs from 'dayjs';
+import currencyFormatter from '@/helpers/currencyFormatter';
 
 export default {
   name: 'PayableDetailCard',
@@ -49,7 +50,15 @@ export default {
       required: true,
     },
   },
+
   computed: {
+    amountPaid() {
+      return currencyFormatter(this.payable.centsPaid, this.payable.currency, navigator.language);
+    },
+    amountTotal() {
+      return currencyFormatter(this.payable.centsTotal, this.payable.currency, navigator.language);
+    },
+
     readableRelativeDueDate() {
       return relativeDueDate(this.payable.dueAt);
     },
