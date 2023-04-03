@@ -75,7 +75,7 @@
       </div>
     </div>
     <!-- Action buttons -->
-    <div v-if="payable" class="ls-row ls-no-gutters actions p-3">
+    <div v-if="hasPaymentMethods" class="ls-row ls-no-gutters actions p-3">
       <button v-if="payable.boleto" @click="openBoleto" class="action-btn ls-flex-grow-1 mr-3">
         <span class="icon mr-2">
           <img src="../assets/barcode.svg" height="20" width="20" />
@@ -88,6 +88,14 @@
         </span>
         <span class="text lead-light--text">Acessar PIX</span>
       </button>
+    </div>
+    <!-- Without payment methods -->
+    <div v-else class="without-payments py-2 px-4">
+      <img src="../assets/time_management.svg" alt="" />
+      <h4 class="ml-3">
+        As informações para pagamento não estão disponíveis porque o sistema de gestão ainda não disponibilizou boleto
+        ou pix para essa cobrança.
+      </h4>
     </div>
   </div>
 </template>
@@ -170,6 +178,12 @@ export default {
 
       return dayjs(this.payable.sentAt).format('DD/MM/YYYY');
     },
+
+    hasPaymentMethods() {
+      if (!this.payable) return false;
+
+      return this.payable.boleto || this.payable.pix;
+    },
   },
 
   methods: {
@@ -207,6 +221,18 @@ export default {
 .payable-title {
   font-size: 16px;
   font-weight: 700;
+}
+
+.without-payments {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--grey-20);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .actions {
