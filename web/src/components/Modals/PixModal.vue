@@ -2,10 +2,10 @@
   <div class="pix-modal flex-col">
     <div class="flex ls-align-items-center ls-justify-content-sm-between">
       <div class="flex ls-align-items-center">
-        <img src="../../assets/qrcode.svg" height="20" width="20" />
+        <img src="@/assets/qrcode.svg" height="20" width="20" />
         <h3 class="ml-2">Pix</h3>
       </div>
-      <img class="pointer" @click="close" src="../../assets/close-dark.svg" alt="Fechar modal" />
+      <img class="pointer" @click="close" src="@/assets/close-dark.svg" alt="Fechar modal" />
     </div>
     <div class="description">
       <h2>Copie o código para pagar</h2>
@@ -16,7 +16,7 @@
       </ol>
       <input type="text" :value="pix.code" readonly />
       <button @click="handleCopy" class="copy-btn flex ls-align-items-center ls-justify-content-center">
-        <img class="mr-2" src="../../assets/copy.svg" height="20" width="20" />
+        <img class="mr-2" src="@/assets/copy.svg" height="20" width="20" />
         Copiar código
       </button>
       <div class="mt-3 qr-code ls-align-items-center">
@@ -26,7 +26,7 @@
       <div class="mt-3 ls-row ls-no-gutters">
         <button @click="close" class="action-btn mr-2">Voltar</button>
         <button @click="pixDownload" class="action-btn flex ls-align-items-center ls-justify-content-center">
-          <img class="mr-2" src="../../assets/download.svg" height="20" width="20" />
+          <img class="mr-2" src="@/assets/download.svg" height="20" width="20" />
           Baixar QRCode
         </button>
       </div>
