@@ -15,7 +15,7 @@
         <li>Cole o seguinte código:</li>
       </ol>
       <input type="text" :value="pix.code" readonly />
-      <button @click="copyToClipboard" class="copy-btn flex ls-align-items-center ls-justify-content-center">
+      <button @click="handleCopy" class="copy-btn flex ls-align-items-center ls-justify-content-center">
         <img class="mr-2" src="../../assets/copy.svg" height="20" width="20" />
         Copiar código
       </button>
@@ -35,9 +35,10 @@
 </template>
 
 <script>
-import Toast from '@/helpers/toast';
-import { sendLogEvents } from '@/services/logEvent';
 import QRCode from 'vue-qrcode-component';
+import { sendLogEvents } from '@/services/logEvent';
+import copyToClipboard from '@/helpers/copyToClipboard';
+import downloadFile from '@/helpers/downloadFile';
 
 export default {
   name: 'PixModal',
@@ -54,20 +55,12 @@ export default {
     close() {
       this.$emit('close');
     },
-    copyToClipboard() {
-      var el = document.createElement('textarea');
-      el.value = this.pix.code;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
+    handleCopy() {
+      copyToClipboard(this.pix.code);
 
       sendLogEvents('Copy PIX');
-
-      Toast.open({ message: 'Código copiado com sucesso!' });
     },
     async pixDownload() {
-      // Get image base64
       const base64 = this.$refs['qr-code'].$el.children[1].src;
 
       const response = await fetch(base64);
@@ -75,13 +68,9 @@ export default {
 
       const url = URL.createObjectURL(blob, { type: 'image/png' });
 
-      try {
-        await window.LayersPortal('download', { url, name: 'pix.png' });
+      sendLogEvents('Download Files', { description: 'pix' });
 
-        sendLogEvents('Download PIX');
-      } catch (error) {
-        console.log(error);
-      }
+      downloadFile(url, 'pix.png');
     },
   },
 };

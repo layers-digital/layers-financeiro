@@ -15,7 +15,7 @@
         <li>Utilize o boleto ou o código abaixo:</li>
       </ol>
       <input type="text" :value="boleto.code" readonly />
-      <button @click="copyToClipboard" class="copy-btn flex ls-align-items-center ls-justify-content-center">
+      <button @click="handleCopy" class="copy-btn flex ls-align-items-center ls-justify-content-center">
         <img class="mr-2" src="../../assets/copy.svg" height="20" width="20" />
         Copiar código
       </button>
@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import Toast from '@/helpers/toast';
 import { sendLogEvents } from '@/services/logEvent';
 import downloadFile from '@/helpers/downloadFile';
+import copyToClipboard from '@/helpers/copyToClipboard';
 
 export default {
   name: 'BoletoModal',
@@ -47,17 +47,10 @@ export default {
     close() {
       this.$emit('close');
     },
-    copyToClipboard() {
-      var el = document.createElement('textarea');
-      el.value = this.boleto.code;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
+    handleCopy() {
+      copyToClipboard(this.boleto.code);
 
       sendLogEvents('Copy Barcode');
-
-      Toast.open({ message: 'Código copiado com sucesso!' });
     },
     async boletoDownload() {
       const url = this.boleto.link || this.payable.boleto.url;
