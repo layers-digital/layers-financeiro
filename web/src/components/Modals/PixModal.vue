@@ -21,7 +21,9 @@
       </button>
       <div class="mt-3 qr-code ls-align-items-center">
         <span>Ou leia o QR Code:</span>
-        <QRCode class="flex ls-justify-content-center" ref="qr-code" :size="128" :text="pix.code"></QRCode>
+        <div class="flex ls-justify-content-center">
+          <img width="132" height="132" :src="qrCodeURL" />
+        </div>
       </div>
       <div class="mt-3 ls-row ls-no-gutters">
         <button @click="close" class="action-btn mr-2">Voltar</button>
@@ -35,7 +37,7 @@
 </template>
 
 <script>
-import QRCode from 'vue-qrcode-component';
+import QRCode from 'qrcode';
 import { sendLogEvents } from '@/services/logEvent';
 import copyToClipboard from '@/helpers/copyToClipboard';
 import downloadFile from '@/helpers/downloadFile';
@@ -48,8 +50,16 @@ export default {
       required: true,
     },
   },
-  components: {
-    QRCode,
+  data: () => ({
+    qrCodeURL: '',
+  }),
+  components: {},
+  async mounted() {
+    await this.$nextTick();
+
+    const qrCodeURL = await QRCode.toDataURL(this.pix.code);
+
+    this.qrCodeURL = qrCodeURL;
   },
   methods: {
     close() {
@@ -61,9 +71,7 @@ export default {
       sendLogEvents('Copy PIX');
     },
     async pixDownload() {
-      const base64 = this.$refs['qr-code'].$el.children[1].src;
-
-      const response = await fetch(base64);
+      const response = await fetch(this.qrCodeURL);
       const blob = await response.blob();
 
       const url = URL.createObjectURL(blob, { type: 'image/png' });
