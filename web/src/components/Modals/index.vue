@@ -46,7 +46,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 9997;
+  z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,7 +54,6 @@ export default {
 
 .modal-vue .overlay {
   position: fixed;
-  z-index: 9998;
   top: 0;
   left: 0;
   width: 100%;
@@ -65,7 +64,6 @@ export default {
 .modal-vue .modal {
   position: relative;
   max-width: 600px;
-  z-index: 9999;
   margin: 0 auto;
   background-color: white;
   border-radius: 12px;
