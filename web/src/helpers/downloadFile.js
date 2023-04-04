@@ -1,6 +1,6 @@
 import Toast from '@/helpers/toast';
 
-export default async function downloadFile(url) {
+export default async function downloadFile(url, name) {
   Toast.open({
     message: 'Estamos fazendo download do arquivo...',
     position: 'top',
@@ -12,9 +12,7 @@ export default async function downloadFile(url) {
   try {
     await LayersPortal('download', {
       url: url,
-      name: 'file-' + Date.now() + '.pdf',
-      filename: 'file-' + Date.now() + '.pdf',
-      // name: name,
+      filename: name || 'file-' + Date.now() + '.pdf',
     });
   } catch (error) {
     Toast.hideAll();
