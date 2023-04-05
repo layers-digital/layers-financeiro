@@ -15,21 +15,17 @@
         <li>Cole o seguinte código:</li>
       </ol>
       <input type="text" :value="pix.code" readonly />
-      <button @click="handleCopy" class="copy-btn flex ls-align-items-center ls-justify-content-center">
-        <img class="mr-2" src="@/assets/copy.svg" height="20" width="20" />
-        Copiar código
-      </button>
       <div class="mt-3 qr-code ls-align-items-center">
         <span>Ou leia o QR Code:</span>
         <div class="flex ls-justify-content-center">
           <img width="132" height="132" :src="qrCodeURL" />
         </div>
       </div>
-      <div class="mt-3 ls-row ls-no-gutters">
+      <div class="actions mt-3 ls-no-gutters">
         <button @click="close" class="action-btn mr-2">Voltar</button>
-        <button @click="pixDownload" class="action-btn flex ls-align-items-center ls-justify-content-center">
-          <img class="mr-2" src="@/assets/download.svg" height="20" width="20" />
-          Baixar QRCode
+        <button @click="handleCopy" class="action-btn copy-btn flex ls-align-items-center ls-justify-content-center">
+          <img class="mr-2" src="@/assets/copy.svg" height="20" width="20" />
+          Copiar código
         </button>
       </div>
     </div>
@@ -40,7 +36,6 @@
 import QRCode from 'qrcode';
 import { sendLogEvents } from '@/services/logEvent';
 import copyToClipboard from '@/helpers/copyToClipboard';
-import downloadFile from '@/helpers/downloadFile';
 
 export default {
   name: 'PixModal',
@@ -70,16 +65,6 @@ export default {
 
       sendLogEvents('Copy PIX');
     },
-    async pixDownload() {
-      const response = await fetch(this.qrCodeURL);
-      const blob = await response.blob();
-
-      const url = URL.createObjectURL(blob, { type: 'image/png' });
-
-      sendLogEvents('Download Files', { description: 'pix' });
-
-      downloadFile(url, 'pix.png');
-    },
   },
 };
 </script>
@@ -90,6 +75,10 @@ export default {
 }
 .pointer {
   cursor: pointer;
+}
+.actions {
+  display: flex;
+  flex-direction: row;
 }
 .pix-modal h3 {
   margin: 0;
@@ -112,15 +101,9 @@ export default {
   margin-top: 12px;
 }
 .copy-btn {
-  background: var(--aqua);
-  border: none;
-  color: white;
-  padding: 8px 16px 8px 16px;
-  border-radius: 4px;
-  height: 40px;
-  width: 100%;
-  margin-top: 12px;
-  font-weight: bold;
+  background: var(--aqua) !important;
+  color: white !important;
+  border: none !important;
 }
 .action-btn {
   border: 1px solid var(--grey-30);
@@ -139,8 +122,11 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .qr-code {
-    display: none;
+  .actions {
+    flex-direction: column;
+  }
+  .actions .action-btn:first-of-type {
+    margin-bottom: 8px;
   }
 }
 </style>
