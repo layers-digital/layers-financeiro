@@ -75,34 +75,27 @@
       </div>
     </div>
     <!-- Action buttons -->
-    <div v-if="payable && payable.boleto" class="ls-row ls-no-gutters actions p-3">
-      <button
-        v-if="payable.boleto.code"
-        class="action-btn ls-flex-grow-1 mr-1"
-        @click="copyToClipboard(payable.boleto.code)"
-      >
+    <div v-if="hasPaymentMethods" class="ls-row ls-no-gutters actions p-3">
+      <button v-if="payable.boleto" @click="openBoleto" class="action-btn ls-flex-grow-1 mr-3">
         <span class="icon mr-2">
           <img src="../assets/barcode.svg" height="20" width="20" />
         </span>
-        <span class="text lead-light--text">Copiar código</span>
+        <span class="text lead-light--text">Acessar Boleto</span>
       </button>
-      <button
-        v-if="payable.boleto.url || payable.boleto.link"
-        class="action-btn ls-flex-grow-1 ml-1"
-        @click="
-          attachmentHandler(
-            payable.boleto.link || payable.boleto.url,
-            payable.boleto.title,
-            payable.boleto.type,
-            'boleto'
-          )
-        "
-      >
+      <button v-if="payable.pix" @click="openPIX" class="action-btn ls-flex-grow-1">
         <span class="icon mr-2">
-          <img src="../assets/download.svg" height="20" width="20" />
+          <img src="../assets/qrcode.svg" height="20" width="20" />
         </span>
-        <span class="text lead-light--text">Baixar boleto</span>
+        <span class="text lead-light--text">Acessar PIX</span>
       </button>
+    </div>
+    <!-- Without payment methods -->
+    <div v-else class="without-payments py-2 px-4">
+      <img src="../assets/time_management.svg" alt="" />
+      <h4 class="ml-3">
+        As informações para pagamento não estão disponíveis porque o sistema de gestão ainda não disponibilizou boleto
+        ou pix para essa cobrança.
+      </h4>
     </div>
   </div>
 </template>
@@ -114,10 +107,12 @@ import relativeDueDate from '@/helpers/relativeDueDate';
 import downloadFile from '@/helpers/downloadFile';
 import Marked from 'marked';
 import DOMPurify from 'dompurify';
-import Toast from '@/helpers/toast';
 import dayjs from 'dayjs';
 import { sendLogEvents } from '@/services/logEvent';
 import currencyFormatter from '@/helpers/currencyFormatter';
+import openModal from '@/helpers/openModal';
+import BoletoModal from '@/components/Modals/BoletoModal';
+import PixModal from '@/components/Modals/PixModal';
 
 export default {
   name: 'PayableDetail',
@@ -183,6 +178,12 @@ export default {
 
       return dayjs(this.payable.sentAt).format('DD/MM/YYYY');
     },
+
+    hasPaymentMethods() {
+      if (!this.payable) return false;
+
+      return this.payable.boleto || this.payable.pix;
+    },
   },
 
   methods: {
@@ -195,18 +196,22 @@ export default {
       return downloadFile(url, title);
     },
 
-    copyToClipboard(code) {
-      // Copy digitable line to clipboard
-      var el = document.createElement('textarea');
-      el.value = code;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
+    openBoleto() {
+      openModal({
+        component: BoletoModal,
+        props: {
+          boleto: this.payable.boleto,
+        },
+      });
+    },
 
-      sendLogEvents('Copy Barcode');
-
-      Toast.open({ message: 'Código copiado com sucesso!' });
+    openPIX() {
+      openModal({
+        component: PixModal,
+        props: {
+          pix: this.payable.pix,
+        },
+      });
     },
   },
 };
@@ -216,6 +221,18 @@ export default {
 .payable-title {
   font-size: 16px;
   font-weight: 700;
+}
+
+.without-payments {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--grey-20);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .actions {

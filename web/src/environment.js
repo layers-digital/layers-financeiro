@@ -68,17 +68,12 @@ function getGAEnvs() {
 function getAmplitudeEnvs() {
   if (isLocal() || isStaging()) {
     return {
-      apiKeys: [
-        // Staging - All Apps
-        '8a1851e3850941ec180e615198eae946',
-      ],
+      apiKeys: [],
     };
   }
 
   return {
     apiKeys: [
-      // Prod - All Apps
-      '170800e1ae63cf63ad50a65917e50fcb',
       // Prod - Single App
       'e53fc2c03fec02ddf6bc1cb39afe3aa2',
     ],
