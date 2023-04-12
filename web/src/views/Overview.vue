@@ -53,7 +53,6 @@ import AttentionCardSkeleton from '../components/AttentionCardSkeleton.vue';
 import PayablesCard from '../components/PayablesCard.vue';
 import PayablesCardSkeleton from '../components/PayablesCardSkeleton.vue';
 import NoCriticalPayablesCard from '../components/NoCriticalPayablesCard';
-import { sendLogEvents } from '@/services/logEvent';
 
 export default {
   name: 'Overview',
@@ -71,9 +70,6 @@ export default {
   },
   async created() {
     await this.$store.dispatch('payables/fetchData');
-  },
-  mounted() {
-    sendLogEvents('Open View', { viewName: 'Overview' });
   },
   computed: {
     hasState() {

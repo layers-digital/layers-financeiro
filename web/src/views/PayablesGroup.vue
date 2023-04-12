@@ -51,7 +51,6 @@ import PayableDetailCard from '../components/PayableDetailCard';
 import TransitionExpand from '../components/TransitionExpand';
 // import Marked from 'marked'
 // import DOMPurify from 'dompurify'
-import { sendLogEvents } from '@/services/logEvent';
 
 export default {
   name: 'PayablesGroup',
@@ -80,8 +79,6 @@ export default {
     } else {
       this.showReadMoreButton = false;
     }
-
-    sendLogEvents('Open View', { viewName: 'PayablesGroup' });
   },
   computed: {
     // compiledDescriptionMarkdown() {

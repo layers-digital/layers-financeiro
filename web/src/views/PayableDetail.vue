@@ -108,7 +108,6 @@ import downloadFile from '@/helpers/downloadFile';
 import Marked from 'marked';
 import DOMPurify from 'dompurify';
 import dayjs from 'dayjs';
-import { sendLogEvents } from '@/services/logEvent';
 import currencyFormatter from '@/helpers/currencyFormatter';
 import openModal from '@/helpers/openModal';
 import BoletoModal from '@/components/Modals/BoletoModal';
@@ -125,9 +124,6 @@ export default {
   components: {
     PayableStatusBadge,
     PayablesCount,
-  },
-  mounted() {
-    sendLogEvents('Open View', { viewName: 'PayableDetail' });
   },
   computed: {
     amountOriginal() {
@@ -188,8 +184,6 @@ export default {
 
   methods: {
     async attachmentHandler(url, title, type, description) {
-      sendLogEvents('Download Files', { description });
-
       if (type == 'link') {
         return await LayersPortal('go', url);
       }

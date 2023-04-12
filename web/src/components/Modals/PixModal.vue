@@ -34,7 +34,6 @@
 
 <script>
 import QRCode from 'qrcode';
-import { sendLogEvents } from '@/services/logEvent';
 import copyToClipboard from '@/helpers/copyToClipboard';
 
 export default {
@@ -62,8 +61,6 @@ export default {
     },
     handleCopy() {
       copyToClipboard(this.pix.code);
-
-      sendLogEvents('Copy PIX');
     },
   },
 };
