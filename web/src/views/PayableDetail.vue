@@ -112,6 +112,8 @@ import currencyFormatter from '@/helpers/currencyFormatter';
 import openModal from '@/helpers/openModal';
 import BoletoModal from '@/components/Modals/BoletoModal';
 import PixModal from '@/components/Modals/PixModal';
+import boletoDownload from '@/helpers/downloadBoleto';
+import { sendLogEvents } from '@/services/logEvent';
 
 export default {
   name: 'PayableDetail',
@@ -184,19 +186,24 @@ export default {
 
   methods: {
     async attachmentHandler(url, title, type, description) {
+      sendLogEvents('Download Files', { description });
       if (type == 'link') {
         return await LayersPortal('go', url);
       }
       return downloadFile(url, title);
     },
 
-    openBoleto() {
-      openModal({
-        component: BoletoModal,
-        props: {
-          boleto: this.payable.boleto,
-        },
-      });
+    async openBoleto() {
+      if (this.payable.boleto.code) {
+        openModal({
+          component: BoletoModal,
+          props: {
+            boleto: this.payable.boleto,
+          },
+        });
+      } else {
+        await boletoDownload(this.payable.boleto.url, this.payable.boleto.title, this.payable.boleto.type);
+      }
     },
 
     openPIX() {

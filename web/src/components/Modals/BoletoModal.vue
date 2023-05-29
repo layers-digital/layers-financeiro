@@ -31,7 +31,8 @@
 </template>
 
 <script>
-import downloadFile from '@/helpers/downloadFile';
+import { sendLogEvents } from '@/services/logEvent';
+import downloadBoleto from '@/helpers/downloadBoleto';
 import copyToClipboard from '@/helpers/copyToClipboard';
 
 export default {
@@ -48,16 +49,14 @@ export default {
     },
     handleCopy() {
       copyToClipboard(this.boleto.code);
+
+      sendLogEvents('Copy Barcode');
     },
     async boletoDownload() {
       const url = this.boleto.link || this.payable.boleto.url;
       const title = this.boleto.title;
       const type = this.boleto.type;
-
-      if (type == 'link') {
-        return await LayersPortal('go', url);
-      }
-      return downloadFile(url, title);
+      return await downloadBoleto(url, title, type);
     },
   },
 };
