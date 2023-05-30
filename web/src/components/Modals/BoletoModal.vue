@@ -38,7 +38,7 @@
 
 <script>
 import { sendLogEvents } from '@/services/logEvent';
-import downloadBoleto from '@/helpers/downloadBoleto';
+import downloadPayable from '@/helpers/downloadPayable';
 import copyToClipboard from '@/helpers/copyToClipboard';
 
 export default {
@@ -62,7 +62,7 @@ export default {
       const url = this.boleto.link || this.payable.boleto.url;
       const title = this.boleto.title;
       const type = this.boleto.type;
-      return await downloadBoleto(url, title, type);
+      return await downloadPayable(url, title, type);
     },
   },
 };
