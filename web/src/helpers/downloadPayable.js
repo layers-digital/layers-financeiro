@@ -1,7 +1,7 @@
 import { sendLogEvents } from '@/services/logEvent';
 import downloadFile from '@/helpers/downloadFile';
 
-export default async function boletoDownload(url, title = '', type = '') {
+export default async function downloadPayable(url, title = '', type = '') {
   sendLogEvents('Download Files', { description: 'boleto' });
 
   if (type == 'link') {

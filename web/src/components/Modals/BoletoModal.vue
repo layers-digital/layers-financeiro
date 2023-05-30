@@ -8,14 +8,20 @@
       <img class="pointer" @click="close" src="@/assets/close-dark.svg" alt="Fechar modal" />
     </div>
     <div class="description">
-      <h2>Baixe o boleto ou copie o código para pagar</h2>
+      <h2 v-if="codigo.boleto">Baixe o boleto ou copie o código para pagar</h2>
+      <h2 v-else>Baixe o boleto para pagar</h2>
       <ol>
         <li>Acesse seu app bancário.</li>
         <li>Escolha pagamento via boleto.</li>
-        <li>Utilize o boleto ou o código abaixo:</li>
+        <li v-if="boleto.code">Utilize o boleto ou o código abaixo:</li>
+        <li v-else>Utilize o boleto.</li>
       </ol>
-      <input type="text" :value="boleto.code" readonly />
-      <button @click="handleCopy" class="copy-btn flex ls-align-items-center ls-justify-content-center">
+      <input type="text" v-if="boleto.code" :value="boleto.code" readonly />
+      <button
+        v-if="boleto.code"
+        @click="handleCopy"
+        class="copy-btn flex ls-align-items-center ls-justify-content-center"
+      >
         <img class="mr-2" src="@/assets/copy.svg" height="20" width="20" />
         Copiar código
       </button>
