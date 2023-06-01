@@ -8,7 +8,7 @@
       <img class="pointer" @click="close" src="@/assets/close-dark.svg" alt="Fechar modal" />
     </div>
     <div class="description">
-      <h2 v-if="codigo.boleto">Baixe o boleto ou copie o código para pagar</h2>
+      <h2 v-if="boleto.code">Baixe o boleto ou copie o código para pagar</h2>
       <h2 v-else>Baixe o boleto para pagar</h2>
       <ol>
         <li>Acesse seu app bancário.</li>
