@@ -112,7 +112,6 @@ import currencyFormatter from '@/helpers/currencyFormatter';
 import openModal from '@/helpers/openModal';
 import BoletoModal from '@/components/Modals/BoletoModal';
 import PixModal from '@/components/Modals/PixModal';
-import boletoDownload from '@/helpers/downloadBoleto';
 import { sendLogEvents } from '@/services/logEvent';
 
 export default {
@@ -193,17 +192,13 @@ export default {
       return downloadFile(url, title);
     },
 
-    async openBoleto() {
-      if (this.payable.boleto.code) {
-        openModal({
-          component: BoletoModal,
-          props: {
-            boleto: this.payable.boleto,
-          },
-        });
-      } else {
-        await boletoDownload(this.payable.boleto.url, this.payable.boleto.title, this.payable.boleto.type);
-      }
+    openBoleto() {
+      openModal({
+        component: BoletoModal,
+        props: {
+          boleto: this.payable.boleto,
+        },
+      });
     },
 
     openPIX() {
