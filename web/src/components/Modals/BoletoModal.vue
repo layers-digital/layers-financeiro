@@ -8,20 +8,32 @@
       <img class="pointer" @click="close" src="@/assets/close-dark.svg" alt="Fechar modal" />
     </div>
     <div class="description">
-      <h2>Baixe o boleto ou copie o código para pagar</h2>
+      <h2 v-if="boleto.code && boleto.link">Baixe o boleto ou copie o código para pagar</h2>
+      <h2 v-else-if="boleto.link">Baixe o boleto para pagar</h2>
+      <h2 v-else>Copie o código para pagar</h2>
       <ol>
         <li>Acesse seu app bancário.</li>
         <li>Escolha pagamento via boleto.</li>
-        <li>Utilize o boleto ou o código abaixo:</li>
+        <li v-if="boleto.code && boleto.link">Utilize o boleto ou o código abaixo:</li>
+        <li v-else-if="boleto.link">Utilize o código abaixo:</li>
+        <li v-else>Utilize o código.</li>
       </ol>
-      <input type="text" :value="boleto.code" readonly />
-      <button @click="handleCopy" class="copy-btn flex ls-align-items-center ls-justify-content-center">
+      <input type="text" v-if="boleto.code" :value="boleto.code" readonly />
+      <button
+        v-if="boleto.code"
+        @click="handleCopy"
+        class="copy-btn flex ls-align-items-center ls-justify-content-center"
+      >
         <img class="mr-2" src="@/assets/copy.svg" height="20" width="20" />
         Copiar código
       </button>
       <div class="mt-3 ls-row ls-no-gutters">
         <button @click="close" class="action-btn mr-2">Voltar</button>
-        <button @click="boletoDownload" class="action-btn flex ls-align-items-center ls-justify-content-center">
+        <button
+          v-if="boleto.link"
+          @click="boletoDownload"
+          class="action-btn flex ls-align-items-center ls-justify-content-center"
+        >
           <img class="mr-2" src="@/assets/download.svg" height="20" width="20" />
           Baixar boleto
         </button>
@@ -31,7 +43,8 @@
 </template>
 
 <script>
-import downloadFile from '@/helpers/downloadFile';
+import { sendLogEvents } from '@/services/logEvent';
+import downloadPayable from '@/helpers/downloadPayable';
 import copyToClipboard from '@/helpers/copyToClipboard';
 
 export default {
@@ -48,16 +61,14 @@ export default {
     },
     handleCopy() {
       copyToClipboard(this.boleto.code);
+
+      sendLogEvents('Copy Barcode');
     },
     async boletoDownload() {
       const url = this.boleto.link || this.payable.boleto.url;
       const title = this.boleto.title;
       const type = this.boleto.type;
-
-      if (type == 'link') {
-        return await LayersPortal('go', url);
-      }
-      return downloadFile(url, title);
+      return await downloadPayable(url, title, type);
     },
   },
 };
