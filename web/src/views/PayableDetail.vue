@@ -76,7 +76,11 @@
     </div>
     <!-- Action buttons -->
     <div v-if="hasPaymentMethods" class="ls-row ls-no-gutters actions p-3">
-      <button v-if="payable.boleto" @click="openBoleto" class="action-btn ls-flex-grow-1 mr-3">
+      <button
+        v-if="payable.boleto && (payable.boleto.link || payable.boleto.code)"
+        @click="openBoleto"
+        class="action-btn ls-flex-grow-1 mr-3"
+      >
         <span class="icon mr-2">
           <img src="../assets/barcode.svg" height="20" width="20" />
         </span>
