@@ -94,7 +94,7 @@
       </button>
     </div>
     <!-- Without payment methods -->
-    <div v-else class="without-payments py-2 px-4">
+    <div v-else-if="shouldShowWithoutPaymentsMessage" class="without-payments py-2 px-4">
       <img src="../assets/time_management.svg" alt="" />
       <h4 class="ml-3">
         As informações para pagamento não estão disponíveis porque o sistema de gestão ainda não disponibilizou boleto
@@ -184,6 +184,10 @@ export default {
       if (!this.payable) return false;
 
       return this.payable.boleto || this.payable.pix;
+    },
+
+    shouldShowWithoutPaymentsMessage() {
+      return !this.hasPaymentMethods && !['paid', 'canceled'].includes(this.payable.status);
     },
   },
 
