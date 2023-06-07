@@ -76,7 +76,11 @@
     </div>
     <!-- Action buttons -->
     <div v-if="hasPaymentMethods" class="ls-row ls-no-gutters actions p-3">
-      <button v-if="payable.boleto" @click="openBoleto" class="action-btn ls-flex-grow-1 mr-3">
+      <button
+        v-if="payable.boleto && (payable.boleto.link || payable.boleto.code)"
+        @click="openBoleto"
+        class="action-btn ls-flex-grow-1 mr-3"
+      >
         <span class="icon mr-2">
           <img src="../assets/barcode.svg" height="20" width="20" />
         </span>
@@ -90,7 +94,7 @@
       </button>
     </div>
     <!-- Without payment methods -->
-    <div v-else class="without-payments py-2 px-4">
+    <div v-else-if="shouldShowWithoutPaymentsMessage" class="without-payments py-2 px-4">
       <img src="../assets/time_management.svg" alt="" />
       <h4 class="ml-3">
         As informações para pagamento não estão disponíveis porque o sistema de gestão ainda não disponibilizou boleto
@@ -112,6 +116,7 @@ import currencyFormatter from '@/helpers/currencyFormatter';
 import openModal from '@/helpers/openModal';
 import BoletoModal from '@/components/Modals/BoletoModal';
 import PixModal from '@/components/Modals/PixModal';
+import { sendLogEvents } from '@/services/logEvent';
 
 export default {
   name: 'PayableDetail',
@@ -180,10 +185,15 @@ export default {
 
       return this.payable.boleto || this.payable.pix;
     },
+
+    shouldShowWithoutPaymentsMessage() {
+      return !this.hasPaymentMethods && !['paid', 'canceled'].includes(this.payable.status);
+    },
   },
 
   methods: {
     async attachmentHandler(url, title, type, description) {
+      sendLogEvents('Download Files', { description });
       if (type == 'link') {
         return await LayersPortal('go', url);
       }
