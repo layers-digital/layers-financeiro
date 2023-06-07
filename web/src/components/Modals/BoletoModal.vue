@@ -15,8 +15,7 @@
         <li>Acesse seu app bancário.</li>
         <li>Escolha pagamento via boleto.</li>
         <li v-if="boleto.code && boleto.link">Utilize o boleto ou o código abaixo:</li>
-        <li v-else-if="boleto.link">Utilize o código abaixo:</li>
-        <li v-else>Utilize o código.</li>
+        <li v-else-if="boleto.code">Utilize o código.</li>
       </ol>
       <input type="text" v-if="boleto.code" :value="boleto.code" readonly />
       <button
