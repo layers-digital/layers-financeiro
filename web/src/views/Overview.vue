@@ -34,15 +34,7 @@
       <PayablesCard class="mb-2 cursor-pointer" :payablesGroup="payablesGroup" />
     </router-link>
     <div v-if="!loading && payablesGroups.length == 0" class="ls-col ls-no-gutters ls-justify-content-center">
-      <div class="no-payables-title mb-2 lead--text text-center">Não há informações disponíveis :(</div>
-      <div class="lead-light--text text-center">
-        Entre em contato com sua instituição de
-        <br />
-        ensino ou atualize a página
-      </div>
-      <div class="no-payables-image mt-4">
-        <img src="@/assets/empty-ilustra.svg" width="268" height="208" />
-      </div>
+      <ErrorPage kind="without-classmates" />
     </div>
   </div>
 </template>
@@ -53,6 +45,7 @@ import AttentionCardSkeleton from '../components/AttentionCardSkeleton.vue';
 import PayablesCard from '../components/PayablesCard.vue';
 import PayablesCardSkeleton from '../components/PayablesCardSkeleton.vue';
 import NoCriticalPayablesCard from '../components/NoCriticalPayablesCard';
+import ErrorPage from './ErrorPage.vue';
 
 export default {
   name: 'Overview',
@@ -62,6 +55,7 @@ export default {
     PayablesCard,
     PayablesCardSkeleton,
     NoCriticalPayablesCard,
+    ErrorPage,
   },
   data() {
     return {
@@ -105,20 +99,5 @@ export default {
 .remove-style {
   text-decoration: none;
   color: inherit;
-}
-
-.no-payables-title {
-  font-size: 16px;
-  font-weight: 700;
-  margin-top: 72px;
-}
-
-.no-payables-image {
-  background-image: url('../assets/shape.svg');
-  width: 100%;
-  background-repeat: no-repeat;
-  text-align: center;
-  background-position: center;
-  margin-bottom: -16px;
 }
 </style>
