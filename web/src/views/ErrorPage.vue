@@ -1,8 +1,10 @@
 <template>
   <div class="no-payables-title mb-2 lead--text text-center">
-    <img :src="kindError.imageUrl" :alt="kindError.title" width="268" height="208" />
-    <h2>{{ kindError.title }}</h2>
-    <span>{{ kindError.description }}</span>
+    <div class="no-payables-image mt-4">
+      <img :src="kindError.imageUrl" :alt="kindError.title" width="268" height="208" />
+    </div>
+    <h2 class="no-payables-title mb-2 lead--text text-center">{{ kindError.title }}</h2>
+    <span class="lead-light--text text-center">{{ kindError.description }}</span>
   </div>
 </template>
 <script>
@@ -63,13 +65,19 @@ export default {
   },
 };
 </script>
-<style scoped></style>
-<!-- <div class="no-payables-title mb-2 lead--text text-center">Não há informações disponíveis :(</div>
-      <div class="lead-light--text text-center">
-        Entre em contato com sua instituição de
-        <br />
-        ensino ou atualize a página
-      </div>
-      <div class="no-payables-image mt-4">
-        <img src="@/assets/empty-ilustra.svg" width="268" height="208" />
-      </div> -->
+<style scoped>
+.no-payables-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 72px;
+}
+
+.no-payables-image {
+  background-image: url('../assets/shape.svg');
+  width: 100%;
+  background-repeat: no-repeat;
+  text-align: center;
+  background-position: center;
+  margin-bottom: -16px;
+}
+</style>
