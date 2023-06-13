@@ -10,6 +10,15 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: '/impersonate',
+    name: 'impersonate',
+    components: {
+      default: Overview,
+      navigation: AppBar,
+    },
+    props: { default: true, navigation: false },
+  },
+  {
     path: '/',
     name: 'overview',
     components: {
