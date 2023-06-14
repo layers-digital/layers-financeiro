@@ -14,6 +14,7 @@ export default function errorHandler({ error, callback, parameters }) {
       position: 'bottom',
       timeout: 5000,
       options: {},
+      kind: 'error',
     },
     parameters
   );
@@ -34,17 +35,20 @@ export default function errorHandler({ error, callback, parameters }) {
     params.message = params.fixedMessageError;
   } else if (error.response && error.response.status && error.response.status >= 400 && error.response.status < 500) {
     params.message = 'Algumas informações não foram atualizadas.';
+    params.kind = 'erp-error';
     retryable = true;
   } else if (error.response && error.response.status >= 500) {
     params.message = 'Ops, encontramos um erro. Tente novamente mais tarde.';
+    params.kind = 'layers-error';
   } else {
     params.message = 'Um problema aconteceu e foi enviado para análise';
+    params.kind = '';
     retryable = true;
   }
 
   if (retryable && typeof callback == 'function') {
     params.action = action;
   }
-
   Toast.open(params);
+  return params;
 }
