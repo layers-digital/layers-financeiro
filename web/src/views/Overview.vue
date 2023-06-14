@@ -33,8 +33,8 @@
     >
       <PayablesCard class="mb-2 cursor-pointer" :payablesGroup="payablesGroup" />
     </router-link>
-    <div v-if="!loading && payablesGroups.length == 0" class="ls-col ls-no-gutters ls-justify-content-center">
-      <ErrorPage kind="without-classmates" />
+    <div v-if="!loading && kindError" class="ls-col ls-no-gutters ls-justify-content-center">
+      <ErrorPage :kind="kindError" />
     </div>
   </div>
 </template>
@@ -80,6 +80,17 @@ export default {
 
     loading() {
       return this.$store.state.payables.loading;
+    },
+
+    kindError() {
+      const errors = this.$store.state.payables.typedError;
+      if (this.payablesGroups.length == 0) {
+        return 'no-data';
+      }
+      if (!errors) {
+        return 'no-error';
+      }
+      return errors.kind;
     },
   },
   methods: {
