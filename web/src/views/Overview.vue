@@ -1,9 +1,8 @@
 <template>
   <div class="ls-container p-3 grey-10" style="min-height: 100%; overflow: auto !important">
-    <h1>{{ selectedYear }}</h1>
     <!-- Critical payables skeleton -->
-    <select name="filter-per-year" v-model="selectedYear">
-      <option :value="year" v-for="(year, index) in allYears" :key="index">
+    <select name="filter-per-year" v-model="selectedYear" class="filter">
+      <option :value="year" v-for="(year, index) in allYears" :key="index" class="filter-option">
         {{ year }}
       </option>
     </select>
@@ -17,7 +16,7 @@
       </div>
       <AttentionCard
         class="mb-2 cursor-pointer"
-        v-for="payable in criticalPayables"
+        v-for="payable in filterCriticalPayablesPerYear()"
         :key="payable.id"
         :payable="payable"
         @click.native="goToDetails(payable)"
@@ -106,6 +105,9 @@ export default {
     getYear(date) {
       return date.split('-')[0];
     },
+    filterCriticalPayablesPerYear() {
+      return this.criticalPayables.filter((payable) => this.getYear(payable.dueAt) === this.selectedYear);
+    },
   },
 };
 </script>
@@ -134,5 +136,25 @@ export default {
   text-align: center;
   background-position: center;
   margin-bottom: -16px;
+}
+
+.filter {
+  display: block;
+  width: 100%;
+  height: 40px;
+  margin: 16px 0;
+  padding: 0 16px;
+  border: none;
+  background-color: #ffff;
+  border: 1px solid #d7dee3;
+  border-radius: 4px;
+}
+.filter:focus {
+  outline: none;
+}
+
+.filter-option {
+  font-size: 14px;
+  font-weight: 600;
 }
 </style>
