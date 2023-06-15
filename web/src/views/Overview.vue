@@ -1,6 +1,12 @@
 <template>
   <div class="ls-container p-3 grey-10" style="min-height: 100%; overflow: auto !important">
+    <h1>{{ selectedYear }}</h1>
     <!-- Critical payables skeleton -->
+    <select name="filter-per-year" v-model="selectedYear">
+      <option :value="year" v-for="(year, index) in allYears" :key="index">
+        {{ year }}
+      </option>
+    </select>
     <div v-if="loading && !hasState" class="mb-4">
       <div class="placeholder loading-placeholder mb-2"></div>
       <AttentionCardSkeleton />
@@ -65,7 +71,7 @@ export default {
   },
   data() {
     return {
-      //
+      selectedYear: '2023',
     };
   },
   async created() {
@@ -87,10 +93,18 @@ export default {
     loading() {
       return this.$store.state.payables.loading;
     },
+    allYears() {
+      const allYearsWithDuplicate = this.criticalPayables.map((payable) => this.getYear(payable.dueAt));
+      const allYears = [...new Set(allYearsWithDuplicate)];
+      return allYears;
+    },
   },
   methods: {
     goToDetails(payable) {
       this.$router.push({ name: 'payable.detail', params: { payableId: payable.id, payable: payable } });
+    },
+    getYear(date) {
+      return date.split('-')[0];
     },
   },
 };
