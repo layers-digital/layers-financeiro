@@ -164,6 +164,7 @@ export default {
   display: flex;
   justify-content: space-between;
   padding: 8px 16px;
+  margin: 8px 0px 16px 0px;
 }
 .select-year {
   display: flex;
