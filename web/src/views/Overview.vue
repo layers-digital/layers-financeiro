@@ -52,8 +52,8 @@
       <div v-if="expanded" class="select-list">
         <h3 class="ml-3">Ano de vencimento</h3>
         <div v-for="(year, index) in allYears" :key="index" class="ls-row ls-no-gutters ls-flex-nowrap ellipsis">
-          <div class="select-year">
-            <span @click="setCurrentYear(year)">{{ year }}</span>
+          <div @click="setCurrentYear(year)" class="select-year">
+            <span>{{ year }}</span>
             <img v-if="year === selectedYear" src="../assets/checked.svg" alt="checked" style="width: 20px" />
             <div v-else class="circle"></div>
           </div>
@@ -65,7 +65,6 @@
     </transition>
   </div>
 </template>
-
 <script>
 import AttentionCard from '../components/AttentionCard.vue';
 import AttentionCardSkeleton from '../components/AttentionCardSkeleton.vue';
@@ -110,7 +109,7 @@ export default {
       return this.$store.state.payables.loading;
     },
     allYears() {
-      const allYearsWithDuplicate = this.criticalPayables.map((payable) => this.getYear(payable.dueAt));
+      const allYearsWithDuplicate = this.criticalPayables.map((payable) => this.separeYear(payable.dueAt));
       const allYears = [...new Set(allYearsWithDuplicate)];
       return allYears;
     },
@@ -119,11 +118,14 @@ export default {
     goToDetails(payable) {
       this.$router.push({ name: 'payable.detail', params: { payableId: payable.id, payable: payable } });
     },
-    getYear(date) {
+    separeYear(date) {
       return date.split('-')[0];
     },
     filterCriticalPayablesPerYear() {
-      return this.criticalPayables.filter((payable) => this.getYear(payable.dueAt) === this.selectedYear);
+      return this.criticalPayables.filter((payable) => this.separeYear(payable.dueAt) === this.selectedYear);
+    },
+    filterPayablesPerYear() {
+      return this.payablesGroups.filter((payable) => this.separeYear(payable.dueAt) === this.selectedYear);
     },
     setCurrentYear(year) {
       this.selectedYear = year;
@@ -139,14 +141,14 @@ export default {
   bottom: 0;
   right: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 10000;
   background-color: #fff;
   padding: 19px 16px;
 }
 .overlay {
   position: fixed;
   top: 0;
-  z-index: 2;
+  z-index: 1000;
   left: 0;
   width: 100%;
   height: 100%;
