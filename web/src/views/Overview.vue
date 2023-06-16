@@ -85,7 +85,7 @@ export default {
   },
   data() {
     return {
-      selectedYear: '2023',
+      selectedYear: new Date().getFullYear(),
       expanded: false,
     };
   },
@@ -123,9 +123,6 @@ export default {
     },
     filterCriticalPayablesPerYear() {
       return this.criticalPayables.filter((payable) => this.separeYear(payable.dueAt) === this.selectedYear);
-    },
-    filterPayablesPerYear() {
-      return this.payablesGroups.filter((payable) => this.separeYear(payable.dueAt) === this.selectedYear);
     },
     setCurrentYear(year) {
       this.selectedYear = year;
