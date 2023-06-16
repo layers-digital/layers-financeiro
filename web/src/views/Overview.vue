@@ -85,7 +85,7 @@ export default {
   },
   data() {
     return {
-      selectedYear: new Date().getFullYear(),
+      selectedYear: new Date().getFullYear().toString(),
       expanded: false,
     };
   },
