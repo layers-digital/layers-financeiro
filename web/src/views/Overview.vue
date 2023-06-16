@@ -1,11 +1,10 @@
 <template>
   <div class="ls-container p-3 grey-10" style="min-height: 100%; overflow: auto !important">
+    <button @click="expanded = !expanded" class="filter-button">
+      <span>{{ selectedYear }}</span>
+      <img src="../assets/arrow-down.svg" alt="arrow-down" />
+    </button>
     <!-- Critical payables skeleton -->
-    <select name="filter-per-year" v-model="selectedYear" class="filter">
-      <option :value="year" v-for="(year, index) in allYears" :key="index" class="filter-option">
-        {{ year }}
-      </option>
-    </select>
     <div v-if="loading && !hasState" class="mb-4">
       <div class="placeholder loading-placeholder mb-2"></div>
       <AttentionCardSkeleton />
@@ -49,6 +48,21 @@
         <img src="@/assets/empty-ilustra.svg" width="268" height="208" />
       </div>
     </div>
+    <TransitionExpand>
+      <div v-if="expanded" class="select-list">
+        <h3 class="ml-3">Ano de vencimento</h3>
+        <div v-for="(year, index) in allYears" :key="index" class="ls-row ls-no-gutters ls-flex-nowrap ellipsis">
+          <div class="select-year">
+            <span @click="setCurrentYear(year)">{{ year }}</span>
+            <img v-if="year === selectedYear" src="../assets/checked.svg" alt="checked" style="width: 20px" />
+            <div v-else class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </TransitionExpand>
+    <transition name="fade">
+      <div v-if="expanded" @click="expanded = !expanded" class="overlay"></div>
+    </transition>
   </div>
 </template>
 
@@ -58,6 +72,7 @@ import AttentionCardSkeleton from '../components/AttentionCardSkeleton.vue';
 import PayablesCard from '../components/PayablesCard.vue';
 import PayablesCardSkeleton from '../components/PayablesCardSkeleton.vue';
 import NoCriticalPayablesCard from '../components/NoCriticalPayablesCard';
+import TransitionExpand from '../components/TransitionExpand.vue';
 
 export default {
   name: 'Overview',
@@ -67,10 +82,12 @@ export default {
     PayablesCard,
     PayablesCardSkeleton,
     NoCriticalPayablesCard,
+    TransitionExpand,
   },
   data() {
     return {
       selectedYear: '2023',
+      expanded: false,
     };
   },
   async created() {
@@ -108,11 +125,65 @@ export default {
     filterCriticalPayablesPerYear() {
       return this.criticalPayables.filter((payable) => this.getYear(payable.dueAt) === this.selectedYear);
     },
+    setCurrentYear(year) {
+      this.selectedYear = year;
+      this.expanded = !this.expanded;
+    },
   },
 };
 </script>
-
 <style scoped>
+.select-list {
+  border-radius: 10px 10px 0 0;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #fff;
+  padding: 19px 16px;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.filter-button {
+  background-color: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 16px;
+}
+.select-year {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  padding: 8px 0px 8px 16px;
+  margin: 8px 0px;
+  margin: none;
+}
+.circle {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #c8d0d8;
+  border-radius: 50%;
+}
+
 .attention-label {
   font-size: 16px;
   font-weight: 600;
@@ -136,25 +207,5 @@ export default {
   text-align: center;
   background-position: center;
   margin-bottom: -16px;
-}
-
-.filter {
-  display: block;
-  width: 100%;
-  height: 40px;
-  margin: 16px 0;
-  padding: 0 16px;
-  border: none;
-  background-color: #ffff;
-  border: 1px solid #d7dee3;
-  border-radius: 4px;
-}
-.filter:focus {
-  outline: none;
-}
-
-.filter-option {
-  font-size: 14px;
-  font-weight: 600;
 }
 </style>
