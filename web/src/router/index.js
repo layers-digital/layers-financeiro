@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Overview from '../views/Overview.vue';
+import UserDetailsOverview from '../views/UserDetailsOverview.vue';
 import PayablesGroup from '../views/PayablesGroup.vue';
 import PayableDetail from '../views/PayableDetail.vue';
 import AppBar from '../components/AppBar.vue';
@@ -14,6 +15,15 @@ const routes = [
     name: 'overview',
     components: {
       default: Overview,
+      navigation: AppBar,
+    },
+    props: { default: true, navigation: false },
+  },
+  {
+    path: '/userDetails',
+    name: 'userDetailOverview',
+    components: {
+      default: UserDetailsOverview,
       navigation: AppBar,
     },
     props: { default: true, navigation: false },
