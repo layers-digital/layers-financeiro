@@ -48,7 +48,7 @@ const actions = {
   async fetchData(context) {
     const community = getQueryVariable('community');
     const token = getQueryVariable('token');
-    const exploreId = getQueryVariable('exploreId');
+    const userDetailsId = getQueryVariable('userDetailsId');
     if (community) context.commit('setCommunity', community);
     if (token) context.commit('setToken', token);
 
@@ -65,7 +65,7 @@ const actions = {
           community: communityId,
           session: session,
           userId: userId,
-          exploreId: exploreId,
+          userDetailsId: userDetailsId,
         },
       });
       let payables = {
