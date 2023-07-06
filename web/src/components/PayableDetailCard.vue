@@ -22,7 +22,7 @@
         <span v-if="payable.status == 'paid'" style="white-space: nowrap">
           {{ amountPaid }}
         </span>
-        <span v-else-if="payable.amountTotal" style="white-space: nowrap">
+        <span v-else-if="payable.amountTotal || payable.centsTotal" style="white-space: nowrap">
           {{ amountTotal }}
         </span>
       </div>
@@ -60,7 +60,7 @@ export default {
     },
 
     shouldShowAmount() {
-      return (this.payable.status === 'paid' && this.payable.centsPaid > 0) || this.payable.centsTotal > 0;
+      return (this.payable.status === 'paid' && this.payable.centsPaid) || this.payable.centsTotal;
     },
 
     readableRelativeDueDate() {
