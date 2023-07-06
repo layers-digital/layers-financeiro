@@ -19,7 +19,7 @@
     <div class="dashed mt-3" :class="totalAmountColor"></div>
     <div class="py-2" :class="totalAmountColor">
       <div class="ls-row ls-no-gutters ls-align-items-center">
-        <div class="ls-col mr-3" v-if="payable.amountTotal">
+        <div class="ls-col mr-3" v-if="amountTotal">
           <div class="amount-label">Valor total</div>
           <span class="amount" :class="totalAmountColor" style="white-space: nowrap">
             {{ amountTotal }}
@@ -40,7 +40,7 @@
             {{ amountOriginal }}
           </span>
         </div>
-        <div v-if="payable.amountPaid" class="ls-col mt-3">
+        <div v-if="amountPaid" class="ls-col mt-3">
           <div class="amount-label">Valor pago</div>
           <span class="amount success--text" style="white-space: nowrap">
             {{ amountPaid }}
