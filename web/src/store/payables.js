@@ -9,7 +9,7 @@ const state = {
   loading: false,
   payablesData: null,
   lastFetchedAt: null,
-
+  typedError: null,
   // deprecated
   token: null,
   community: null,
@@ -35,6 +35,9 @@ const mutations = {
 
   setToken(state, token) {
     state.token = token;
+  },
+  setTypeError(state, error) {
+    state.typedError = error;
   },
 };
 
@@ -88,7 +91,7 @@ const actions = {
       context.commit('setLastFetchedAt', new Date());
       context.commit('setLoading', false);
     } catch (err) {
-      errorHandler({
+      const errorTyped = errorHandler({
         error: err,
         parameters: {
           action: {
@@ -101,6 +104,7 @@ const actions = {
         },
       });
       context.commit('setLoading', false);
+      context.commit('setTypeError', errorTyped);
     }
   },
 };
