@@ -18,11 +18,11 @@
       </span>
     </div>
     <div class="ls-row ls-no-gutters">
-      <div class="ls-col mr-2 amount" :class="amountColor" v-if="amountPaid">
+      <div class="ls-col mr-2 amount" :class="amountColor" v-if="shouldShowAmount">
         <span v-if="payable.status == 'paid'" style="white-space: nowrap">
           {{ amountPaid }}
         </span>
-        <span v-else-if="payable.amountTotal" style="white-space: nowrap">
+        <span v-else-if="payable.amountTotal || payable.centsTotal" style="white-space: nowrap">
           {{ amountTotal }}
         </span>
       </div>
@@ -57,6 +57,10 @@ export default {
     },
     amountTotal() {
       return currencyFormatter(this.payable.centsTotal, this.payable.currency, navigator.language);
+    },
+
+    shouldShowAmount() {
+      return (this.payable.status === 'paid' && this.payable.centsPaid) || this.payable.centsTotal;
     },
 
     readableRelativeDueDate() {
