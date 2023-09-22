@@ -22,7 +22,7 @@ app.get('/api/related', async function (req, res, next) {
       res.set({ 'Access-Control-Allow-Origin': '*' })
     }
 
-    const { userToken, community, session, userId } = req.query
+    const { userToken, community, session, userId, userDetailsId } = req.query
 
     if(!userToken && !session) {
       throw new BadRequest('user token or session not provided')
@@ -43,8 +43,10 @@ app.get('/api/related', async function (req, res, next) {
     if(session) {
       try {
         await Layers.validateSession(community, session, userId)
+
+        const userFetchId = userDetailsId || userId
         
-        userData = await Layers.fetchUserData(userId)
+        userData = await Layers.fetchUserData(userFetchId)
 
       } catch(err) {
         if (!err.response) throw new InternalError(err.message)

@@ -9,6 +9,7 @@ const state = {
   loading: false,
   payablesData: null,
   lastFetchedAt: null,
+  username: null,
 
   // deprecated
   token: null,
@@ -36,6 +37,10 @@ const mutations = {
   setToken(state, token) {
     state.token = token;
   },
+
+  setUsername(state, username) {
+    state.username = username;
+  },
 };
 
 // actions
@@ -43,6 +48,7 @@ const actions = {
   async fetchData(context) {
     const community = getQueryVariable('community');
     const token = getQueryVariable('token');
+    const userDetailsId = getQueryVariable('userDetailsId');
     if (community) context.commit('setCommunity', community);
     if (token) context.commit('setToken', token);
 
@@ -59,9 +65,9 @@ const actions = {
           community: communityId,
           session: session,
           userId: userId,
+          userDetailsId: userDetailsId,
         },
       });
-
       let payables = {
         criticalPayables: [],
         groups: [],
@@ -84,6 +90,9 @@ const actions = {
         group.id = group.id.toString();
       });
 
+      if (payables.groups.length > 0) {
+        context.commit('setUsername', payables.groups[0].customer.name);
+      }
       context.commit('setPayablesData', payables);
       context.commit('setLastFetchedAt', new Date());
       context.commit('setLoading', false);
